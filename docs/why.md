@@ -1,5 +1,5 @@
 
-## Why should I use RAPyDo?
+# Why should I use RAPyDo?
 
 We don't know if you should. Along our journey into efficient HTTP API middleware towards distributed services we had to reach some level of stability within our environment.
 
@@ -9,7 +9,7 @@ What we have so far is what helped us in speeding up setup and development proce
 So let's see together what we achieved so far!
 (Please note that most of the features can be enabled/disabled as needed)
 
-### modes
+## modes
 
 In every project there a set configurations that you would like to use to switch one from another quickly. Even if not the case there should be at least two modes: 
 1. `debug` for working locally (verbose logs, dockerized services, auto reload and no reverse proxy)
@@ -24,7 +24,7 @@ The final configuration you use in every rapydo command is based on:
 - A common custom configuration across different modes in your project
 - A custom file dedicated to a single mode
 
-### modular
+## modular
 
 RAPyDo is of course containers oriented. This means that services can be easily added to be tested locally. We tested the most commons in our projects thus they are already integrated and all set:
 
@@ -43,18 +43,18 @@ More services can be added as long as you can provide a container image (officia
 
 In production mode you may choose with a simple parameter `${SERVICE}_EXTERNAL` to switch to external existing services, without changing your endpoint code.
 
-### swagger
+## swagger
 
 The [OpenAPI standard]() has helped us many times to show to clients the experience of HTTP API services without even using a frontend. This is why every endpoint exists only if you create a dedicated folder in the `Swagger` definition. The content is parsed to activate the corresponding endpoints in your code and at the same time is added to the swagger specifications endpoint. 
 
 Private endpoints can be skipped inside the public definitions. An entire endpoint can be easily turned off with a simple `SKIP` file put in the corresponding folder.
 You can also associate a dependency of some endpoints to the existence of a variable of your configuration into your mode.
 
-### rest classes
+## rest classes
 
 RAPyDO is Object oriented (thanks to the `Flask-Restfull` plugin): each endpoint is mapped to a class and automatically configured. The class associated to an endpoint is provided in the swagger configuration (and then removed from the public view). One method can be mapped to multiple endpoints paths (e.g. if you need some aliasing).
 
-### base endpoints
+## base endpoints
 
 Helper endpoints are provided out of the box:
 - `/api/status`
@@ -69,7 +69,7 @@ If you enable authentication:
 
 They can be overriden or skipped.
 
-### flask injections
+## flask injections
 
 The real first pain point we had to solve in our experience while working with Flask when containers were yet limited in their experience (at least a few years ago) was a dynamic injections of only the services configurated in the RAPyDO YAML files.
 
@@ -79,7 +79,7 @@ It doesn't matter what is your mode (internal with no credentials, or external w
 
 NOTE: connections are kept globally in a pool to optimize the consumption of resources; you can force an instance to be recreated.
 
-### orm
+## orm
 
 Each service may be used as an ORM, if the equivalent python library exists. The base models and the custom models are pre loaded into the service objects at server startup.
 
@@ -93,36 +93,36 @@ Where `MyModel` was defined inside your project custom `models/mongo.py` file.
 
 For each service base models are provided to describe a User/Role approach to authentication.
 
-### logging
+## logging
 
 Logging has been made super easy. We added VERY_VERBOSE and VERBOSE to the standard sets of debug levels. You can activate colors, pretty print objects, and ultimately redirect containers logs into elasticsearch through LogSprut
 
-### asynchrounous tasks
+## asynchrounous tasks
 
 Celery tasks can be easily activated to be able to launch and control from any endpoint async tasks.
 Tasks can be monitored directly from endpoints or from the `flower` UI.
 Tasks can save progress, return status, send emails.
 
-### unittests
+## unittests
 
 `py.tests` is supported by default.
 A unittest is a class in a separated `tests` folder, where you extend the existing base class from where you inherit methods to authenticate and handle tokens.
 
-### containers builds
+## containers builds
 
 There is a set of already battle tested docker images.
 All of them have been tuned in time, e.g. the nginx proxy base configuration
 already considers all the best practices (dhelman, tls, certificates, etc.).
 You can customize them or add new ones as well.
 
-### security
+## security
 
 Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`.
 
 Oauth2 and 2 factor authentication is already integrated (through TOTP).
 The nginx reverse proxy has been tested in many production system.
 
-### interfaces
+## interfaces
 
 A set of interfaces can be launched as containers to help with many services:
 - flower (for celery)
@@ -131,13 +131,13 @@ A set of interfaces can be launched as containers to help with many services:
 - mongo express
 are among the ones we already use daily.
 
-### highly customizable
+## highly customizable
 
 Starting from the base we provide you can always add your custom operations and configurations.
 
 We also allow a `.projectrc` to be used to set as default some custom host-dependent configuration that should not be saved in the repo.
 
-### frontend framework
+## frontend framework
 
 `angular` is already integrated as base framework for the frontend part.
 The base authentication (profile, change password, reset password, session lists, JWT tokens) endpoints are already tested inside the base JS code.
@@ -146,7 +146,7 @@ In debug mode the framework is served on nodejs/webpack while in production the 
 
 NOTE: we are looking for `react` to be integrated soon as well!
 
-### quick
+## quick
 
 When you ask for new endpoints with `rapydo template`, you receive things for free:
 1. swagger definition example for a `GET` method
@@ -154,7 +154,7 @@ When you ask for new endpoints with `rapydo template`, you receive things for fr
 2. a base service (postgres/sqlalchemy) injection example
 3. unittest template in the right folder
 
-### multi projects
+## multi projects
 
 The same repository can host different projects. This action came handy quite a lot of times when a similar project has to be maintaned in the same repo by the same people.
 

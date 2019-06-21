@@ -1,31 +1,20 @@
-
-A quick example of a scaffold to test the use of the `RAPyDo` framework.
-
-## quick start
+## Quick Start for Users
 
 1. Make sure you meet the pre-requisites on your machine:
 
     * Python3.4+ (and `pip`) 
     * Git
-    * Docker daemon/engine and Docker `compose`
-
-2. Clone the repo 
-
-...and copy a projectrc to set your defaults in the future
+    * Docker daemon/engine
+2. install the rapydo controller
+3. clone your project
 
 ```bash
 git clone https://github.com/rapydo/example.git
 cd example
-cp templates/projectrc .projectrc
+cp templates/projectrc .projectrc <<< ?
 ```
 
-3. Install the rapydo controller
-
-```bash
-sudo -H pip3 install --upgrade -r requirements.txt
-```
-
-4. Use the controller to startup your project
+3. Use the controller to startup your project
 
 ```bash
 # check the status of your scaffold and

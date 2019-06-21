@@ -5,7 +5,7 @@ A containers-based framework to develop your HTTP-API with Flask on Python3 with
 
 The name is an acronymous for:
 
-- R`ESTful `A`PI
+- `R`ESTful `A`PI
 - on a `Py`thon server
 - based on a `Do`cker ecosystem
 

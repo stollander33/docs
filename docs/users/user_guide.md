@@ -24,9 +24,9 @@ This command will give you in output:
 
 ​	a. the installed RAPyDo version
 
-​	b. the versions of YOUR_PROJECT
+​	b. the version of YOUR_PROJECT
 
-​	c. your required RAPyDo version
+​	c. the required RAPyDo version
 
 In this way you will be able to know if a new RAPyDo version is required or not and if you already meet the requisite.
 
@@ -40,7 +40,7 @@ You already have the required RAPyDo version. Probably you want to upgrade the c
 
 `rapydo install --git RAPYDO_VERSION`
 
-You can also use the *auto* flag to let RAPyDo understandwhich version is required  by itself:
+You can also use the *auto* flag to let RAPyDo understand by itself which version is required :
 
 `rapydo install --git auto`
 
@@ -65,7 +65,7 @@ Continue this guide by following step [4b. upgrade your submodules](user_guide.m
 
 #### 	4a. update your submodules
 
-To update your submodules and your project branch:
+This step is only required if you DIDN'T upgrade your RAPyDo version because the new version or YOUR_PROJECT do not require a new version of RAPyDo. In this case you will have to update your submodules and your project branch:
 
 `rapydo update`
 
@@ -81,14 +81,16 @@ Consider the opportunity to rebuild your containers build with:
 
 #### 	4b. upgrade your submodules
 
-To switch all your submodules to the new version:
+This step is only required if you upgraded RAPyDo to a new version, in this case you have to switch the version of all the submodules. To switch all your submodules to the new version:
 
 `rapydo init`
 
-
+This step will require some time since the new version will require new builds. You can skip the building phase here an postpone it on the next step by using the `--no-rebuild` flag.
 
 5. #### Upgrade completed
 
 Your upgrade procedure is completed, your are now able to restart your stack
 
 `rapydo start`
+
+Please not that this step could require new builds and take some time (only the first time)

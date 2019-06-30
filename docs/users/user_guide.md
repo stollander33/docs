@@ -6,15 +6,15 @@
 
 We assume that you already have a working deployment of your project (let's name it YOUR_PROJECT) based on version X and you want to upgrade to the new version Y.
 
-1. ##### stop the current stack
+1. #### stop the current stack
 
    `rapydo remove`
 
-2. ##### switch your git branch to the new version X
+2. #### switch your git branch to the new version X
 
    `git checkout X`
 
-3. ##### upgrade / update your RAPyDo controller
+3. #### upgrade / update your RAPyDo controller
 
 Probably the new version also requires a new version of RAPyDo. You can verify it by using the following command:
 
@@ -63,7 +63,7 @@ Continue this guide by following step [4b. upgrade your submodules](user_guide.m
 
 
 
-##### 	4a. update your submodules
+#### 	4a. update your submodules
 
 To update your submodules and your project branch:
 
@@ -79,7 +79,7 @@ Consider the opportunity to rebuild your containers build with:
 
 
 
-##### 	4b. upgrade your submodules
+#### 	4b. upgrade your submodules
 
 To switch all your submodules to the new version:
 
@@ -87,7 +87,7 @@ To switch all your submodules to the new version:
 
 
 
-5. ##### Upgrade completed
+5. #### Upgrade completed
 
 Your upgrade procedure is completed, your are now able to restart your stack
 

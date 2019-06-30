@@ -12,7 +12,7 @@ We assume that you already have a working deployment of your project (let's name
 
 2. #### switch your git branch to the new version X
 
-   `git checkout X`
+   `git fetch && git checkout X`
 
 3. #### upgrade / update your RAPyDo controller
 

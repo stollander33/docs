@@ -44,7 +44,7 @@ You can also use the *auto* flag to let RAPyDo understandwhich version is requir
 
 `rapydo install --git auto`
 
-Continue this guide by following step 4. update your submodules
+Continue this guide by following step [4. update your submodules](user_guide.md#4a-update-your-submodules)
 
 
 
@@ -59,7 +59,7 @@ If the version requirement is unmet the output will be something like this:
 
 You can follow the suggestion or install the new controller by using the *auto* flag `rapydo install --git auto`
 
-Continue this guide by following step 4b. upgrade your submodules
+Continue this guide by following step [4b. upgrade your submodules](user_guide.md#4b-upgrade-your-submodules)
 
 
 

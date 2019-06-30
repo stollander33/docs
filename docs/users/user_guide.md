@@ -34,7 +34,7 @@ In this way you will be able to know if a new RAPyDo version is required or not 
 
 Output examples:
 
-`rapydo: 0.6.7	YOUR_PROJECT: Y	required rapydo: 0.6.7`
+> rapydo: 0.6.7	YOUR_PROJECT: Y	required rapydo: 0.6.7
 
 You already have the required RAPyDo version. Probably you want to upgrade the controller anyway:
 
@@ -50,12 +50,12 @@ Continue this guide by following step [4. update your submodules](user_guide.md#
 
 If the version requirement is unmet the output will be something like this:
 
-`rapydo: 0.6.6	sci: 0.6.6	required rapydo: 0.6.7`
-
-`This project is not compatible with the current rapydo version (0.6.6)`
-`Please upgrade rapydo to version 0.6.7 or modify this project`
-
-`rapydo install --git 0.6.7`
+> rapydo: 0.6.6	sci: 0.6.6	required rapydo: 0.6.7
+>
+> This project is not compatible with the current rapydo version (0.6.6)
+> Please upgrade rapydo to version 0.6.7 or modify this project
+>
+> rapydo install --git 0.6.7
 
 You can follow the suggestion or install the new controller by using the *auto* flag `rapydo install --git auto`
 
@@ -69,13 +69,9 @@ This step is only required if you DIDN'T upgrade your RAPyDo version because the
 
 `rapydo update`
 
-To update your submodules only:
+To update your submodules only: `rapydo update -i main`
 
-`rapydo update -i main`
-
-Consider the opportunity to rebuild your containers build with:
-
-`rapydo build`
+Consider the opportunity to rebuild your containers build with: `rapydo build`
 
 
 
@@ -85,7 +81,7 @@ This step is only required if you upgraded RAPyDo to a new version, in this case
 
 `rapydo init`
 
-This step will require some time since the new version will require new builds. You can skip the building phase here an postpone it on the next step by using the `--no-rebuild` flag.
+This step will require some time since the new version will require new builds. You can skip the building phase here an postpone it on the next step by using the `--no-rebuild` flag.	
 
 5. #### Upgrade completed
 

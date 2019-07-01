@@ -106,7 +106,7 @@ Please not that this step could require new builds and take some time (first tim
 
     `rapydo remove`
 
-    `docker volume rm YOUR_PROJECT_sqldata
+    `docker volume rm YOUR_PROJECT_sqldata`
 
     ``rapydo start``
 

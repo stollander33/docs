@@ -53,6 +53,7 @@ If the version requirement is unmet the output will be something like this:
 > rapydo: 0.6.6	sci: 0.6.6	required rapydo: 0.6.7
 >
 > This project is not compatible with the current rapydo version (0.6.6)
+>
 > Please upgrade rapydo to version 0.6.7 or modify this project
 >
 > rapydo install --git 0.6.7
@@ -81,7 +82,7 @@ This step is only required if you upgraded RAPyDo to a new version, in this case
 
 `rapydo init`
 
-This step will require some time since the new version will require new builds. You can skip the building phase here an postpone it on the next step by using the `--no-rebuild` flag.	
+This step will require some time since the new version will require new builds. You can skip the building phase here an postpone it on the next step by using the *no-build* flag (`rapydo init --no-build`)
 
 5. #### Upgrade completed
 
@@ -89,4 +90,25 @@ Your upgrade procedure is completed, your are now able to restart your stack
 
 `rapydo start`
 
-Please not that this step could require new builds and take some time (only the first time)
+Please not that this step could require new builds and take some time (first time only)
+
+#### Post-upgrade issues:
+
+- RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases created with psq10 are not compatible with psq11 and your container will fail to start with the following error:
+
+  > FATAL:  database files are incompatible with server
+  >
+  > DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.4.
+
+  You have two options to fix the error:
+
+  - If your database is only used to store sessions you can simply destroy the database volume (an empty database will be automatically re-created at startup)
+
+    `rapydo remove`
+
+    `docker volume rm YOUR_PROJECT_sqldata
+
+    ``rapydo start``
+
+  - If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
+

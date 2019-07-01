@@ -55,9 +55,9 @@ If the version requirement is unmet the output will be something like this:
 > This project is not compatible with the current rapydo version (0.6.6)
 > Please upgrade rapydo to version 0.6.7 or modify this project
 >
-> rapydo install --git 0.6.7
+> rapydo install --git auto
 
-You can follow the suggestion or install the new controller by using the *auto* flag `rapydo install --git auto`
+Upgrade your controller by executing the suggested command.
 
 Continue this guide by following step [4b. upgrade your submodules](user_guide.md#4b-upgrade-your-submodules)
 

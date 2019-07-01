@@ -108,7 +108,18 @@ Please not that this step could require new builds and take some time (first tim
 
     `docker volume rm YOUR_PROJECT_sqldata`
 
-    ``rapydo start``
+    `rapydo start`
 
+    In case of issues with the automatic init procedure your backend will be able to connect to PostgreSQL but the following error will be raise when trying to read data:
+  
+    >  Backend database is unavailable
+  
+    If this error occurs you can fix by:
+  
+    1. enter your backend container (`rapydo shell backend`)
+    2. destroy and re-create the database (`restapi clean && restapi init`)
+    3. exit the backend container (`exit`)
+    4. restart the services (`rapydo restart`)
+  
   - If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
 

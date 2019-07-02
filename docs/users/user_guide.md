@@ -32,23 +32,7 @@ In this way you will be able to know if a new RAPyDo version is required or not 
 
 
 
-Output examples:
-
-> rapydo: 0.6.7	YOUR_PROJECT: Y	required rapydo: 0.6.7
-
-You already have the required RAPyDo version. Probably you want to upgrade the controller anyway:
-
-`rapydo install --git RAPYDO_VERSION`
-
-You can also use the *auto* flag to let RAPyDo understand by itself which version is required :
-
-`rapydo install --git auto`
-
-Continue this guide by following step [4. update your submodules](user_guide.md#4a-update-your-submodules)
-
-
-
-If the version requirement is unmet the output will be something like this:
+If the **version requirement is unmet** the output will be something like this:
 
 > rapydo: 0.6.6	sci: 0.6.6	required rapydo: 0.6.7
 >
@@ -58,13 +42,41 @@ If the version requirement is unmet the output will be something like this:
 >
 > rapydo install --git 0.6.7
 
-You can follow the suggestion or install the new controller by using the *auto* flag `rapydo install --git auto`
+You can follow the suggestion or install the new controller by using the *auto* flag `rapydo install --git auto`.
 
-Continue this guide by following step [4b. upgrade your submodules](user_guide.md#4b-upgrade-your-submodules)
+Continue this guide by following step [4a. upgrade your submodules](user_guide.md#4a-upgrade-your-submodules)
 
 
 
-#### 	4a. update your submodules
+If you **already have the required RAPyDo** version the output will be something like this:
+
+> rapydo: 0.6.7	YOUR_PROJECT: Y	required rapydo: 0.6.7
+
+Probably you want to upgrade the controller anyway:
+
+`rapydo install --git RAPYDO_VERSION`
+
+You can also use the *auto* flag to let RAPyDo understand by itself which version is required :
+
+`rapydo install --git auto`
+
+Continue this guide by following step [4b. update your submodules](user_guide.md#4b-update-your-submodules)
+
+
+
+
+
+#### 4a. upgrade your submodules
+
+This step is only required if you upgraded RAPyDo to a new version, in this case you have to switch the version of all the submodules. To switch all your submodules to the new version:
+
+`rapydo init`
+
+This step will require some time since the new version will require new builds. You can skip the building phase here an postpone it on the next step by using the *no-build* flag (`rapydo init --no-build`)
+
+
+
+#### 	4b. update your submodules
 
 This step is only required if you DIDN'T upgrade your RAPyDo version because the new version or YOUR_PROJECT do not require a new version of RAPyDo. In this case you will have to update your submodules and your project branch:
 
@@ -75,14 +87,6 @@ To update your submodules only: `rapydo update -i main`
 Consider the opportunity to rebuild your containers build with: `rapydo build`
 
 
-
-#### 	4b. upgrade your submodules
-
-This step is only required if you upgraded RAPyDo to a new version, in this case you have to switch the version of all the submodules. To switch all your submodules to the new version:
-
-`rapydo init`
-
-This step will require some time since the new version will require new builds. You can skip the building phase here an postpone it on the next step by using the *no-build* flag (`rapydo init --no-build`)
 
 5. #### Upgrade completed
 
@@ -102,24 +106,18 @@ Please not that this step could require new builds and take some time (first tim
 
   You have two options to fix the error:
 
-  - If your database is only used to store sessions you can simply destroy the database volume (an empty database will be automatically re-created at startup)
+  - If your database is only used to store sessions you can simply destroy the database volume and re-initialize it
 
-    `rapydo remove`
+    1. stop the stack:  `rapydo remove`
 
-    `docker volume rm YOUR_PROJECT_sqldata`
+    2. delete the sql data volume: `docker volume rm YOUR_PROJECT_sqldata`
 
-    `rapydo start`
-
-    In case of issues with the automatic init procedure your backend will be able to connect to PostgreSQL but the following error will be raise when trying to read data:
+    3. start the stack: `rapydo start`
+4. enter your backend container: `rapydo shell backend`
+    5. re-initialize the database: `restapi init`
+  6. exit the backend container: `exit`
+    
   
-    >  Backend database is unavailable
-  
-    If this error occurs you can fix by:
-  
-    1. enter your backend container (`rapydo shell backend`)
-    2. destroy and re-create the database (`restapi clean && restapi init`)
-    3. exit the backend container (`exit`)
-    4. restart the services (`rapydo restart`)
-  
+    
   - If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
 

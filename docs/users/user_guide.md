@@ -46,7 +46,7 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl-certificate --no-tty > ~/cron.log 2>&1 
 ```
 
-
+[Back to the index](#index-of-contents)
 
 
 
@@ -140,7 +140,9 @@ Your upgrade procedure is completed, your are now able to restart your stack
 
 Please not that this step could require new builds and take some time (first time only)
 
-## Known issues post-upgrade:
+[Back to the index](#index-of-contents)
+
+## Known issues post-upgrade
 
 - RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases created with psq10 are not compatible with psq11 and your container will fail to start with the following error:
 
@@ -162,6 +164,6 @@ Please not that this step could require new builds and take some time (first tim
   6. exit the backend container: `exit`
 
 
-​    
-  - If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
+​    If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
 
+[Back to the index](#index-of-contents)

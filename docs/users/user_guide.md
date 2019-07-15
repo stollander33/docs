@@ -1,4 +1,8 @@
-### *Work in progress...*
+***Work in progress...***
+
+# Index of contents
+
+[TOC]
 
 # Production Mode
 
@@ -88,9 +92,7 @@ If the **version requirement is unmet** the output will be something like this:
 
 You can follow the suggestion or install the new controller by using the *auto* flag `rapydo install --git auto`.
 
-Continue this guide by following step [4a. upgrade your submodules](user_guide.md#4a-upgrade-your-submodules)
-
-
+Continue this guide by following step 4 (Upgrade your submodules) 
 
 If you **already have the required RAPyDo** version the output will be something like this:
 
@@ -104,13 +106,11 @@ You can also use the *auto* flag to let RAPyDo understand by itself which versio
 
 `rapydo install --git auto`
 
-Continue this guide by following step [4b. update your submodules](user_guide.md#4b-update-your-submodules)
+Continue this guide by following step 5 (Update your submodules)
 
 
 
-
-
-#### 4a. upgrade your submodules
+4. #### Upgrade your submodules (alternative to step 5)
 
 This step is only required if you upgraded RAPyDo to a new version, in this case you have to switch the version of all the submodules. To switch all your submodules to the new version:
 
@@ -120,7 +120,7 @@ This step will require some time since the new version will require new builds. 
 
 
 
-#### 	4b. update your submodules
+5. #### Update your submodules (alternative to step 4)
 
 This step is only required if you DIDN'T upgrade your RAPyDo version because the new version or YOUR_PROJECT do not require a new version of RAPyDo. In this case you will have to update your submodules and your project branch:
 
@@ -132,7 +132,7 @@ Consider the opportunity to rebuild your containers build with: `rapydo build`
 
 
 
-5. #### Upgrade completed
+6. #### Upgrade completed
 
 Your upgrade procedure is completed, your are now able to restart your stack
 
@@ -140,7 +140,7 @@ Your upgrade procedure is completed, your are now able to restart your stack
 
 Please not that this step could require new builds and take some time (first time only)
 
-#### Post-upgrade issues:
+## Known issues post-upgrade:
 
 - RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases created with psq10 are not compatible with psq11 and your container will fail to start with the following error:
 

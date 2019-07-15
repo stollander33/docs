@@ -128,15 +128,15 @@ To build the container images based on the new version:
 
 5. #### Update your submodules (alternative to step 4)
 
-This step is only required if you DIDN'T upgrade your RAPyDo version because the new version or YOUR_PROJECT do not require a new version of RAPyDo. In this case you will have to update your submodules and your project branch:
+This step is only required if you DIDN'T upgrade your RAPyDo version because YOUR_PROJECT does not require a new version of RAPyDo. In this case you will have to update your submodules and your project branch:
 
-`rapydo update`
+`rapydo update --rebuild`
 
-To update your submodules only: `rapydo update -i main`
+To update your submodules only: `rapydo update -i main --rebuild`
 
-Consider the opportunity to rebuild your containers build with: `rapydo build -rf`
+With the *rebuild* flag the update procedure will automatically verify which builds need to be recreated and it will start the rebuild procedure. This option will ensure the minimum amount of time to update the system. As alternative you can perform a complete rebuild of your images once updated:
 
-
+`rapydo update && rapydo build -rf`
 
 6. #### Upgrade completed
 

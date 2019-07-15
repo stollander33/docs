@@ -104,11 +104,11 @@ By using the *rebuild* flag the update procedure will automatically verify which
 
 6. #### Upgrade completed
 
-Your upgrade procedure is completed, your are now able to restart your stack
+Your upgrade procedure is completed, you are now able to restart your stack
 
 `rapydo start`
 
-Please not that this step could require new builds and take some time (first time only)
+Please note that this step could require new builds and take some time to start (first time only). The *--rebuild* option (previous step) is able to recreate builds that need to be updated but does not create missing builds. Missing builds will be created during the start procedure. If you want to create your builds before the start procedure, you can execute `rapydo build`
 
 [Back to the index](#index-of-contents)
 

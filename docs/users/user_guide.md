@@ -56,87 +56,51 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 
 We assume that you already have a working deployment of your project (let's name it YOUR_PROJECT) based on version X and you want to upgrade to the new version Y.
 
-1. #### stop the current stack
+1. #### Stop the current stack
 
    `rapydo remove`
 
-2. #### switch your git branch to the new version X
+   
+
+2. #### Switch your git branch to the new version X
 
    `git fetch && git checkout X`
 
-3. #### upgrade / update your RAPyDo controller
+   
 
-Probably the new version also requires a new version of RAPyDo. You can verify it by using the following command:
+3. #### Upgrade your RAPyDo controller
 
-`rapydo version`
+   `rapydo install --git auto`
 
-This command will give you in output:
+By setting the *auto* flag,  RAPyDo will understand by itself which version is required for YOUR_PROJECT.
 
-​	a. the installed RAPyDo version
+If your currently installed version is too old, the *auto* flag could not be supported. In this case you can understand the required version by using: `rapydo version` and then upgrade the controller with the command: `rapydo install --git VERSION`.
 
-​	b. the version of YOUR_PROJECT
+Otherwise you can install the latest version with pip and then use the *auto* flag:
 
-​	c. the required RAPyDo version
-
-In this way you will be able to know if a new RAPyDo version is required or not and if you already meet the requisite.
+`pip3 install --upgrade rapydo-controller && rapydo install --git auto`
 
 
 
-If the **version requirement is unmet** the output will be something like this:
-
-> rapydo: 0.6.6	sci: 0.6.6	required rapydo: 0.6.7
->
-> This project is not compatible with the current rapydo version (0.6.6)
->
-> Please upgrade rapydo to version 0.6.7 or modify this project
->
-> rapydo install --git 0.6.7
-
-You can follow the suggestion or install the new controller by using the *auto* flag `rapydo install --git auto`.
-
-Continue this guide by following step 4 (Upgrade your submodules) 
-
-If you **already have the required RAPyDo** version the output will be something like this:
-
-> rapydo: 0.6.7	YOUR_PROJECT: Y	required rapydo: 0.6.7
-
-Probably you want to upgrade the controller anyway:
-
-`rapydo install --git RAPYDO_VERSION`
-
-You can also use the *auto* flag to let RAPyDo understand by itself which version is required :
-
-`rapydo install --git auto`
-
-Continue this guide by following step 5 (Update your submodules)
-
-
-
-4. #### Upgrade your submodules (alternative to step 5)
-
-This step is only required if you upgraded RAPyDo to a new version, in this case you have to switch the version of all the submodules. 
-
-To switch all your submodules to the new version:
+4. #### Reinitialize your project
 
 `rapydo init`
 
-To build the container images based on the new version:
-
-`rapydo build -rf`
+This step will verify your submodules and will switch them to the correct branch if required.
 
 
 
-5. #### Update your submodules (alternative to step 4)
-
-This step is only required if you DIDN'T upgrade your RAPyDo version because YOUR_PROJECT does not require a new version of RAPyDo. In this case you will have to update your submodules and your project branch:
+5. #### Update your submodules
 
 `rapydo update --rebuild`
 
-To update your submodules only: `rapydo update -i main --rebuild`
+To skip updates of your main branch and only update your submodules: `rapydo update -i main --rebuild`
 
-With the *rebuild* flag the update procedure will automatically verify which builds need to be recreated and it will start the rebuild procedure. This option will ensure the minimum amount of time to update the system. As alternative you can perform a complete rebuild of your images once updated:
+By using the *rebuild* flag the update procedure will automatically verify which builds need to be recreated. This option will ensure the minimum amount of time to update the system. As alternative you can perform a complete rebuild of your images once updated:
 
 `rapydo update && rapydo build -rf`
+
+
 
 6. #### Upgrade completed
 

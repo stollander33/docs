@@ -2,7 +2,7 @@
 
 # Index of contents
 
-[TOC]
+[toc]
 
 # Production Mode
 

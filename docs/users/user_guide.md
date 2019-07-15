@@ -1,5 +1,49 @@
 ### *Work in progress...*
 
+# Production Mode
+
+To switch your RAPyDo deployment from debug to production mode you can use the --mode production options, e.g. `rapydo --mode production start`.
+
+To ensure the option is always activated you can save it in a `.projectrc` file by replacing:
+
+`mode: debug` with `mode: production`
+
+In production mode an additional container based on [NGINX](https://www.nginx.com/) is added to your stack. NGINX is a reverse proxy ensuring security and additional performances to your project. Furthermore it support SSL certificates to enable HTTPS connections.
+
+# SSL Certificates
+
+RAPyDo supports [Let's Encrypt](https://letsencrypt.org/) to automatically deploy SSL certificates. Once started your project in production mode you can request for a SSL certificate with the following command:
+
+```
+rapydo ssl-certificate
+```
+
+To let this command properly works please very that:
+
+1. your stack is already started (with rapydo start)
+2. you configured a correct hostname in your .projectrc
+
+Let's Encrypt certificates expire in 90 days, you can renew them by executing again the `rapydo ssl-certificate` command.
+
+## Automatic certificate renew by using crontab
+
+To make sure your certificate is always up-to-date you can setup a cron job to automatize the certificate renew. You can configure crontab to perform this work for you.
+
+Crontab have some limitations due to the simplified environment used to execute commands, to overcome that limitations you have to:
+
+1. provide absolute path to your rapydo executable (probably `/usr/local/bin/rapydo`)
+2. set `COMPOSE_INTERACTIVE_NO_CLI=1` to prevent Compose to use the Docker CLI for interactive `run` and `exec`operations.
+3. enable `--no-tty` flag to disable pseudo-tty allocation (by default docker-compose run                         allocates a TTY, not available from crontab)
+4. you will haven't access to the command output. If you desire, your can redirect the output on a file
+
+The following crontab entry is able to renew the SSL certificate every Monday at 00:00 AM
+
+```
+0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl-certificate --no-tty > ~/cron.log 2>&1 
+```
+
+
+
 
 
 # Upgrade to a new version
@@ -116,8 +160,8 @@ Please not that this step could require new builds and take some time (first tim
 4. enter your backend container: `rapydo shell backend`
     5. re-initialize the database: `restapi init`
   6. exit the backend container: `exit`
-    
-  
-    
+
+
+​    
   - If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
 

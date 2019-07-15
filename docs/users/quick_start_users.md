@@ -6,16 +6,30 @@ This a quick start guide, if you are interested in a more comprehensive guide pl
     * Python3.4+ (and `pip`) 
     * Git
     * Docker daemon/engine
+    
 2. install the rapydo controller
+
+    Install the latest version: `pip3 install --upgrade rapydo-controller`
+
+    Your project could require a different version, in this case you will be able to install the right version once configured your project
+
 3. clone your project
 
 ```bash
-git clone https://github.com/rapydo/example.git
-cd example
-cp templates/projectrc .projectrc <<< ?
+git clone https://git.../your_project/example.git
+git checkout your_branck
+cp templates/projectrc .projectrc
 ```
 
-3. Use the controller to startup your project
+3. Customize your .projectrc file. By editing this file you can override every options of your project
+
+4. If your project requires it, install the specific rapydo controller version
+
+   You can verify the required version with `rapydo version`
+
+   You can install the version required by your project with: `rapydo install --git auto`
+
+5. Use the controller to startup your project
 
 ```bash
 # check the status of your scaffold and
@@ -42,18 +56,16 @@ $ restapi launch
 # if you need to stop it use CTRL+C
 ```
 
-The example provides a simple Flask server connected to a postgresql db into another container.
+The backend container is a  Flask server connected to a database into another container.
 
 6. Test your server from outside the containers
 
 The port `8080` should be accessible now.
 You may help your self with the famous `httpie` [python command line tool](https://httpie.org/) to query the API endpoints from another shell, and check the logs in the other one. It was already installed on your host together with the rapydo framework at the step 3.
 
-Currently there is only one custom endpoint called `myendpoint`, plus all the others helpers already bundled
-
 ```bash
 # test a normal endpoint with no authentication
-http GET localhost:8080/api/myendpoint
+http GET localhost:8080/api/status
 
 # request a token to the server with a default account
 # the account is available only in debug mode
@@ -106,13 +118,17 @@ http GET localhost:8080/api/anotherendpoint
 # "Hello World!"
 ```
 
-## see a live webinar
 
-To get a better understanding of how this framework is being used in production for real projects, you may watch [this video](http://bit.ly/b2stage_webinar) recorded last year.
 
 ## clean up
 
 To remove everything you created so far, you can use again the controller:
 ```bash
 rapydo clean -rm
+```
+
+To remove the container by keeping all data execute:
+
+```
+rapydo remove
 ```

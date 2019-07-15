@@ -114,11 +114,15 @@ Continue this guide by following step 5 (Update your submodules)
 
 4. #### Upgrade your submodules (alternative to step 5)
 
-This step is only required if you upgraded RAPyDo to a new version, in this case you have to switch the version of all the submodules. To switch all your submodules to the new version:
+This step is only required if you upgraded RAPyDo to a new version, in this case you have to switch the version of all the submodules. 
+
+To switch all your submodules to the new version:
 
 `rapydo init`
 
-This step will require some time since the new version will require new builds. You can skip the building phase here an postpone it on the next step by using the *no-build* flag (`rapydo init --no-build`)
+To build the container images based on the new version:
+
+`rapydo build -rf`
 
 
 
@@ -130,7 +134,7 @@ This step is only required if you DIDN'T upgrade your RAPyDo version because the
 
 To update your submodules only: `rapydo update -i main`
 
-Consider the opportunity to rebuild your containers build with: `rapydo build`
+Consider the opportunity to rebuild your containers build with: `rapydo build -rf`
 
 
 

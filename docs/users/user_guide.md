@@ -6,6 +6,12 @@
 
 [TOC]
 
+# Differences between start and restart
+
+The two commands (`rapydo start` and `rapydo restart`) can be quite confusing and it can be difficult to understand when to use one and when the other. The start command is based on the `docker-compose up` command and it is able to start the docker containers. The restart command is based on the `docker-compose restart` command and it is able to restart the main service of a container. Furthermore the start command is able to re-create the container whom docker definition changed (e.g. an environment variable changed, a volume is added, porting mapping is changed, docker image is rebuilt, etc).
+
+Use the start or the restart command depends from the kind of changes that you need to deploy. If the changes are at docker level, then you have to use the start command. If the changes are at software and service level, you have to use the restart command.
+
 # Production Mode
 
 To switch your RAPyDo deployment from debug to production mode you can use the --mode production options, e.g. `rapydo --mode production start`.

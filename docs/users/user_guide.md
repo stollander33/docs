@@ -80,7 +80,7 @@ We assume that you already have a working deployment of your project (let's name
 
 By setting the *auto* flag,  RAPyDo will understand by itself which version is required for YOUR_PROJECT.
 
-If your currently installed version is too old, the *auto* flag could not be supported. In this case you can understand the required version by using: `rapydo version` and then upgrade the controller with the command: `rapydo install --git VERSION`.
+If your currently installed version is too old (this flag is only available from version 0.6.6), the *auto* flag could not be supported. In this case you can understand the required version by using: `rapydo version` and then upgrade the controller with the command: `rapydo install --git VERSION`.
 
 Otherwise you can install the latest version with pip and then use the *auto* flag:
 

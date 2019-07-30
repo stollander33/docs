@@ -19,7 +19,7 @@ The user usually interact with an already-existing RAPyDo-based project to deplo
 
 Do you already have a RAPyDo-based project? You have to deploy it on a new server? Do you want to test an installation? Let's start with the [User Quick Start](docs/users/quick_start_users.md) and the [User Complete Guide](docs/users/user_guide.md)
 
-Do you want to create a new RAPyDo-based project? You have to implement a new endpoint? You need to configure a service? Let's start with the [Developer Quick Start](docs/developers/quick_start_developers.md) and the [Developer Complete Guide](docs/developers/developer_guide.md)
+Do you want to create a new RAPyDo-based project? You have to implement a new endpoint? You need to configure a service? Let's start with the [Developer Complete Guide](docs/developers/developer_guide.md)
 
 
 

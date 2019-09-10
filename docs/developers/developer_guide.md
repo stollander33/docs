@@ -34,7 +34,7 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
    - centos: template project based on SQLAlchemy with PostgreSQL deployed on Centos (all other projects are based on Ubuntu) with Angular frontend enabled
 
 4. A folder with the select name will be created. Follow instructions printed by rapydo create output, i.e.
-   - cd life
+   - cd your_project
    - git init
    - git remote add origin https://your_remote_git/your_project.git
    - rapydo init

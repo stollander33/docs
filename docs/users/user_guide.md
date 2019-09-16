@@ -120,7 +120,7 @@ Please note that this step could require new builds and take some time to start 
 
 ## Known issues post-upgrade
 
-- RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases created with psq10 are not compatible with psq11 and your container will fail to start with the following error:
+1. RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases created with psq10 are not compatible with psq11 and your container will fail to start with the following error:
 
   > FATAL:  database files are incompatible with server
   >
@@ -130,12 +130,12 @@ Please note that this step could require new builds and take some time to start 
 
   If your database is only used to store sessions you can simply destroy the database volume and re-initialize it
 
-  1. stop the stack:  `rapydo remove`
+1. stop the stack:  `rapydo remove`
 2. delete the sql data volume: `docker volume rm YOUR_PROJECT_sqldata`
-  3. start the stack: `rapydo start`
+3. start the stack: `rapydo start`
 4. enter your backend container: `rapydo shell backend`
-  5. re-initialize the database: `restapi init`
-  6. exit the backend container: `exit`
+5. re-initialize the database: `restapi init`
+6. exit the backend container: `exit`
 
 
 ​    If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)

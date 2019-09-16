@@ -126,17 +126,15 @@ Please note that this step could require new builds and take some time to start 
   >
   > DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.4.
 
-  You have two options to fix the error:
+  
 
-  - If your database is only used to store sessions you can simply destroy the database volume and re-initialize it
+  If your database is only used to store sessions you can simply destroy the database volume and re-initialize it
 
-    1. stop the stack:  `rapydo remove`
-
-    2. delete the sql data volume: `docker volume rm YOUR_PROJECT_sqldata`
-
-    3. start the stack: `rapydo start`
+  1. stop the stack:  `rapydo remove`
+2. delete the sql data volume: `docker volume rm YOUR_PROJECT_sqldata`
+  3. start the stack: `rapydo start`
 4. enter your backend container: `rapydo shell backend`
-    5. re-initialize the database: `restapi init`
+  5. re-initialize the database: `restapi init`
   6. exit the backend container: `exit`
 
 

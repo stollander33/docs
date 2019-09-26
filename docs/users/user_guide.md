@@ -37,6 +37,14 @@ To let this command properly works please very that:
 
 Let's Encrypt certificates expire in 90 days, you can renew them by executing again the `rapydo ssl-certificate` command.
 
+If the ssl-certificate command fails with the following error:
+
+`Register account Error: {"type":"urn:acme:error:badNonce","detail":"JWS has no anti-replay nonce","status": 400}` you are running an obsolete letsencrypt version and you have to upgrade it then retry again. To upgrade your version you can:
+
+1. upgrade your project to RAPyDo version 0.6.8
+2. if you are using RAPyDo 0.6.7 you can rebuild your proxy (rapydo -s proxy build -rf && rapydo start)
+3. You can upgrade letsencrypt by yourself by executing the following command into the proxy container: `/acme/acme.sh --upgrade --home /acme`
+
 ## Automatic certificate renew by using crontab
 
 To make sure your certificate is always up-to-date you can setup a cron job to automatize the certificate renew. You can configure crontab to perform this work for you.

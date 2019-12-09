@@ -38,10 +38,9 @@ So let's see together what we achieved so far!
 In every project there a set configurations that you would like to use to switch one from another quickly. Even if not the case there should be at least two modes: 
 
 1. `debug` for working locally (verbose logs, dockerized services, auto reload and no reverse proxy)
-2. `production` for deploying the same code in production (less logs, external production services rather than containers in the same node - we will have `swarm stacks` for this - `uwsgi` and a reverse proxy, all set to use `SSL` for free with Letsencrypt).
+2. `production` for deploying the same code in production (less logs, optionally external production services rather than containers, `uwsgi` and a reverse proxy, all set to use `SSL` for free with Letsencrypt).
 
-Modes are implemented simply a `YAML` file following the usual `compose` conventions.
-You can create as many custom modes as you need.
+Modes are just implemented with a `YAML` file following the usual `compose` conventions. You can create as many custom modes as you need.
 
 The final configuration you use in every rapydo command is based on:
 

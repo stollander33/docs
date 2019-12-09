@@ -67,10 +67,7 @@ In production mode you may choose to switch to external existing services by sim
 
 ### swagger
 
-The [OpenAPI standard]() has helped us many times to show to clients the experience of HTTP API services without even using a frontend. This is why every endpoint exists only if you create a dedicated folder in the `Swagger` definition. The content is parsed to activate the corresponding endpoints in your code and at the same time is added to the swagger specifications endpoint. 
-
-Private endpoints can be skipped inside the public definitions. An entire endpoint can be easily turned off with a simple `SKIP` file put in the corresponding folder.
-You can also associate a dependency of some endpoints to the existence of a variable of your configuration into your mode.
+The [OpenAPI standard]() has helped us many times to show to clients the experience of HTTP API services without even using a frontend. This is why every endpoint defined with RAPyDo is fully OpenAPI-complied and included in a Swagger specification file available at the /api/specs endpoint. NOTE: we are changing the way endpoints are defined within RAPyDo. This will affect how we will make use of Swagger and OpenAPI, but in every case the final output will remain the same.
 
 ### rest classes
 

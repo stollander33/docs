@@ -42,7 +42,7 @@ In every project there a set configurations that you would like to use to switch
 
 Modes are just implemented with a `YAML` file following the usual `compose` conventions. You can create as many custom modes as you need.
 
-The final configuration you use in every rapydo command is based on:
+The final configuration you will use in every rapydo command is based on:
 
 - A rapydo base configuration, gathering the best practices on the most commonly used services
 - A common custom configuration across different modes in your project
@@ -55,9 +55,7 @@ RAPyDo is of course containers oriented. This means that services can be easily 
 - Postgres
 - Redis
 - MongoDB
-- Elasticsearch
 - Neo4J GraphDB
-- RethinkDB
 - RabbitMQ
 - Celery tasks
 - FTP
@@ -65,7 +63,7 @@ RAPyDo is of course containers oriented. This means that services can be easily 
 
 More services can be added as long as you can provide a container image (official or not) for it; so basically always `:P`.
 
-In production mode you may choose with a simple parameter `${SERVICE}_EXTERNAL` to switch to external existing services, without changing your endpoint code.
+In production mode you may choose to switch to external existing services by simply overriding the SERVICE configuration (HOST, PORT, etc), without changing your endpoint code.
 
 ### swagger
 

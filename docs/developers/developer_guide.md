@@ -60,3 +60,29 @@ For example by configuring `ACTIVATE_CELERY: 1` in `project_configuration.yaml` 
 # Implement new endpoints
 
 ...
+
+
+
+# Add a new service
+
+RAPyDo is designed to be easily extended with new services in addition to those already provided. For instance, let's suppose we want to add Apache NiFi. We have to add the new service in {custom}/confs/common.yml and activate it from the {custom}/project_configuration.yml
+
+common.yml:
+```
+services:
+  ...
+  nifi:
+    image: apache/nifi
+    ports:
+      - 8070:8080
+    environment:
+      ACTIVATE: ${ACTIVATE_NIFI}
+```
+and activate it in project_configuration.yml
+```
+variables:
+  env:
+    ...
+    ACTIVATE_NIFI: 1
+```
+and `rapydo start` will do the rest

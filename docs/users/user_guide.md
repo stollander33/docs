@@ -149,6 +149,10 @@ RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases create
 
 ​    If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
 
+### PostgreSQL fails to start in RAPyDo 0.7.1
+
+RAPyDo 0.7.1 upgraded the PostgreSQL version from 11.5 to 12.1. Databases created with psq11 are not compatible with psq12 and your container will fail to start. Please follow the section above for all possible fixes.
+
 ### Celery/backend fail to start in RAPyDo 0.7.1
 
 RAPyDo 0.7.1 introduced explicit password setting for RabbitMQ default credentials and, if missing, you will be asked to set RABBITMQ_USER and RABBITMQ_PASSWORD variables in your .projectrc file. You can set whatever you want and these variables will be used to create the default admin user in rabbit. But if your Rabbit instance has been previously created an admin user is already created with default guest/guest credentials. Celery and backend will be unable to connect to Rabbit due to a credentials mismatch. To fix this issue you have three options:

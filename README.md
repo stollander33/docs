@@ -1,7 +1,7 @@
 
 # RAPyDo framework
 
-A containers-based framework to develop your HTTP-API with Flask on Python3 with optional web interface written with Angular. RAPyDO also include services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), no-sql database (MongoDB) and Celery for asynchronous operations (based on RabbitMQ, also included in the box).
+A containers-based framework to develop your HTTP-API with Flask on Python3 with optional web interface written with Angular. RAPyDO also includes services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), no-sql database (MongoDB) and Celery for asynchronous operations (based on RabbitMQ, also included in the box).
 
 The name is an acronymous for:
 
@@ -15,7 +15,7 @@ The name is an acronymous for:
 
 RAPyDo can be approached from two very different perspectives: the user and the developer.
 
-The user usually interact with an already-existing RAPyDo-based project to deploy, monitor and manage one or more project installations. The developer creates a  RAPyDo-based project , customize the stack, implementens the endpoints.
+The user usually interact with an already-existing RAPyDo-based project to deploy, monitor and manage one or more project installations. The developer creates a  RAPyDo-based project , customize the stack, implements the endpoints.
 
 Do you already have a RAPyDo-based project? You have to deploy it on a new server? Do you want to test an installation? Let's start with the [User Quick Start](docs/users/quick_start_users.md) and the [User Guide](docs/users/user_guide.md)
 
@@ -38,12 +38,11 @@ So let's see together what we achieved so far!
 In every project there a set configurations that you would like to use to switch one from another quickly. Even if not the case there should be at least two modes: 
 
 1. `debug` for working locally (verbose logs, dockerized services, auto reload and no reverse proxy)
-2. `production` for deploying the same code in production (less logs, external production services rather than containers in the same node - we will have `swarm stacks` for this - `uwsgi` and a reverse proxy, all set to use `SSL` for free with Letsencrypt).
+2. `production` for deploying the same code in production (less logs, optionally external production services rather than containers, `uwsgi` and a reverse proxy, all set to use `SSL` for free with Letsencrypt).
 
-Modes are implemented simply a `YAML` file following the usual `compose` conventions.
-You can create as many custom modes as you need.
+Modes are just implemented with a `YAML` file following the usual `compose` conventions. You can create as many custom modes as you need.
 
-The final configuration you use in every rapydo command is based on:
+The final configuration you will use in every rapydo command is based on:
 
 - A rapydo base configuration, gathering the best practices on the most commonly used services
 - A common custom configuration across different modes in your project
@@ -56,9 +55,7 @@ RAPyDo is of course containers oriented. This means that services can be easily 
 - Postgres
 - Redis
 - MongoDB
-- Elasticsearch
 - Neo4J GraphDB
-- RethinkDB
 - RabbitMQ
 - Celery tasks
 - FTP
@@ -66,14 +63,11 @@ RAPyDo is of course containers oriented. This means that services can be easily 
 
 More services can be added as long as you can provide a container image (official or not) for it; so basically always `:P`.
 
-In production mode you may choose with a simple parameter `${SERVICE}_EXTERNAL` to switch to external existing services, without changing your endpoint code.
+In production mode you may choose to switch to external existing services by simply overriding the SERVICE configuration (HOST, PORT, etc), without changing your endpoint code.
 
 ### swagger
 
-The [OpenAPI standard]() has helped us many times to show to clients the experience of HTTP API services without even using a frontend. This is why every endpoint exists only if you create a dedicated folder in the `Swagger` definition. The content is parsed to activate the corresponding endpoints in your code and at the same time is added to the swagger specifications endpoint. 
-
-Private endpoints can be skipped inside the public definitions. An entire endpoint can be easily turned off with a simple `SKIP` file put in the corresponding folder.
-You can also associate a dependency of some endpoints to the existence of a variable of your configuration into your mode.
+The [OpenAPI standard]() has helped us many times to show to clients the experience of HTTP API services without even using a frontend. This is why every endpoint defined with RAPyDo is fully OpenAPI-complied and included in a Swagger specification file available at the /api/specs endpoint. NOTE: we are changing the way endpoints are defined within RAPyDo. This will affect how we will make use of Swagger and OpenAPI, but in every case the final output will remain the same.
 
 ### rest classes
 

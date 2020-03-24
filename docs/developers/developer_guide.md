@@ -59,11 +59,76 @@ For example by configuring `ACTIVATE_CELERY: 1` in `project_configuration.yaml` 
 
 # Implement new endpoints
 
-...
+(warning: copy-pasted from an old documentation, to be revised!)
+
+### security
+
+Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`.
+
+Oauth2 and 2 factor authentication is already integrated (through TOTP).
+The nginx reverse proxy has been tested in many production system.
+
+### rest classes
+
+RAPyDO is Object oriented (thanks to the `Flask-Restful` plugin): each endpoint is mapped to a class and automatically configured. The class associated to an endpoint is provided in the swagger configuration (and then removed from the public view). One method can be mapped to multiple endpoints paths (e.g. if you need some aliasing).
+
+### base endpoints
+
+Helper endpoints are provided out of the box:
+
+- `/api/status`
+- `/api/specs`
+- If you enable authentication:
+- `/auth/login`
+- `/auth/logout`
+- `/auth/tokens`
+- `/auth/profile`
+
+They can be overriden or skipped.
+
+### flask injections
+
+The real first pain point we had to solve in our experience while working with Flask when containers were yet limited in their experience (at least a few years ago) was a dynamic injections of only the services configurated in the RAPyDO YAML files.
+
+We created a set of defaults for each service. Each service can be activated with `${SERVICE}_ENABLE` or by adding the dependency on an already active service, and by leaving the defaults a container will be created for it and linked to the backend server/container and accessed by a simple `self.get_instance(my_service, **custom_args)` function call inside your endpoint code.
+
+It doesn't matter what is your mode (internal with no credentials, or external with passwords), the code will remain the same!
+
+NOTE: connections are kept globally in a pool to optimize the consumption of resources; you can force an instance to be recreated.
+
+### orm
+
+Each service may be used as an ORM, if the equivalent python library exists. The base models and the custom models are pre loaded into the service objects at server startup.
+
+This means that you can do into your code:
+
+```python
+mongo = self.get_instance('mongo')
+mongo.MyModel(field1='yes', field2=False).save()
+```
+
+Where `MyModel` was defined inside your project custom `models/mongo.py` file.
+
+For each service base models are provided to describe a User/Role approach to authentication.
+
+### logging
+
+Logging has been made super easy. We added VERY_VERBOSE and VERBOSE to the standard sets of debug levels. You can activate colors, pretty print objects, and ultimately redirect containers logs into elasticsearch through LogSprut
+
+### asynchrounous tasks
+
+Celery tasks can be easily activated to be able to launch and control from any endpoint async tasks.
+Tasks can be monitored directly from endpoints or from the `flower` UI.
+Tasks can save progress, return status, send emails.
+
+### unittests
+
+`py.tests` is supported by default.
+A unittest is a class in a separated `tests` folder, where you extend the existing base class from where you inherit methods to authenticate and handle tokens.
 
 
 
-# Add a new service
+## Add a new service
 
 RAPyDo is designed to be easily extended with new services in addition to those already provided. For instance, let's suppose we want to add Apache NiFi. We have to add the new service in {custom}/confs/common.yml and activate it from the {custom}/project_configuration.yml
 
@@ -86,3 +151,14 @@ variables:
     ACTIVATE_NIFI: 1
 ```
 and `rapydo start` will do the rest
+
+
+
+# frontend framework
+
+`Angular` is already integrated as base framework for the frontend part.
+The base authentication (profile, change password, reset password, session lists, JWT tokens) endpoints are already tested inside the base TS code.
+
+In debug mode the framework is served on nodejs/webpack while in production the static dist is built at startup time by the related container entrypoint.
+
+NOTE: we are looking for `react` to be integrated as well!

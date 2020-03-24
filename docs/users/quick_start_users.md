@@ -21,13 +21,13 @@ git checkout your_branck
 cp templates/projectrc .projectrc
 ```
 
-3. Customize your .projectrc file. By editing this file you can override every options of your project
+3. Customize your `.projectrc` file. By editing this file you can override all options of your project
 
 4. If your project requires it, install the specific rapydo controller version
 
    You can verify the required version with `rapydo version`
 
-   You can install the version required by your project with: `rapydo install --git auto`
+   You can install the version required by your project with: `rapydo install auto`
 
 5. Use the controller to startup your project
 
@@ -35,11 +35,11 @@ cp templates/projectrc .projectrc
 # check the status of your scaffold and
 # download others repo from the rapydo framework as submodules
 rapydo init
+# pull base images
+rapydo pull
 # launch the containers
 rapydo start
 ```
-
-Note: the main backend containers with Flask will be built now. It might take a few minutes, please be patient.
 
 5. Launch the server in debug mode
 
@@ -60,8 +60,7 @@ The backend container is a  Flask server connected to a database into another co
 
 6. Test your server from outside the containers
 
-The port `8080` should be accessible now.
-You may help your self with the famous `httpie` [python command line tool](https://httpie.org/) to query the API endpoints from another shell, and check the logs in the other one. It was already installed on your host together with the rapydo framework at the step 3.
+The port `8080` should be accessible now, you can query it by using a normal http client (curl, wget, `httpie` [HTTPie] (https://httpie.org/) from another shell, and check the logs in the other one.
 
 ```bash
 # test a normal endpoint with no authentication
@@ -94,41 +93,31 @@ You can access swaggerui web page here:
 http://localhost?docExpansion=none
 ```
 
-8. Add a new endpoint
-
-You can ask the framework to prepare templates to develop a new endpoint:
-
-```bash
-rapydo template anotherendpoint
-
-[...]
-rendered projects/example/backend/swagger/anotherendpoint/specs.yaml
-rendered projects/example/backend/swagger/anotherendpoint/get.yaml
-rendered projects/example/backend/apis/anotherendpoint.py
-rendered projects/example/backend/tests/test_anotherendpoint.py
-Scaffold completed
-```
-
-As you can see there is already a swagger configuration produced for you.
-
-You can now already restart the server to reload the configuration and try the new endpoint:
-```bash
-http GET localhost:8080/api/anotherendpoint
-
-# "Hello World!"
-```
-
 
 
 ## clean up
 
-To remove everything you created so far, you can use again the controller:
-```bash
-rapydo clean -rm
+You can stop your containers with the command:
+
+```
+rapydo stop
 ```
 
-To remove the container by keeping all data execute:
+To remove the containers by keeping all data:
 
 ```
 rapydo remove
 ```
+
+To remove containers and networks:
+
+```
+rapydo remove --networks
+```
+
+To remove everything you created so far, you can use again the controller:
+
+```bash
+rapydo remove --all
+```
+

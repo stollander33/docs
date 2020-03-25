@@ -43,7 +43,9 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 
 
-# Enable a service
+# Services
+
+## Enable a service
 
 You can list active services with `rapydo list --services`
 
@@ -55,6 +57,51 @@ For example by configuring `ACTIVATE_CELERY: 1` in `project_configuration.yaml` 
     CELERY_BACKEND: MONGODB
     CELERY_BACKEND_HOST: mongo.dockerized.io
     CELERY_BACKEND_PORT: 27017
+
+## Enable Rabbit Management Plugin
+
+Management plugin is disabled by default, you can activate by adding the following variabile to your project_configuration or .proectrc:
+
+`RABBITMQ_ENABLE_MANAGEMENT_PLUGIN: 1`
+
+You also have to add the following port mapping to your stack configuration (commons.yml to be shared with all stack or into a specific stack configuration):
+
+  `rabbit:`
+    `ports:`
+      `- ${RABBITMQ_MANAGEMENT_PORT}:${RABBITMQ_MANAGEMENT_PORT}`
+
+To enable access to queue you can also add:
+
+​      `- ${RABBITMQ_PORT}:${RABBITMQ_PORT}`
+
+## Add a new service
+
+RAPyDo is designed to be easily extended with new services in addition to those already provided. For instance, let's suppose we want to add Apache NiFi. We have to add the new service in {custom}/confs/common.yml and activate it from the {custom}/project_configuration.yml
+
+common.yml:
+
+```
+services:
+  ...
+  nifi:
+    image: apache/nifi
+    ports:
+      - 8070:8080
+    environment:
+      ACTIVATE: ${ACTIVATE_NIFI}
+```
+
+and activate it in project_configuration.yml
+
+```
+variables:
+  env:
+    ...
+    ACTIVATE_NIFI: 1
+```
+
+and `rapydo start` will do the rest
+
 
 
 # Implement new endpoints
@@ -128,32 +175,6 @@ A unittest is a class in a separated `tests` folder, where you extend the existi
 
 
 
-## Add a new service
-
-RAPyDo is designed to be easily extended with new services in addition to those already provided. For instance, let's suppose we want to add Apache NiFi. We have to add the new service in {custom}/confs/common.yml and activate it from the {custom}/project_configuration.yml
-
-common.yml:
-```
-services:
-  ...
-  nifi:
-    image: apache/nifi
-    ports:
-      - 8070:8080
-    environment:
-      ACTIVATE: ${ACTIVATE_NIFI}
-```
-and activate it in project_configuration.yml
-```
-variables:
-  env:
-    ...
-    ACTIVATE_NIFI: 1
-```
-and `rapydo start` will do the rest
-
-
-
 # frontend framework
 
 `Angular` is already integrated as base framework for the frontend part.
@@ -162,3 +183,9 @@ The base authentication (profile, change password, reset password, session lists
 In debug mode the framework is served on nodejs/webpack while in production the static dist is built at startup time by the related container entrypoint.
 
 NOTE: we are looking for `react` to be integrated as well!
+
+
+
+
+
+RABBITMQ_ENABLE_MANAGEMENT_PLUGIN: 1

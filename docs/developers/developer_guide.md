@@ -104,7 +104,7 @@ and `rapydo start` will do the rest
 
 
 
-# Implement new endpoints
+# Backend development
 
 (warning: copy-pasted from an old documentation, to be revised!)
 
@@ -130,8 +130,6 @@ Helper endpoints are provided out of the box:
 - `/auth/logout`
 - `/auth/tokens`
 - `/auth/profile`
-
-They can be overriden or skipped.
 
 ### flask injections
 
@@ -175,7 +173,7 @@ A unittest is a class in a separated `tests` folder, where you extend the existi
 
 
 
-# frontend framework
+# Frontend framework
 
 `Angular` is already integrated as base framework for the frontend part.
 The base authentication (profile, change password, reset password, session lists, JWT tokens) endpoints are already tested inside the base TS code.
@@ -186,6 +184,13 @@ NOTE: we are looking for `react` to be integrated as well!
 
 
 
+# Upgrade to a new version
 
+Let's say your project is based on version A and you want to upgrade it to version B.
 
-RABBITMQ_ENABLE_MANAGEMENT_PLUGIN: 1
+1. edit your project_configuration.yml to change project.rapydo from A to B. Probably you also want to increase your project.version
+2. install rapydo-controller version B (now that you changed the required RAPyDo version in project_configuration.yml you are able to upgrade your controller with `rapydo install auto`)
+3. if you have custom docker builds change the base image from `rapydo/base-image:A`to `rapydo/base-image:B`
+4. execute the upgrade of your local instance, as describe in [User Guide](docs/users/user_guide.md#upgrade-to-a-new-version)
+
+Your project is now upgraded to version B

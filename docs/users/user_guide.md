@@ -225,6 +225,22 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 
 # Known issues post-upgrade
 
+## Errors during submit of celery taks in  RAPyDo 0.7.3
+
+Backend fails to submit any celery task and raises the following error:
+
+`[PreconditionFailed] Queue.declare: (406) PRECONDITION_FAILED - inequivalent arg 'x-max-priority' for queue 'celery' in vhost '/': received the value '10' of type 'signedint' but current is none`
+
+RAPyDo 0.7.3 enabled priority management in celery and this requires a specific configuration in the celery queue in RabbitMQ that needs to be recreated by executing the following steps:
+
+1. remove the rabbitmq container with `rapydo -s rabbit remove`
+
+2. remove the rabbitmq volume with `docker volume rm $YOURPROJECT_rabbitdata`
+
+3. start again the rabbitmq container with `rapydo -s rabbit start`
+
+   
+
 ## Networks need to be recreated in RAPyDo 0.7.2+
 
 Due to network constraints in some virtual environment, RAPyDo 0.7.2 implemented an option to change the MTU used to create networks (NETWORK_MTU, defaulted to 1500). This new option changed the network definition even if no NETWORK_MTU is specified and services fail to start with the following message:

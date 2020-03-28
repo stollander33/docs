@@ -225,6 +225,23 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 
 # Known issues post-upgrade
 
+## Networks need to be recreated in RAPyDo 0.7.2+
+
+Due to network constraints in some virtual environment, RAPyDo 0.7.2 implemented an option to change the MTU used to create networks (NETWORK_MTU, defaulted to 1500). This new option changed the network definition even if no NETWORK_MTU is specified and services fail to start with the following message:
+
+`Network "xyz_net" needs to be recreated - option "com.docker.network.driver.mtu" has changed.`
+`Remove previously created networks and try again (you can use rapydo remove --networks or docker system prune)`
+
+Can you fix this error by executing on of the suggested commands:
+
+- `rapydo remove --networks` (from rapydo 0.7.3+)
+- `rapydo clean` (up to rapydo 0.7.2)
+- `docker system prune` (this will also remove stopped containers and untagged images)
+
+As an alternative option you can remove the network(s) by hand with `docker network rm` 
+
+
+
 ## PostgreSQL fails to start in RAPyDo 0.6.7
 
 RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases created with psq10 are not compatible with psq11 and your container will fail to start with the following error:

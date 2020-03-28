@@ -225,7 +225,7 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 
 # Known issues post-upgrade
 
-## Errors during submit of celery taks in  RAPyDo 0.7.3
+## Errors during submit of celery taks in RAPyDo 0.7.3
 
 Backend fails to submit any celery task and raises the following error:
 

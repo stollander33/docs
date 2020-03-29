@@ -49,14 +49,34 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 You can list active services with `rapydo list --services`
 
-Active services are a combination of services enabled by configuring the `ACTIVATE_SERVICENAME` environment variable in `projects/$PROJECT_NAME/project_configuration.yaml` and services automatically actived due to dependency rules
+Active services are a combination of services enabled by configuring the `ACTIVATE_SERVICENAME`  variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` and services automatically activated due to dependency rules.
 
-For example by configuring `ACTIVATE_CELERY: 1` in `project_configuration.yaml` both Celery and RabbitMQ will be enabled. Celery is configured by default to use RabbitMQ as both broker and backend. If you prefer to configure MongoDB as Celery backend (recommended choice) you can add the following configuration in `project_configuration.yaml`:
+By activating a service both backend  will  establish a connection by using one of the confgured extension:
 
-    ACTIVATE_MONGODB: 1
-    CELERY_BACKEND: MONGODB
-    CELERY_BACKEND_HOST: mongo.dockerized.io
-    CELERY_BACKEND_PORT: 27017
+- SQLAlchemy
+- Neo4j
+- MongoDB
+- RabbitMQ
+- Celery
+- Celery-beat
+- iRODS
+- Pushpin
+
+If you want to activate the service but NOT the connection from the backend you can add a `SERVICENAME_ENABLE_CONNECTOR=True` variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` 
+
+If you want to activate the connection from the backend but NOT a container for the service, you can configure the SERVICENAME_HOST with an external host.
+
+To summarize:
+
+Service container enabled + Backend connection enable -> ACTIVATE_SERVICENAME
+
+Service container enabled - Backend connection disabled -> ACTIVATE_SERVICENAME && SERVICENAME_ENABLE_CONNECTOR
+
+Service container disabled - Backend connection enable -> SERVICENAME_HOST
+
+Service container disabled - Backend connection disabled -> nothing
+
+
 
 ## Enable Rabbit Management Plugin
 

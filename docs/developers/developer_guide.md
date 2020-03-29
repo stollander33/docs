@@ -70,11 +70,11 @@ To summarize:
 
 Service container enabled + Backend connection enable -> ACTIVATE_SERVICENAME
 
-Service container enabled - Backend connection disabled -> ACTIVATE_SERVICENAME && SERVICENAME_ENABLE_CONNECTOR
+Service container enabled + Backend connection disabled -> ACTIVATE_SERVICENAME && SERVICENAME_ENABLE_CONNECTOR
 
-Service container disabled - Backend connection enable -> SERVICENAME_HOST
+Service container disabled + Backend connection enable -> SERVICENAME_HOST
 
-Service container disabled - Backend connection disabled -> nothing
+Service container disabled + Backend connection disabled -> nothing
 
 
 

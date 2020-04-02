@@ -1,8 +1,23 @@
-***Work in progress...***
+<!--ts-->
+   * [Create a new RAPyDo-based project](docs/developers/developer_guide.md#create-a-new-rapydo-based-project)
+   * [Services](docs/developers/developer_guide.md#services)
+      * [Enable a service](docs/developers/developer_guide.md#enable-a-service)
+      * [Enable Rabbit Management Plugin](docs/developers/developer_guide.md#enable-rabbit-management-plugin)
+      * [Add a new service](docs/developers/developer_guide.md#add-a-new-service)
+   * [Backend development](docs/developers/developer_guide.md#backend-development)
+      * [security](docs/developers/developer_guide.md#security)
+      * [rest classes](docs/developers/developer_guide.md#rest-classes)
+      * [base endpoints](docs/developers/developer_guide.md#base-endpoints)
+      * [flask injections](docs/developers/developer_guide.md#flask-injections)
+      * [ORM](docs/developers/developer_guide.md#orm)
+      * [Asynchrounous tasks](docs/developers/developer_guide.md#asynchrounous-tasks)
+      * [Unittests](docs/developers/developer_guide.md#unittests)
+   * [Frontend framework](docs/developers/developer_guide.md#frontend-framework)
+   * [Upgrade to a new version](docs/developers/developer_guide.md#upgrade-to-a-new-version)
 
-# Index of contents
+<!-- Added by: mattia, at: gio  2 apr 2020, 16.47.28, CEST -->
 
-[TOC]
+<!--te-->
 
 # Create a new RAPyDo-based project
 

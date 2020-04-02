@@ -27,13 +27,7 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
 
 
 
-____
-
-
 # Table of Contents
-
-   * [RAPyDo framework](README.md#rapydo-framework)
-      * [Why to use RAPyDo?](README.md#why-to-use-rapydo)
 
    * [Main features](docs/users/user_guide.md#main-features)
       * [Project Configuration](docs/users/user_guide.md#project-configuration)

@@ -1,11 +1,29 @@
-***Work in progress...***
+<!--ts-->
+   * [Main features](docs/users/user_guide.md#main-features)
+      * [Project Configuration](docs/users/user_guide.md#project-configuration)
+      * [Stacks](docs/users/user_guide.md#stacks)
+      * [Services](docs/users/user_guide.md#services)
+      * [Swagger](docs/users/user_guide.md#swagger)
+      * [Containers builds](docs/users/user_guide.md#containers-builds)
+      * [Interfaces](docs/users/user_guide.md#interfaces)
+      * [Multi projects](docs/users/user_guide.md#multi-projects)
+      * [Production mode](docs/users/user_guide.md#production-mode)
+      * [SSL Certificates](docs/users/user_guide.md#ssl-certificates)
+   * [Upgrade to a new version](docs/users/user_guide.md#upgrade-to-a-new-version)
+   * [Tips and Tricks](docs/users/user_guide.md#tips-and-tricks)
+      * [Differences between start and restart](docs/users/user_guide.md#differences-between-start-and-restart)
+      * [Automatic certificate renew by using crontab](docs/users/user_guide.md#automatic-certificate-renew-by-using-crontab)
+   * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
+      * [Errors when submitting celery taks in RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-taks-in-rapydo-073)
+      * [Networks need to be recreated in RAPyDo 0.7.2 ](docs/users/user_guide.md#networks-need-to-be-recreated-in-rapydo-072)
+      * [PostgreSQL fails to start in RAPyDo 0.6.7](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-067)
+      * [PostgreSQL fails to start in RAPyDo 0.7.1](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-071)
+      * [Celery/backend fail to start in RAPyDo 0.7.1](docs/users/user_guide.md#celerybackend-fail-to-start-in-rapydo-071)
+      * [ssl-certificate command fails in RAPyDo 0.6.7](docs/users/user_guide.md#ssl-certificate-command-fails-in-rapydo-067)
 
-# Index of contents
+<!-- Added by: mattia, at: gio  2 apr 2020, 16.47.28, CEST -->
 
-*to be defined...*
-
-[TOC]
-
+<!--te-->
 
 
 # Main features
@@ -225,7 +243,7 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 
 # Known issues post-upgrade
 
-## Errors during submit of celery taks in RAPyDo 0.7.3
+## Errors when submitting celery taks in RAPyDo 0.7.3
 
 Backend fails to submit any celery task and raises the following error:
 

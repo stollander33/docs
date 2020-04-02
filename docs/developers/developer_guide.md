@@ -1,22 +1,22 @@
 <!--ts-->
-   * [Developer Guide](docs/developers/developer_guide.md#developer-guide)
-      * [Create a new RAPyDo-based project](docs/developers/developer_guide.md#create-a-new-rapydo-based-project)
-      * [Services](docs/developers/developer_guide.md#services)
-         * [Enable a service](docs/developers/developer_guide.md#enable-a-service)
-         * [Enable Rabbit Management Plugin](docs/developers/developer_guide.md#enable-rabbit-management-plugin)
-         * [Add a new service](docs/developers/developer_guide.md#add-a-new-service)
-      * [Backend development](docs/developers/developer_guide.md#backend-development)
-         * [Security](docs/developers/developer_guide.md#security)
-         * [REST classes](docs/developers/developer_guide.md#rest-classes)
-         * [Base endpoints](docs/developers/developer_guide.md#base-endpoints)
-         * [Services injections](docs/developers/developer_guide.md#services-injections)
-         * [ORM](docs/developers/developer_guide.md#orm)
-         * [Asynchronous tasks](docs/developers/developer_guide.md#asynchronous-tasks)
-         * [Unit tests](docs/developers/developer_guide.md#unit-tests)
-         * [Frontend framework](docs/developers/developer_guide.md#frontend-framework)
-      * [Upgrade to a new version](docs/developers/developer_guide.md#upgrade-to-a-new-version)
+   * [Developer Guide](#developer-guide)
+      * [Create a new RAPyDo-based project](#create-a-new-rapydo-based-project)
+      * [Services](#services)
+         * [Enable a service](#enable-a-service)
+         * [Enable Rabbit Management Plugin](#enable-rabbit-management-plugin)
+         * [Add a new service](#add-a-new-service)
+      * [Backend development](#backend-development)
+         * [Security](#security)
+         * [REST classes](#rest-classes)
+         * [Base endpoints](#base-endpoints)
+         * [Services injections](#services-injections)
+         * [ORM](#orm)
+         * [Asynchronous tasks](#asynchronous-tasks)
+         * [Unit tests](#unit-tests)
+         * [Frontend framework](#frontend-framework)
+      * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mattia, at: gio  2 apr 2020, 16.57.35, CEST -->
+<!-- Added by: mattia, at: gio  2 apr 2020, 17.00.54, CEST -->
 
 <!--te-->
 

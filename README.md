@@ -34,7 +34,6 @@ ____
 
    * [RAPyDo framework](README.md#rapydo-framework)
       * [Why to use RAPyDo?](README.md#why-to-use-rapydo)
-   * [Table of Contents](README.md#table-of-contents)
 
    * [Main features](docs/users/user_guide.md#main-features)
       * [Project Configuration](docs/users/user_guide.md#project-configuration)

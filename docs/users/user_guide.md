@@ -210,8 +210,6 @@ If your project extends the base images you can build them with the `rapydo buil
 
 Your upgrade procedure is now completed, you are able to start your stack with `rapydo start`
 
-[Back to the index](#index-of-contents)
-
 # Tips and Tricks
 
 ## Differences between start and restart
@@ -234,10 +232,8 @@ Crontab have some limitations due to the simplified environment used to execute 
 The following crontab entry is able to renew the SSL certificate every Monday at 00:00 AM
 
 ```
-0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl-certificate --no-tty > ~/cron.log 2>&1 
+0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl --no-tty > ~/cron.log 2>&1 
 ```
-
-[Back to the index](#index-of-contents)
 
 
 
@@ -318,5 +314,3 @@ If the ssl-certificate command fails with the following error:
 1. upgrade your project to RAPyDo version 0.7.0
 2. if you are using RAPyDo 0.6.7 you can rebuild your proxy (rapydo -s proxy build -rf && rapydo start)
 3. You can upgrade letsencrypt by yourself by executing the following command into the proxy container: `/acme/acme.sh --upgrade --home /acme`
-
-[Back to the index](#index-of-contents)

@@ -1,25 +1,28 @@
 <!--ts-->
-   * [Create a new RAPyDo-based project](docs/developers/developer_guide.md#create-a-new-rapydo-based-project)
-   * [Services](docs/developers/developer_guide.md#services)
-      * [Enable a service](docs/developers/developer_guide.md#enable-a-service)
-      * [Enable Rabbit Management Plugin](docs/developers/developer_guide.md#enable-rabbit-management-plugin)
-      * [Add a new service](docs/developers/developer_guide.md#add-a-new-service)
-   * [Backend development](docs/developers/developer_guide.md#backend-development)
-      * [security](docs/developers/developer_guide.md#security)
-      * [rest classes](docs/developers/developer_guide.md#rest-classes)
-      * [base endpoints](docs/developers/developer_guide.md#base-endpoints)
-      * [flask injections](docs/developers/developer_guide.md#flask-injections)
-      * [ORM](docs/developers/developer_guide.md#orm)
-      * [Asynchrounous tasks](docs/developers/developer_guide.md#asynchrounous-tasks)
-      * [Unittests](docs/developers/developer_guide.md#unittests)
-   * [Frontend framework](docs/developers/developer_guide.md#frontend-framework)
-   * [Upgrade to a new version](docs/developers/developer_guide.md#upgrade-to-a-new-version)
+   * [Developer Guide](docs/developers/developer_guide.md#developer-guide)
+      * [Create a new RAPyDo-based project](docs/developers/developer_guide.md#create-a-new-rapydo-based-project)
+      * [Services](docs/developers/developer_guide.md#services)
+         * [Enable a service](docs/developers/developer_guide.md#enable-a-service)
+         * [Enable Rabbit Management Plugin](docs/developers/developer_guide.md#enable-rabbit-management-plugin)
+         * [Add a new service](docs/developers/developer_guide.md#add-a-new-service)
+      * [Backend development](docs/developers/developer_guide.md#backend-development)
+         * [Security](docs/developers/developer_guide.md#security)
+         * [REST classes](docs/developers/developer_guide.md#rest-classes)
+         * [Base endpoints](docs/developers/developer_guide.md#base-endpoints)
+         * [Services injections](docs/developers/developer_guide.md#services-injections)
+         * [ORM](docs/developers/developer_guide.md#orm)
+         * [Asynchronous tasks](docs/developers/developer_guide.md#asynchronous-tasks)
+         * [Unit tests](docs/developers/developer_guide.md#unit-tests)
+         * [Frontend framework](docs/developers/developer_guide.md#frontend-framework)
+      * [Upgrade to a new version](docs/developers/developer_guide.md#upgrade-to-a-new-version)
 
-<!-- Added by: mattia, at: gio  2 apr 2020, 16.47.28, CEST -->
+<!-- Added by: mattia, at: gio  2 apr 2020, 16.57.35, CEST -->
 
 <!--te-->
 
-# Create a new RAPyDo-based project
+# Developer Guide
+
+## Create a new RAPyDo-based project
 
 Start by installing requisites and the rapydo-controller (as for the [User guide](docs/users/quick_start_users.md))
 
@@ -58,9 +61,9 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 
 
-# Services
+## Services
 
-## Enable a service
+### Enable a service
 
 You can list active services with `rapydo list --services`
 
@@ -93,7 +96,7 @@ Service container disabled + Backend connection disabled -> nothing
 
 
 
-## Enable Rabbit Management Plugin
+### Enable Rabbit Management Plugin
 
 Management plugin is disabled by default, you can activate by adding the following variabile to your project_configuration or .proectrc:
 
@@ -109,7 +112,7 @@ To enable access to queue you can also add:
 
 ​      `- ${RABBITMQ_PORT}:${RABBITMQ_PORT}`
 
-## Add a new service
+### Add a new service
 
 RAPyDo is designed to be easily extended with new services in addition to those already provided. For instance, let's suppose we want to add Apache NiFi. We have to add the new service in {custom}/confs/common.yml and activate it from the {custom}/project_configuration.yml
 
@@ -139,22 +142,22 @@ and `rapydo start` will do the rest
 
 
 
-# Backend development
+## Backend development
 
 (warning: copy-pasted from an old documentation, to be revised!)
 
-## security
+### Security
 
 Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`.
 
 Oauth2 and 2 factor authentication is already integrated (through TOTP).
 The nginx reverse proxy has been tested in many production system.
 
-## rest classes
+### REST classes
 
-RAPyDO is Object oriented (thanks to the `Flask-Restful` plugin): each endpoint is mapped to a class and automatically configured. The class associated to an endpoint is provided in the swagger configuration (and then removed from the public view). One method can be mapped to multiple endpoints paths (e.g. if you need some aliasing).
+RAPyDO is Object Oriented (thanks to the `Flask-Restful` plugin): each endpoint is mapped to a class and automatically configured. The class associated to an endpoint is provided in the swagger configuration (and then removed from the public view). One method can be mapped to multiple endpoints paths (e.g. if you need some aliasing).
 
-## base endpoints
+### Base endpoints
 
 Helper endpoints are provided out of the box:
 
@@ -166,7 +169,7 @@ Helper endpoints are provided out of the box:
 - `/auth/tokens`
 - `/auth/profile`
 
-## flask injections
+### Services injections
 
 The real first pain point we had to solve in our experience while working with Flask when containers were yet limited in their experience (at least a few years ago) was a dynamic injections of only the services configurated in the RAPyDO YAML files.
 
@@ -176,7 +179,7 @@ It doesn't matter what is your mode (internal with no credentials, or external w
 
 NOTE: connections are kept globally in a pool to optimize the consumption of resources; you can force an instance to be recreated.
 
-## ORM
+### ORM
 
 Each service may be used as an ORM, if the equivalent python library exists. The base models and the custom models are pre loaded into the service objects at server startup.
 
@@ -191,20 +194,20 @@ Where `MyModel` was defined inside your project custom `models/mongo.py` file.
 
 For each service base models are provided to describe a User/Role approach to authentication.
 
-## Asynchrounous tasks
+### Asynchronous tasks
 
-Celery tasks can be easily activated to be able to launch and control from any endpoint async tasks.
+Celery tasks can be easily activated to be able to launch and control from any endpoint asynchronous tasks.
 Tasks can be monitored directly from endpoints or from the `flower` UI.
 Tasks can save progress, return status, send emails.
 
-## Unittests
+### Unit tests
 
 `py.tests` is supported by default.
-A unittest is a class in a separated `tests` folder, where you extend the existing base class from where you inherit methods to authenticate and handle tokens.
+A unit test is a class in a separated `tests` folder, where you extend the existing base class from where you inherit methods to authenticate and handle tokens.
 
 
 
-# Frontend framework
+### Frontend framework
 
 `Angular` is already integrated as base framework for the frontend part.
 The base authentication (profile, change password, reset password, session lists, JWT tokens) endpoints are already tested inside the base TS code.
@@ -215,7 +218,7 @@ NOTE: we are looking for `react` to be integrated as well!
 
 
 
-# Upgrade to a new version
+## Upgrade to a new version
 
 Let's say your project is based on version A and you want to upgrade it to version B.
 

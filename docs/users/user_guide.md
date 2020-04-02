@@ -1,32 +1,32 @@
 <!--ts-->
-   * [Main features](docs/users/user_guide.md#main-features)
+   * [User Guide](docs/users/user_guide.md#user-guide)
       * [Project Configuration](docs/users/user_guide.md#project-configuration)
-      * [Stacks](docs/users/user_guide.md#stacks)
-      * [Services](docs/users/user_guide.md#services)
-      * [Swagger](docs/users/user_guide.md#swagger)
-      * [Containers builds](docs/users/user_guide.md#containers-builds)
-      * [Interfaces](docs/users/user_guide.md#interfaces)
-      * [Multi projects](docs/users/user_guide.md#multi-projects)
-      * [Production mode](docs/users/user_guide.md#production-mode)
-      * [SSL Certificates](docs/users/user_guide.md#ssl-certificates)
-   * [Upgrade to a new version](docs/users/user_guide.md#upgrade-to-a-new-version)
-   * [Tips and Tricks](docs/users/user_guide.md#tips-and-tricks)
-      * [Differences between start and restart](docs/users/user_guide.md#differences-between-start-and-restart)
-      * [Automatic certificate renew by using crontab](docs/users/user_guide.md#automatic-certificate-renew-by-using-crontab)
-   * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
-      * [Errors when submitting celery taks in RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-taks-in-rapydo-073)
-      * [Networks need to be recreated in RAPyDo 0.7.2 ](docs/users/user_guide.md#networks-need-to-be-recreated-in-rapydo-072)
-      * [PostgreSQL fails to start in RAPyDo 0.6.7](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-067)
-      * [PostgreSQL fails to start in RAPyDo 0.7.1](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-071)
-      * [Celery/backend fail to start in RAPyDo 0.7.1](docs/users/user_guide.md#celerybackend-fail-to-start-in-rapydo-071)
-      * [ssl-certificate command fails in RAPyDo 0.6.7](docs/users/user_guide.md#ssl-certificate-command-fails-in-rapydo-067)
+         * [Stacks](docs/users/user_guide.md#stacks)
+         * [Services](docs/users/user_guide.md#services)
+         * [Swagger](docs/users/user_guide.md#swagger)
+         * [Containers builds](docs/users/user_guide.md#containers-builds)
+         * [Interfaces](docs/users/user_guide.md#interfaces)
+         * [Multi projects](docs/users/user_guide.md#multi-projects)
+         * [Production mode](docs/users/user_guide.md#production-mode)
+         * [SSL Certificates](docs/users/user_guide.md#ssl-certificates)
+      * [Upgrade to a new version](docs/users/user_guide.md#upgrade-to-a-new-version)
+      * [Tips and Tricks](docs/users/user_guide.md#tips-and-tricks)
+         * [Differences between start and restart](docs/users/user_guide.md#differences-between-start-and-restart)
+         * [Automatic certificate renew by using crontab](docs/users/user_guide.md#automatic-certificate-renew-by-using-crontab)
+      * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
+         * [Errors when submitting celery taks in RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-taks-in-rapydo-073)
+         * [Networks need to be recreated in RAPyDo 0.7.2 ](docs/users/user_guide.md#networks-need-to-be-recreated-in-rapydo-072)
+         * [PostgreSQL fails to start in RAPyDo 0.6.7](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-067)
+         * [PostgreSQL fails to start in RAPyDo 0.7.1](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-071)
+         * [Celery/backend fail to start in RAPyDo 0.7.1](docs/users/user_guide.md#celerybackend-fail-to-start-in-rapydo-071)
+         * [ssl-certificate command fails in RAPyDo 0.6.7](docs/users/user_guide.md#ssl-certificate-command-fails-in-rapydo-067)
 
-<!-- Added by: mattia, at: gio  2 apr 2020, 16.47.28, CEST -->
+<!-- Added by: mattia, at: gio  2 apr 2020, 16.57.35, CEST -->
 
 <!--te-->
 
 
-# Main features
+# User Guide
 
 ## Project Configuration
 
@@ -57,9 +57,7 @@ Here a typical `.projectrc` file:
 
 ​      `other variabiles...`
 
-
-
-## Stacks
+### Stacks
 
 In every project there is a set configurations that you would like to use to switch one from another quickly. Even if not the case there should be at least two modes: 
 
@@ -76,7 +74,7 @@ The final configuration you will use in every RAPyDo command is based on:
 
 Default stacks (development and production) are automatically enabled
 
-## Services
+### Services
 
 RAPyDo is of course containers oriented. This means that services can be easily added to be tested locally. We tested the most commons in our projects thus they are already integrated and all set:
 
@@ -95,15 +93,15 @@ More services can be added as long as you can provide a container image (officia
 
 In a stack (e.g. in production) you may choose to switch to external existing services by simply overriding the SERVICE configuration (HOST, PORT, etc), without changing your endpoint code.
 
-## Swagger
+### Swagger
 
 The [OpenAPI standard]() has helped us many times to show to clients the experience of HTTP API services without even using a frontend. This is why every endpoint defined with RAPyDo is fully OpenAPI-compliant and included in a Swagger specification file available at the /api/specs endpoint. NOTE: we are changing the way endpoints are defined within RAPyDo. This will affect how we will make use of Swagger and OpenAPI, but in every case the final output will continue to be fully fully OpenAPI-compliant.
 
-## Containers builds
+### Containers builds
 
 All core RAPyDo images are automatically built and pushed on the Docker Hub. You can download all required images by using the `rapydo pull` command. A project can extend a base image (e.g. to intall additional libraries required for custom endpoints). Custom images can be build by using the `rapydo build` command.
 
-## Interfaces
+### Interfaces
 
 A set of interfaces can be launched as containers to help with many services:
 
@@ -114,7 +112,7 @@ A set of interfaces can be launched as containers to help with many services:
 
 All interfaces can be executed by using the `rapydo interfaces` command
 
-## Multi projects
+### Multi projects
 
 The same repository can host different projects. This action came handy quite a lot of times when a similar project has to be maintaned in the same repo by the same people.
 
@@ -122,7 +120,7 @@ If the project is only one (the usual situation) it is used as default.
 
 To switch projects you can use the `--project` command line parameter or set it inside the `.projectrc` file.
 
-## Production mode
+### Production mode
 
 In production mode an additional container based on [NGINX](https://www.nginx.com/) is added to your stack. NGINX is a reverse proxy ensuring security and additional performances to your project. Furthermore it support SSL certificates to enable HTTPS connections.
 
@@ -132,12 +130,12 @@ To ensure the option is always activated you can save it in a `.projectrc` file 
 
 `production: True`
 
-## SSL Certificates
+### SSL Certificates
 
 RAPyDo supports [Let's Encrypt](https://letsencrypt.org/) to automatically deploy SSL certificates. Once started your project in production mode you can request for a SSL certificate with the following command:
 
 ```
-rapydo ssl-certificate
+rapydo ssl
 ```
 
 To let this command properly works please verify that:
@@ -148,7 +146,7 @@ To let this command properly works please verify that:
 
 Let's Encrypt certificates expire in 90 days, you can renew them by executing again the `rapydo ssl-certificate` command.
 
-# Upgrade to a new version
+## Upgrade to a new version
 
 We assume that you already have a working deployment of your project (let's name it YOUR_PROJECT) based on version X and you want to upgrade to the new version Y.
 
@@ -156,13 +154,9 @@ We assume that you already have a working deployment of your project (let's name
 
 `rapydo remove`
 
-
-
 **2 - Switch your git branch to the new version X**
 
 `git fetch && git checkout X`
-
-
 
 **3 - Upgrade your RAPyDo controller**
 
@@ -176,15 +170,11 @@ Otherwise you can install the latest version with pip and then use the *auto* fl
 
 `pip3 install --upgrade rapydo-controller && rapydo install auto`
 
-
-
 **4 - Reinitialize your project**
 
 `rapydo init`
 
 This step will verify your submodules and will switch them to the correct branch if required.
-
-
 
 **5 - Update your submodules**
 
@@ -192,33 +182,27 @@ This step will verify your submodules and will switch them to the correct branch
 
 To skip updates of your main branch and only update your submodules: `rapydo update -i main`
 
-
-
 **6 - Pull new base images**
 
 You can download updated base images with the `rapydo pull` command. This command will automatically fetch these images from the Docker Hub
-
-
 
 **7 - Build project images (optional)**
 
 If your project extends the base images you can build them with the `rapydo build`. This step is always optional, if missing custom images will be automatically built when the stack will be execued
 
-
-
 **8 - Upgrade completed**
 
 Your upgrade procedure is now completed, you are able to start your stack with `rapydo start`
 
-# Tips and Tricks
+## Tips and Tricks
 
-## Differences between start and restart
+### Differences between start and restart
 
 The two commands (`rapydo start` and `rapydo restart`) can be quite confusing and it can be difficult to understand when to use one and when the other. The start command is based on the `docker-compose up` command and it is able to start the docker containers. The restart command is based on the `docker-compose restart` command and it is able to restart the main service of a container. Furthermore the start command is able to re-create the container when docker definition changes (e.g. an environment variable changed, a volume is added, porting mapping is changed, docker image is rebuilt, etc).
 
 Use the start or the restart command depends from the kind of changes that you need to deploy. If the changes are at docker level, then you have to use the start command. If the changes are at software and service level, you have to use the restart command.
 
-## Automatic certificate renew by using crontab
+### Automatic certificate renew by using crontab
 
 To make sure your certificate is always up-to-date you can setup a cron job to automatize the certificate renew. You can configure crontab to perform this work for you.
 
@@ -237,9 +221,9 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 
 
 
-# Known issues post-upgrade
+## Known issues post-upgrade
 
-## Errors when submitting celery taks in RAPyDo 0.7.3
+### Errors when submitting celery taks in RAPyDo 0.7.3
 
 Backend fails to submit any celery task and raises the following error:
 
@@ -255,7 +239,7 @@ RAPyDo 0.7.3 enabled priority management in celery and this requires a specific 
 
    
 
-## Networks need to be recreated in RAPyDo 0.7.2+
+### Networks need to be recreated in RAPyDo 0.7.2+
 
 Due to network constraints in some virtual environment, RAPyDo 0.7.2 implemented an option to change the MTU used to create networks (NETWORK_MTU, defaulted to 1500). This new option changed the network definition even if no NETWORK_MTU is specified and services fail to start with the following message:
 
@@ -272,7 +256,7 @@ As an alternative option you can remove the network(s) by hand with `docker netw
 
 
 
-## PostgreSQL fails to start in RAPyDo 0.6.7
+### PostgreSQL fails to start in RAPyDo 0.6.7
 
 RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases created with psq10 are not compatible with psq11 and your container will fail to start with the following error:
 
@@ -293,11 +277,11 @@ RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases create
 
 ​    If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
 
-## PostgreSQL fails to start in RAPyDo 0.7.1
+### PostgreSQL fails to start in RAPyDo 0.7.1
 
 RAPyDo 0.7.1 upgraded the PostgreSQL version from 11.5 to 12.1. Databases created with psq11 are not compatible with psq12 and your container will fail to start. Please follow the section above for all possible fixes.
 
-## Celery/backend fail to start in RAPyDo 0.7.1
+### Celery/backend fail to start in RAPyDo 0.7.1
 
 RAPyDo 0.7.1 introduced explicit password setting for RabbitMQ default credentials and, if missing, you will be asked to set RABBITMQ_USER and RABBITMQ_PASSWORD variables in your .projectrc file. You can set whatever you want and these variables will be used to create the default admin user in rabbit. But if your Rabbit instance has been previously created an admin user is already created with default guest/guest credentials. Celery and backend will be unable to connect to Rabbit due to a credentials mismatch. To fix this issue you have three options:
 
@@ -305,7 +289,7 @@ RAPyDo 0.7.1 introduced explicit password setting for RabbitMQ default credentia
 2. destroy the rabbit volume to inject a new admin user (`rapydo remove && docker volume rm YOUR_PROJECT_rabbit && rapydo start `). You will lose all your Rabbit (this is irrilevant, except if you are using Rabbit for other purpose  than RAPyDo)
 3. enter the rabbit container and create a new user / change the user password to match the settings
 
-## ssl-certificate command fails in RAPyDo 0.6.7
+### ssl-certificate command fails in RAPyDo 0.6.7
 
 If the ssl-certificate command fails with the following error:
 

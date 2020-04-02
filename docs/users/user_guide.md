@@ -134,19 +134,19 @@ Let's Encrypt certificates expire in 90 days, you can renew them by executing ag
 
 We assume that you already have a working deployment of your project (let's name it YOUR_PROJECT) based on version X and you want to upgrade to the new version Y.
 
-#### 1 - Stop the current stack
+**1 - Stop the current stack**
 
 `rapydo remove`
 
 
 
-#### 2 - Switch your git branch to the new version X
+**2 - Switch your git branch to the new version X**
 
 `git fetch && git checkout X`
 
 
 
-#### 3 - Upgrade your RAPyDo controller
+**3 - Upgrade your RAPyDo controller**
 
 `rapydo install auto`
 
@@ -160,7 +160,7 @@ Otherwise you can install the latest version with pip and then use the *auto* fl
 
 
 
-#### 4 - Reinitialize your project
+**4 - Reinitialize your project**
 
 `rapydo init`
 
@@ -168,7 +168,7 @@ This step will verify your submodules and will switch them to the correct branch
 
 
 
-#### 5 - Update your submodules
+**5 - Update your submodules**
 
 `rapydo update`
 
@@ -176,19 +176,19 @@ To skip updates of your main branch and only update your submodules: `rapydo upd
 
 
 
-#### 6 - Pull new base images
+**6 - Pull new base images**
 
 You can download updated base images with the `rapydo pull` command. This command will automatically fetch these images from the Docker Hub
 
 
 
-#### 7 - Build project images (optional)
+**7 - Build project images (optional)**
 
 If your project extends the base images you can build them with the `rapydo build`. This step is always optional, if missing custom images will be automatically built when the stack will be execued
 
 
 
-#### 8 - Upgrade completed
+**8 - Upgrade completed**
 
 Your upgrade procedure is now completed, you are able to start your stack with `rapydo start`
 

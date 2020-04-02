@@ -128,18 +128,18 @@ and `rapydo start` will do the rest
 
 (warning: copy-pasted from an old documentation, to be revised!)
 
-### security
+## security
 
 Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`.
 
 Oauth2 and 2 factor authentication is already integrated (through TOTP).
 The nginx reverse proxy has been tested in many production system.
 
-### rest classes
+## rest classes
 
 RAPyDO is Object oriented (thanks to the `Flask-Restful` plugin): each endpoint is mapped to a class and automatically configured. The class associated to an endpoint is provided in the swagger configuration (and then removed from the public view). One method can be mapped to multiple endpoints paths (e.g. if you need some aliasing).
 
-### base endpoints
+## base endpoints
 
 Helper endpoints are provided out of the box:
 
@@ -151,7 +151,7 @@ Helper endpoints are provided out of the box:
 - `/auth/tokens`
 - `/auth/profile`
 
-### flask injections
+## flask injections
 
 The real first pain point we had to solve in our experience while working with Flask when containers were yet limited in their experience (at least a few years ago) was a dynamic injections of only the services configurated in the RAPyDO YAML files.
 
@@ -161,7 +161,7 @@ It doesn't matter what is your mode (internal with no credentials, or external w
 
 NOTE: connections are kept globally in a pool to optimize the consumption of resources; you can force an instance to be recreated.
 
-### orm
+## ORM
 
 Each service may be used as an ORM, if the equivalent python library exists. The base models and the custom models are pre loaded into the service objects at server startup.
 
@@ -176,17 +176,13 @@ Where `MyModel` was defined inside your project custom `models/mongo.py` file.
 
 For each service base models are provided to describe a User/Role approach to authentication.
 
-### logging
-
-Logging has been made super easy. We added VERY_VERBOSE and VERBOSE to the standard sets of debug levels. You can activate colors, pretty print objects, and ultimately redirect containers logs into elasticsearch through LogSprut
-
-### asynchrounous tasks
+## Asynchrounous tasks
 
 Celery tasks can be easily activated to be able to launch and control from any endpoint async tasks.
 Tasks can be monitored directly from endpoints or from the `flower` UI.
 Tasks can save progress, return status, send emails.
 
-### unittests
+## Unittests
 
 `py.tests` is supported by default.
 A unittest is a class in a separated `tests` folder, where you extend the existing base class from where you inherit methods to authenticate and handle tokens.

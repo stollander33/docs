@@ -1,4 +1,7 @@
+*Developer Guide - Table of Contents*
+
 <!--ts-->
+
    * [Developer Guide](#developer-guide)
       * [Create a new RAPyDo-based project](#create-a-new-rapydo-based-project)
       * [Services](#services)

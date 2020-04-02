@@ -1,4 +1,7 @@
+*User Guide - Table of Contents*
+
 <!--ts-->
+
    * [User Guide](#user-guide)
       * [Project Configuration](#project-configuration)
          * [Stacks](#stacks)

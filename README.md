@@ -46,7 +46,6 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
       * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
          * [Errors when submitting celery taks in RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-taks-in-rapydo-073)
          * [Networks need to be recreated in RAPyDo 0.7.2 ](docs/users/user_guide.md#networks-need-to-be-recreated-in-rapydo-072)
-         * [PostgreSQL fails to start in RAPyDo 0.6.7](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-067)
          * [PostgreSQL fails to start in RAPyDo 0.7.1](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-071)
          * [Celery/backend fail to start in RAPyDo 0.7.1](docs/users/user_guide.md#celerybackend-fail-to-start-in-rapydo-071)
          * [ssl-certificate command fails in RAPyDo 0.6.7](docs/users/user_guide.md#ssl-certificate-command-fails-in-rapydo-067)

@@ -1,7 +1,6 @@
 *Developer Guide - Table of Contents*
 
 <!--ts-->
-
    * [Developer Guide](#developer-guide)
       * [Create a new RAPyDo-based project](#create-a-new-rapydo-based-project)
       * [Services](#services)
@@ -19,7 +18,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mattia, at: gio  2 apr 2020, 17.00.54, CEST -->
+<!-- Added by: mattia, at: gio 16 apr 2020, 07.38.46, CEST -->
 
 <!--te-->
 

@@ -1,7 +1,6 @@
 *User Guide - Table of Contents*
 
 <!--ts-->
-
    * [User Guide](#user-guide)
       * [Project Configuration](#project-configuration)
          * [Stacks](#stacks)
@@ -19,12 +18,11 @@
       * [Known issues post-upgrade](#known-issues-post-upgrade)
          * [Errors when submitting celery taks in RAPyDo 0.7.3](#errors-when-submitting-celery-taks-in-rapydo-073)
          * [Networks need to be recreated in RAPyDo 0.7.2 ](#networks-need-to-be-recreated-in-rapydo-072)
-         * [PostgreSQL fails to start in RAPyDo 0.6.7](#postgresql-fails-to-start-in-rapydo-067)
          * [PostgreSQL fails to start in RAPyDo 0.7.1](#postgresql-fails-to-start-in-rapydo-071)
          * [Celery/backend fail to start in RAPyDo 0.7.1](#celerybackend-fail-to-start-in-rapydo-071)
          * [ssl-certificate command fails in RAPyDo 0.6.7](#ssl-certificate-command-fails-in-rapydo-067)
 
-<!-- Added by: mattia, at: gio  2 apr 2020, 17.00.54, CEST -->
+<!-- Added by: mattia, at: gio 16 apr 2020, 07.38.45, CEST -->
 
 <!--te-->
 
@@ -259,17 +257,15 @@ As an alternative option you can remove the network(s) by hand with `docker netw
 
 
 
-### PostgreSQL fails to start in RAPyDo 0.6.7
+### PostgreSQL fails to start in RAPyDo 0.7.1
 
-RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases created with psq10 are not compatible with psq11 and your container will fail to start with the following error:
+RAPyDo 0.7.1 upgraded the PostgreSQL version from 11.5 to 12.1. Databases created with psq11 are not compatible with psq12 and your container will fail to start with the following error:
 
   > FATAL:  database files are incompatible with server
   >
-  > DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.4.
+  > DETAIL:  The data directory was initialized by PostgreSQL version 11, which is not compatible with this version 12.1.
 
-  
-
-  If your database is only used to store sessions you can simply destroy the database volume and re-initialize it
+​    If your database is only used to store sessions you can simply destroy the database volume and re-initialize it
 
 1. stop the stack:  `rapydo remove`
 2. delete the sql data volume: `docker volume rm YOUR_PROJECT_sqldata`
@@ -280,9 +276,9 @@ RAPyDo 0.6.7 upgraded the PostgreSQL version from 10.7 to 11.4. Databases create
 
 ​    If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
 
-### PostgreSQL fails to start in RAPyDo 0.7.1
+The same issue already happened with RAPyDo 0.6.7 with the upgrade of PostgreSQL from 10.7 to 11.4 and the same will happen again when we will upgrade from version 12.x to version 13.x
 
-RAPyDo 0.7.1 upgraded the PostgreSQL version from 11.5 to 12.1. Databases created with psq11 are not compatible with psq12 and your container will fail to start. Please follow the section above for all possible fixes.
+### 
 
 ### Celery/backend fail to start in RAPyDo 0.7.1
 

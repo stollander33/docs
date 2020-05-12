@@ -16,13 +16,13 @@
          * [Differences between start and restart](#differences-between-start-and-restart)
          * [Automatic certificate renew by using crontab](#automatic-certificate-renew-by-using-crontab)
       * [Known issues post-upgrade](#known-issues-post-upgrade)
-         * [Errors when submitting celery taks in RAPyDo 0.7.3](#errors-when-submitting-celery-taks-in-rapydo-073)
+         * [Errors when submitting celery tasks in RAPyDo 0.7.3](#errors-when-submitting-celery-tasks-in-rapydo-073)
          * [Networks need to be recreated in RAPyDo 0.7.2 ](#networks-need-to-be-recreated-in-rapydo-072)
          * [PostgreSQL fails to start in RAPyDo 0.7.1](#postgresql-fails-to-start-in-rapydo-071)
          * [Celery/backend fail to start in RAPyDo 0.7.1](#celerybackend-fail-to-start-in-rapydo-071)
          * [ssl-certificate command fails in RAPyDo 0.6.7](#ssl-certificate-command-fails-in-rapydo-067)
 
-<!-- Added by: mattia, at: gio 16 apr 2020, 07.38.45, CEST -->
+<!-- Added by: mdantonio, at: mar 12 mag 2020, 10:46:18, CEST -->
 
 <!--te-->
 
@@ -224,7 +224,7 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 
 ## Known issues post-upgrade
 
-### Errors when submitting celery taks in RAPyDo 0.7.3
+### Errors when submitting celery tasks in RAPyDo 0.7.3
 
 Backend fails to submit any celery task and raises the following error:
 

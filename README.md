@@ -44,7 +44,7 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
          * [Differences between start and restart](docs/users/user_guide.md#differences-between-start-and-restart)
          * [Automatic certificate renew by using crontab](docs/users/user_guide.md#automatic-certificate-renew-by-using-crontab)
       * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
-         * [Errors when submitting celery taks in RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-taks-in-rapydo-073)
+         * [Errors when submitting celery tasks in RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-tasks-in-rapydo-073)
          * [Networks need to be recreated in RAPyDo 0.7.2 ](docs/users/user_guide.md#networks-need-to-be-recreated-in-rapydo-072)
          * [PostgreSQL fails to start in RAPyDo 0.7.1](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-071)
          * [Celery/backend fail to start in RAPyDo 0.7.1](docs/users/user_guide.md#celerybackend-fail-to-start-in-rapydo-071)

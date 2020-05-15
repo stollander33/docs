@@ -22,7 +22,7 @@
          * [Celery/backend fail to start in RAPyDo 0.7.1](#celerybackend-fail-to-start-in-rapydo-071)
          * [ssl-certificate command fails in RAPyDo 0.6.7](#ssl-certificate-command-fails-in-rapydo-067)
 
-<!-- Added by: mdantonio, at: mar 12 mag 2020, 10:46:18, CEST -->
+<!-- Added by: mdantonio, at: ven 15 mag 2020, 19:23:38, CEST -->
 
 <!--te-->
 
@@ -37,7 +37,7 @@ Each project has three level of configuration:
 - project configuration (defined by a developer in `projects/YOUR_PROJECT/project_configuration.yml`)
 - instance configuration (defined by the user in a `.projectrc` file)
 
-A .projectrc file (created in the root of the project) can customize most of options by ovverriding configurations at project and RAPyDo levels
+A .projectrc file (created in the root of the project) can customize most of options by overriding configurations at project and RAPyDo levels
 
 Here a typical `.projectrc` file:
 
@@ -45,7 +45,7 @@ Here a typical `.projectrc` file:
 
 `project: your_project`
 
-`stack: your_custom_stack`
+`# stack: your_custom_stack`
 
 `hostname: localhost`
 
@@ -100,7 +100,7 @@ The [OpenAPI standard]() has helped us many times to show to clients the experie
 
 ### Containers builds
 
-All core RAPyDo images are automatically built and pushed on the Docker Hub. You can download all required images by using the `rapydo pull` command. A project can extend a base image (e.g. to intall additional libraries required for custom endpoints). Custom images can be build by using the `rapydo build` command.
+All core RAPyDo images are automatically built and pushed on the Docker Hub. You can download all required images by using the `rapydo pull` command. A project can extend a base image (e.g. to intall additional libraries required for custom endpoints). Custom images can be built by using the `rapydo build` command.
 
 ### Interfaces
 
@@ -165,12 +165,6 @@ We assume that you already have a working deployment of your project (let's name
 
 By setting the *auto* flag,  RAPyDo will understand by itself which version is required for YOUR_PROJECT.
 
-If your  installed version is too old (this flag is only available from version 0.6.6), the *auto* flag could not be supported. In this case you can understand the required version by using: `rapydo version` and then upgrade the controller with the command: `rapydo install VERSION`.
-
-Otherwise you can install the latest version with pip and then use the *auto* flag:
-
-`pip3 install --upgrade rapydo-controller && rapydo install auto`
-
 **4 - Reinitialize your project**
 
 `rapydo init`
@@ -189,7 +183,7 @@ You can download updated base images with the `rapydo pull` command. This comman
 
 **7 - Build project images (optional)**
 
-If your project extends the base images you can build them with the `rapydo build`. This step is always optional, if missing custom images will be automatically built when the stack will be execued
+If your project extends the base images you can build them with the `rapydo build`. This step is always optional, if missing custom images will be automatically built when the stack will be executed
 
 **8 - Upgrade completed**
 

@@ -18,7 +18,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: mar 12 mag 2020, 10:46:18, CEST -->
+<!-- Added by: mdantonio, at: ven 15 mag 2020, 19:23:39, CEST -->
 
 <!--te-->
 
@@ -40,26 +40,22 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
    Your project could require a different version, in this case you will be able to install the right version once configured your project
 
-3. Create a new project by using
+3. Create and enter a new directory
 
-   `rapydo create template name`
+4. Create a new project by using
 
-   template is the base project to start from. Allowed values are: sql, neo, mongo, celerytest, irodstest, centos. name is name of your new project
+   `rapydo create name --auth YOUR_AUTH_SERVICE --frontend YOUR_FRONTEND`
 
-   - sql: template project based on SQLAlchemy with PostgreSQL with Angular frontend enabled
-   - neo: template project based on neo4j with Angular frontend enabled
-   - mongo: template project based on MongoDB with Angular frontend enabled
-   - celerytest: as for the sql template with Celery and Angular frontend enabled
-   - irodstest: as for the sql template with iRODS and Angular frontend  enabled
-   - centos: template project based on SQLAlchemy with PostgreSQL deployed on Centos (all other projects are based on Ubuntu) with Angular frontend enabled
+   
 
-4. A folder with the select name will be created. Follow instructions printed by rapydo create output, i.e.
-   - cd your_project
-   - git init
+5. Follow instructions printed by rapydo create output, i.e.
    - git remote add origin https://your_remote_git/your_project.git
    - rapydo init
-5. Now you can edit your `projects/$PROJECT_NAME/project_configuration.yaml` to customize project title, description, the default user and database password.
-6. The configuration is now complete, you can start your project by following the User guide or continue to customize by enabling more services or implement endpoints
+   - rapydo pull
+
+6. Now you can edit your `projects/$PROJECT_NAME/project_configuration.yaml` to customize project title, description, the default user and database passwords.
+
+7. The configuration is now complete, you can start your project by following the User guide or continue to customize by enabling more services or implement endpoints
 
 
 

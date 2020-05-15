@@ -13,12 +13,12 @@ This a quick start guide, if you are interested in a more comprehensive guide pl
 
     Your project could require a different version, in this case you will be able to install the right version once configured your project
 
-3. clone your project
+3. clone and initialize your project
 
 ```bash
 git clone https://git.../your_project/example.git
 git checkout your_branck
-cp templates/projectrc .projectrc
+rapydo init
 ```
 
 3. Customize your `.projectrc` file. By editing this file you can override all options of your project
@@ -32,9 +32,6 @@ cp templates/projectrc .projectrc
 5. Use the controller to startup your project
 
 ```bash
-# check the status of your scaffold and
-# download others repo from the rapydo framework as submodules
-rapydo init
 # pull base images
 rapydo pull
 # launch the containers
@@ -44,7 +41,7 @@ rapydo start
 5. Launch the server in debug mode
 
 ```bash
-# check the containers running
+# check the containers are running
 rapydo status
 # open a shell in the current backend container
 rapydo shell backend

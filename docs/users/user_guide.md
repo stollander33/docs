@@ -16,13 +16,14 @@
          * [Differences between start and restart](#differences-between-start-and-restart)
          * [Automatic certificate renew by using crontab](#automatic-certificate-renew-by-using-crontab)
       * [Known issues post-upgrade](#known-issues-post-upgrade)
+         * [Neo4j fails to start in RAPyDo 0.7.4](#neo4j-fails-to-start-in-rapydo-074)
          * [Errors when submitting celery tasks in RAPyDo 0.7.3](#errors-when-submitting-celery-tasks-in-rapydo-073)
          * [Networks need to be recreated in RAPyDo 0.7.2 ](#networks-need-to-be-recreated-in-rapydo-072)
          * [PostgreSQL fails to start in RAPyDo 0.7.1](#postgresql-fails-to-start-in-rapydo-071)
          * [Celery/backend fail to start in RAPyDo 0.7.1](#celerybackend-fail-to-start-in-rapydo-071)
          * [ssl-certificate command fails in RAPyDo 0.6.7](#ssl-certificate-command-fails-in-rapydo-067)
 
-<!-- Added by: mdantonio, at: ven 15 mag 2020, 19:23:38, CEST -->
+<!-- Added by: mdantonio, at: lun 6 lug 2020, 22:45:39, CEST -->
 
 <!--te-->
 
@@ -60,12 +61,12 @@ Here a typical `.projectrc` file:
 
 ### Stacks
 
-In every project there is a set configurations that you would like to use to switch one from another quickly. Even if not the case there should be at least two modes: 
+In every project there is a set configurations that you would like to use to switch. Even if not the case, there should be at least two modes: 
 
-1. `development` for working locally (verbose logs, auto reload and no reverse proxy)
-2. `production` for deploying the same code in production (less logs, `uwsgi` and a reverse proxy, all set to use `SSL` for free with Letsencrypt).
+1. `development` for local development (verbose logs, auto reload and no reverse proxy)
+2. `production` for deploying  the project in production (less logs, `gunicorn` and a reverse proxy, all set to use `SSL` for free with Letsencrypt).
 
-Stacks are just implemented with a `YAML` file following the usual `compose` conventions. You can create as many custom stacks as you need.
+Stacks are just implemented with a `YAML` file following the `compose` syntax. You can create as many custom stacks as you need.
 
 The final configuration you will use in every RAPyDo command is based on:
 
@@ -75,13 +76,15 @@ The final configuration you will use in every RAPyDo command is based on:
 
 Default stacks (development and production) are automatically enabled
 
+You can enable production stack by passing --production (or --prod) option to any RAPyDo command or by setting production: True in your .projectrc. You can enable any other custom stack by passing --stack STACK_NAME to any RAPyDo command or by setting stack: STACK_name in your .projectrc.
+
 ### Services
 
-RAPyDo is of course containers oriented. This means that services can be easily added to be tested locally. We tested the most commons in our projects thus they are already integrated and all set:
+RAPyDo is of course containers oriented. This means that services can be easily added to be tested locally. We tested the most commons in our projects thus they are already integrated:
 
-- Postgres
+- PostgreSQL
 - MariaDB
-- Neo4J
+- Neo4j
 - MongoDB
 - Redis
 - RabbitMQ
@@ -96,34 +99,31 @@ In a stack (e.g. in production) you may choose to switch to external existing se
 
 ### Swagger
 
-The [OpenAPI standard]() has helped us many times to show to clients the experience of HTTP API services without even using a frontend. This is why every endpoint defined with RAPyDo is fully OpenAPI-compliant and included in a Swagger specification file available at the /api/specs endpoint. NOTE: we are changing the way endpoints are defined within RAPyDo. This will affect how we will make use of Swagger and OpenAPI, but in every case the final output will continue to be fully fully OpenAPI-compliant.
+The [OpenAPI standard]() has helped us many times to show to clients the experience of HTTP API services without even using a frontend. This is why every endpoint defined with RAPyDo is fully OpenAPI-compliant and included in a Swagger specification file available at the /api/swagger endpoint.
 
 ### Containers builds
 
-All core RAPyDo images are automatically built and pushed on the Docker Hub. You can download all required images by using the `rapydo pull` command. A project can extend a base image (e.g. to intall additional libraries required for custom endpoints). Custom images can be built by using the `rapydo build` command.
+All core RAPyDo images are automatically built and pushed on the Docker Hub. You can download all required images by using the `rapydo pull` command. A project can extend a base image (e.g. to install additional libraries required for custom endpoints). Custom images can be built by using the `rapydo build` command.
 
 ### Interfaces
 
 A set of interfaces can be launched as containers to help with many services:
 
-- flower (for celery)
 - swaggerui
 - adminer for SQL servers
 - mongo express
 
-All interfaces can be executed by using the `rapydo interfaces` command
+All interfaces can be executed by using the `rapydo interfaces` command, use `rapydo interfaces list` to get all available options.
 
 ### Multi projects
 
-The same repository can host different projects. This action came handy quite a lot of times when a similar project has to be maintaned in the same repo by the same people.
+The same repository can host different projects. This action came handy quite a lot of times when a similar project has to be maintained in the same repository by the same people.
 
-If the project is only one (the usual situation) it is used as default.
-
-To switch projects you can use the `--project` command line parameter or set it inside the `.projectrc` file.
+If the project is only one it is used as default. To switch projects you can use the `--project` command line parameter or set it inside the `.projectrc` file.
 
 ### Production mode
 
-In production mode an additional container based on [NGINX](https://www.nginx.com/) is added to your stack. NGINX is a reverse proxy ensuring security and additional performances to your project. Furthermore it support SSL certificates to enable HTTPS connections.
+In production mode an additional container based on [NGINX](https://www.nginx.com/) is automatically included to your stack. NGINX is a reverse proxy ensuring security and additional performances to your project. Furthermore it support SSL certificates to enable HTTPS connections.
 
 Production mode can be enabled command line by adding the `--production` (or `--prod`) flag 
 
@@ -143,13 +143,17 @@ To let this command properly works please verify that:
 
 1. you configured a correct hostname in your .projectrc
 2. production mode is enabled
-3. your stack is already started (with rapydo start), in particular the nginx container is expected to be running
+3. your stack is already started (with `rapydo start`), in particular the nginx container is expected to be running
 
-Let's Encrypt certificates expire in 90 days, you can renew them by executing again the `rapydo ssl-certificate` command.
+If you want to issue a certificate without starting the container, you can use `rapydo ssl --volatile`
+
+Let's Encrypt certificates expire in 90 days, you can renew them by executing again the `rapydo ssl` command or by setting a cronjob like this:
+
+`0 0 * * 2 cd /prj/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl --no-tty > /logs/cron.log`
 
 ## Upgrade to a new version
 
-We assume that you already have a working deployment of your project (let's name it YOUR_PROJECT) based on version X and you want to upgrade to the new version Y.
+Let's assume that you already have a working deployment of your project (let's name it YOUR_PROJECT) based on version X and you want to upgrade to the new version Y.
 
 **1 - Stop the current stack**
 
@@ -163,7 +167,7 @@ We assume that you already have a working deployment of your project (let's name
 
 `rapydo install auto`
 
-By setting the *auto* flag,  RAPyDo will understand by itself which version is required for YOUR_PROJECT.
+By setting the *auto* flag,  RAPyDo will understand by itself which version is required by YOUR_PROJECT.
 
 **4 - Reinitialize your project**
 
@@ -175,6 +179,8 @@ This step will verify your submodules and will switch them to the correct branch
 
 `rapydo update`
 
+This step is usually not needed when submodules are switched to a new version, but it is useful in any other case. You can safely add to your swiss-knife box and execute it in any case.
+
 To skip updates of your main branch and only update your submodules: `rapydo update -i main`
 
 **6 - Pull new base images**
@@ -183,7 +189,7 @@ You can download updated base images with the `rapydo pull` command. This comman
 
 **7 - Build project images (optional)**
 
-If your project extends the base images you can build them with the `rapydo build`. This step is always optional, if missing custom images will be automatically built when the stack will be executed
+If your project extends the base images you can build them with the `rapydo build`. This step is always optional, custom images will be automatically built when the stack will be executed if not previously built.
 
 **8 - Upgrade completed**
 
@@ -193,30 +199,44 @@ Your upgrade procedure is now completed, you are able to start your stack with `
 
 ### Differences between start and restart
 
-The two commands (`rapydo start` and `rapydo restart`) can be quite confusing and it can be difficult to understand when to use one and when the other. The start command is based on the `docker-compose up` command and it is able to start the docker containers. The restart command is based on the `docker-compose restart` command and it is able to restart the main service of a container. Furthermore the start command is able to re-create the container when docker definition changes (e.g. an environment variable changed, a volume is added, porting mapping is changed, docker image is rebuilt, etc).
+The two commands (`rapydo start` and `rapydo restart`) can be quite confusing and it can be difficult to understand when to use one and when the other. The start command is based on the `docker-compose up` command and it is able to start the docker containers. The restart command is based on the `docker-compose restart` command and it is able to restart the main service of a container. Furthermore the start command is able to re-create the container when the docker definition changes (e.g. an environment variable changed, a volume is added, porting mapping is changed, docker image is rebuilt, etc).
 
 Use the start or the restart command depends from the kind of changes that you need to deploy. If the changes are at docker level, then you have to use the start command. If the changes are at software and service level, you have to use the restart command.
 
 ### Automatic certificate renew by using crontab
 
-To make sure your certificate is always up-to-date you can setup a cron job to automatize the certificate renew. You can configure crontab to perform this work for you.
+To make sure your certificate is always up-to-date you can setup a cronjob to automatize the certificate renew. You can configure crontab to perform this work for you.
 
 Crontab have some limitations due to the simplified environment used to execute commands, to overcome that limitations you have to:
 
-1. provide absolute path to your rapydo executable (probably `/usr/local/bin/rapydo`)
+1. provide absolute path to your RAPyDo executable (`/usr/local/bin/rapydo` in most cases)
 2. set `COMPOSE_INTERACTIVE_NO_CLI=1` to prevent Compose to use the Docker CLI for interactive `run` and `exec`operations.
-3. enable `--no-tty` flag to disable pseudo-tty allocation (by default docker-compose run                         allocates a TTY, not available from crontab)
+3. enable `--no-tty` flag to disable pseudo-tty allocation (by default docker-compose allocates a TTY, not available from crontab)
 4. you will haven't access to the command output. If you desire, your can redirect the output on a file
 
 The following crontab entry is able to renew the SSL certificate every Monday at 00:00 AM
 
 ```
-0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl --no-tty > ~/cron.log 2>&1 
+0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl --no-tty > /your/project/data/logs/cron.log 2>&1 
 ```
 
 
 
 ## Known issues post-upgrade
+
+### Neo4j fails to start in RAPyDo 0.7.4
+
+RAPyDo 0.7.4 changed the uid/gid of the neo4j user in the corresponding container. Previosuly created database can have wrong permissions and fail to start due to permission denied. You can fix it by changing the ownership of the data folder with your own user (the user you use on the host machine).
+
+If you deployed neo4j from a local folder (e.g. `data/graphdata` ) you can simply change the ownership:
+
+`chown -R your_user:your_group data/graphdata`
+
+If you deployed neo4j from a docker volume (this is the default) you have to perform this operation from inside the container. You can execute a volatile neo4j container and change the ownership of the data folder:
+
+`rapydo volatile neo4j`
+
+`chown -R neo4j:neo4j /data`
 
 ### Errors when submitting celery tasks in RAPyDo 0.7.3
 

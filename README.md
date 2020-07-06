@@ -1,8 +1,8 @@
 # RAPyDo framework
 
-A containers-based framework to develop your HTTP-API with Flask on Python3 with optional web interface written with Angular. RAPyDO also includes services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), no-sql database (MongoDB), Celery for asynchronous operations (based on RabbitMQ, also included in the box) and Pushpin for WebSockets connections, Redis and much more
+A containers-based framework to develop your HTTP-API with Flask on Python with optional web interface written in Angular. RAPyDO also includes services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), no-sql database (MongoDB), Celery for asynchronous operations (based on RabbitMQ as message broker and Redis or MongoDB as backend database, all included in the box) and Pushpin for WebSockets connections and much more
 
-The name is an acronymous for:
+The name is an acronym for:
 
 - `R`ESTful `A`PI
 - on a `Py`thon server
@@ -12,10 +12,10 @@ The name is an acronymous for:
 
 ## Why to use RAPyDo?
 
-Along our journey into efficient HTTP API middleware towards distributed services we had to reach some level of stability within our environment.
+Along our journey into efficient HTTP API middle-ware towards distributed services we had to reach some level of stability within our environment.
 
 Having the same tasks to be completed over and over we decided to develop RAPyDo to have a common base to all our RESTful HTTP API oriented projects. 
-What we have so far is what helped us in speeding up setup and development process while keep track of all the solutions we found in all the problems we encountered in at least 5 years of italian/european projects experience.
+What we have so far is what helped us in speeding up setup and development process while keeping track of all the solutions we found in all the problems we encountered in at least 5 years of European projects experience.
 
 RAPyDo can be used from both the final user and the developer.
 
@@ -44,6 +44,7 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
          * [Differences between start and restart](docs/users/user_guide.md#differences-between-start-and-restart)
          * [Automatic certificate renew by using crontab](docs/users/user_guide.md#automatic-certificate-renew-by-using-crontab)
       * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
+         * [Neo4j fails to start in RAPyDo 0.7.4](docs/users/user_guide.md#neo4j-fails-to-start-in-rapydo-074)
          * [Errors when submitting celery tasks in RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-tasks-in-rapydo-073)
          * [Networks need to be recreated in RAPyDo 0.7.2 ](docs/users/user_guide.md#networks-need-to-be-recreated-in-rapydo-072)
          * [PostgreSQL fails to start in RAPyDo 0.7.1](docs/users/user_guide.md#postgresql-fails-to-start-in-rapydo-071)
@@ -60,8 +61,6 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
          * [Security](docs/developers/developer_guide.md#security)
          * [REST classes](docs/developers/developer_guide.md#rest-classes)
          * [Base endpoints](docs/developers/developer_guide.md#base-endpoints)
-         * [Services injections](docs/developers/developer_guide.md#services-injections)
-         * [ORM](docs/developers/developer_guide.md#orm)
          * [Asynchronous tasks](docs/developers/developer_guide.md#asynchronous-tasks)
          * [Unit tests](docs/developers/developer_guide.md#unit-tests)
          * [Frontend framework](docs/developers/developer_guide.md#frontend-framework)

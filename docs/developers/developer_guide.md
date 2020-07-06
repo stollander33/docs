@@ -11,14 +11,12 @@
          * [Security](#security)
          * [REST classes](#rest-classes)
          * [Base endpoints](#base-endpoints)
-         * [Services injections](#services-injections)
-         * [ORM](#orm)
          * [Asynchronous tasks](#asynchronous-tasks)
          * [Unit tests](#unit-tests)
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: ven 15 mag 2020, 19:23:39, CEST -->
+<!-- Added by: mdantonio, at: lun 6 lug 2020, 22:45:40, CEST -->
 
 <!--te-->
 
@@ -53,7 +51,7 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
    - rapydo init
    - rapydo pull
 
-6. Now you can edit your `projects/$PROJECT_NAME/project_configuration.yaml` to customize project title, description, the default user and database passwords.
+6. Now you can edit your `projects/$PROJECT_NAME/project_configuration.yaml` to customize project title, description, enabled services and so on.
 
 7. The configuration is now complete, you can start your project by following the User guide or continue to customize by enabling more services or implement endpoints
 
@@ -67,7 +65,7 @@ You can list active services with `rapydo list --services`
 
 Active services are a combination of services enabled by configuring the `ACTIVATE_SERVICENAME`  variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` and services automatically activated due to dependency rules.
 
-By activating a service both backend  will  establish a connection by using one of the confgured extension:
+By activating a service the backend will establish a connection by using one of the configured extension:
 
 - SQLAlchemy
 - Neo4j
@@ -78,7 +76,7 @@ By activating a service both backend  will  establish a connection by using one 
 - iRODS
 - Pushpin
 
-If you want to activate the service but NOT the connection from the backend you can add a `SERVICENAME_ENABLE_CONNECTOR=True` variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` 
+If you want to activate the service but NOT the connection from the backend you can add a `SERVICENAME_ENABLE_CONNECTOR=False` variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` 
 
 If you want to activate the connection from the backend but NOT a container for the service, you can configure the SERVICENAME_HOST with an external host.
 
@@ -142,55 +140,24 @@ and `rapydo start` will do the rest
 
 ## Backend development
 
-(warning: copy-pasted from an old documentation, to be revised!)
-
 ### Security
 
-Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`.
-
-Oauth2 and 2 factor authentication is already integrated (through TOTP).
-The nginx reverse proxy has been tested in many production system.
+Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`. Additionally 2-Factor authentication can be enabled (base on TOTP).
 
 ### REST classes
 
-RAPyDO is Object Oriented (thanks to the `Flask-Restful` plugin): each endpoint is mapped to a class and automatically configured. The class associated to an endpoint is provided in the swagger configuration (and then removed from the public view). One method can be mapped to multiple endpoints paths (e.g. if you need some aliasing).
+RAPyDO is Object Oriented (based to the `Flask-Restful` plugin): each endpoint is mapped to a class and automatically configured. You can simply create a new python file in projects/YOUR_PROJECT/backend/apis to define your class-endpoint and it will be automatically added to the project.
 
 ### Base endpoints
 
 Helper endpoints are provided out of the box:
 
 - `/api/status`
-- `/api/specs`
-- If you enable authentication:
+- `/api/swagger`
 - `/auth/login`
 - `/auth/logout`
 - `/auth/tokens`
 - `/auth/profile`
-
-### Services injections
-
-The real first pain point we had to solve in our experience while working with Flask when containers were yet limited in their experience (at least a few years ago) was a dynamic injections of only the services configurated in the RAPyDO YAML files.
-
-We created a set of defaults for each service. Each service can be activated with `${SERVICE}_ENABLE` or by adding the dependency on an already active service, and by leaving the defaults a container will be created for it and linked to the backend server/container and accessed by a simple `self.get_instance(my_service, **custom_args)` function call inside your endpoint code.
-
-It doesn't matter what is your mode (internal with no credentials, or external with passwords), the code will remain the same!
-
-NOTE: connections are kept globally in a pool to optimize the consumption of resources; you can force an instance to be recreated.
-
-### ORM
-
-Each service may be used as an ORM, if the equivalent python library exists. The base models and the custom models are pre loaded into the service objects at server startup.
-
-This means that you can do into your code:
-
-```python
-mongo = self.get_instance('mongo')
-mongo.MyModel(field1='yes', field2=False).save()
-```
-
-Where `MyModel` was defined inside your project custom `models/mongo.py` file.
-
-For each service base models are provided to describe a User/Role approach to authentication.
 
 ### Asynchronous tasks
 
@@ -202,8 +169,6 @@ Tasks can save progress, return status, send emails.
 
 `py.tests` is supported by default.
 A unit test is a class in a separated `tests` folder, where you extend the existing base class from where you inherit methods to authenticate and handle tokens.
-
-
 
 ### Frontend framework
 

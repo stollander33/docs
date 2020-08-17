@@ -3,7 +3,7 @@
 This a quick start guide, if you are interested in a more comprehensive guide please refer to the [User Complete Guide](user_guide.md)
 
 1. Make sure you meet the pre-requisites on your machine:
-    * Python 3.5+ (and `pip`) 
+    * Python 3.6+ (and `pip`) 
     * Git
     * Docker daemon/engine
     
@@ -19,7 +19,7 @@ This a quick start guide, if you are interested in a more comprehensive guide pl
 
 ```bash
 git clone https://git.../your_project/example.git
-git checkout your_branck
+git checkout your_branch
 rapydo init
 ```
 
@@ -29,7 +29,7 @@ rapydo init
 
    You can verify the required version with `rapydo version`
 
-   You can install the version required by your project with: `rapydo install auto`
+   You can install the version required by your project with: `rapydo install`
 
 5. Use the controller to start your project
 
@@ -45,19 +45,17 @@ rapydo start
 ```bash
 # check the containers are running
 rapydo status
-# open a shell in the current backend container
-rapydo shell backend
-# inside the container you can run a flask server in debug mode
-$ restapi launch
+# start the backend default command in interactive mode
+rapydo shell backend --default-command
+# Please note that this command is equivalent to:
+# rapydo shell backend --command "restapi launch"
 
 [...]
 # lots of logs
 # if you need to stop it use CTRL+C
 ```
 
-The backend container is a  Flask server connected to a database into another container.
-
-6. Test your server from outside the containers
+6. Test your server
 
 The port `8080` should be accessible now, you can query it by using a a http client (curl, wget, `httpie` [HTTPie] (https://httpie.org/) from another shell, and checking the logs in the other one.
 

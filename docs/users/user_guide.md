@@ -23,7 +23,7 @@
          * [Celery/backend fail to start in RAPyDo 0.7.1](#celerybackend-fail-to-start-in-rapydo-071)
          * [ssl-certificate command fails in RAPyDo 0.6.7](#ssl-certificate-command-fails-in-rapydo-067)
 
-<!-- Added by: mdantonio, at: lun 6 lug 2020, 22:45:39, CEST -->
+<!-- Added by: mdantonio, at: lun 17 ago 2020, 14:21:23, CEST -->
 
 <!--te-->
 
@@ -64,9 +64,9 @@ Here a typical `.projectrc` file:
 In every project there is a set configurations that you would like to use to switch. Even if not the case, there should be at least two modes: 
 
 1. `development` for local development (verbose logs, auto reload and no reverse proxy)
-2. `production` for deploying  the project in production (less logs, `gunicorn` and a reverse proxy, all set to use `SSL` for free with Letsencrypt).
+2. `production` for deploying  the project in production (less logs, `gunicorn` and a reverse proxy, all set to use `SSL` for free with Let's Encrypt).
 
-Stacks are just implemented with a `YAML` file following the `compose` syntax. You can create as many custom stacks as you need.
+Stacks are just implemented as `YAML` files based on the `docker-compose` syntax. You can create as many custom stacks as you need.
 
 The final configuration you will use in every RAPyDo command is based on:
 
@@ -113,7 +113,7 @@ A set of interfaces can be launched as containers to help with many services:
 - adminer for SQL servers
 - mongo express
 
-All interfaces can be executed by using the `rapydo interfaces` command, use `rapydo interfaces list` to get all available options.
+All interfaces can be executed by using the `rapydo interfaces` command.
 
 ### Multi projects
 
@@ -165,9 +165,9 @@ Let's assume that you already have a working deployment of your project (let's n
 
 **3 - Upgrade your RAPyDo controller**
 
-`rapydo install auto`
+`rapydo install `
 
-By setting the *auto* flag,  RAPyDo will understand by itself which version is required by YOUR_PROJECT.
+By default, the install command will understand by itself which version is required by YOUR_PROJECT. Otherwise you can specify a specific version with `rapydo install version`
 
 **4 - Reinitialize your project**
 

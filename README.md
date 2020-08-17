@@ -14,7 +14,7 @@ The name is an acronym for:
 
 Along our journey into efficient HTTP API middle-ware towards distributed services we had to reach some level of stability within our environment.
 
-Having the same tasks to be completed over and over we decided to develop RAPyDo to have a common base to all our RESTful HTTP API oriented projects. 
+Having the same tasks to be completed over and over we decided to develop RAPyDo to have a common base to all our RESTful HTTP API oriented projects.
 What we have so far is what helped us in speeding up setup and development process while keeping track of all the solutions we found in all the problems we encountered in at least 5 years of European projects experience.
 
 RAPyDo can be used from both the final user and the developer.

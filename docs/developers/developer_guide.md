@@ -16,7 +16,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: lun 6 lug 2020, 22:45:40, CEST -->
+<!-- Added by: mdantonio, at: lun 17 ago 2020, 14:21:24, CEST -->
 
 <!--te-->
 
@@ -28,7 +28,7 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 1. Make sure you meet the pre-requisites on your machine:
 
-   - Python3.5+ (and `pip`) 
+   - Python3.6+ (and `pip`) 
    - Git
    - Docker daemon/engine
 
@@ -44,16 +44,14 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
    `rapydo create name --auth YOUR_AUTH_SERVICE --frontend YOUR_FRONTEND`
 
-   
-
-5. Follow instructions printed by rapydo create output, i.e.
+5. Follow instructions printed by the rapydo create output, i.e.
    - git remote add origin https://your_remote_git/your_project.git
    - rapydo init
    - rapydo pull
 
-6. Now you can edit your `projects/$PROJECT_NAME/project_configuration.yaml` to customize project title, description, enabled services and so on.
+6. Now you can edit your `projects/$PROJECT_NAME/project_configuration.yaml` to customize project title, description, enabled services and so on. Please note that you can enable services, ad other options, by setting up the rapydo create command. Use rapydo create --help to get the list of available options.
 
-7. The configuration is now complete, you can start your project by following the User guide or continue to customize by enabling more services or implement endpoints
+7. The configuration is now complete, you can start your project by following the User guide or further customize your project.
 
 
 
@@ -61,7 +59,7 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 ### Enable a service
 
-You can list active services with `rapydo list --services`
+You can list active services with `rapydo list services`
 
 Active services are a combination of services enabled by configuring the `ACTIVATE_SERVICENAME`  variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` and services automatically activated due to dependency rules.
 
@@ -73,7 +71,6 @@ By activating a service the backend will establish a connection by using one of 
 - RabbitMQ
 - Celery
 - Celery-beat
-- iRODS
 - Pushpin
 
 If you want to activate the service but NOT the connection from the backend you can add a `SERVICENAME_ENABLE_CONNECTOR=False` variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` 
@@ -175,9 +172,9 @@ A unit test is a class in a separated `tests` folder, where you extend the exist
 `Angular` is already integrated as base framework for the frontend part.
 The base authentication (profile, change password, reset password, session lists, JWT tokens) endpoints are already tested inside the base TS code.
 
-In debug mode the framework is served on nodejs/webpack while in production the static dist is built at startup time by the related container entrypoint.
+In debug mode the framework is dynamically compiled and provided by ng serve while in production the static dist is built at startup time and served by a nginx reverse proxy.
 
-NOTE: we are looking for `react` to be integrated as well!
+We are looking for `react` to be integrated as well.
 
 
 

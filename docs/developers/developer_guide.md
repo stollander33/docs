@@ -5,7 +5,6 @@
       * [Create a new RAPyDo-based project](#create-a-new-rapydo-based-project)
       * [Services](#services)
          * [Enable a service](#enable-a-service)
-         * [Enable Rabbit Management Plugin](#enable-rabbit-management-plugin)
          * [Add a new service](#add-a-new-service)
       * [Backend development](#backend-development)
          * [Security](#security)
@@ -16,7 +15,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: lun 17 ago 2020, 14:21:24, CEST -->
+<!-- Added by: mdantonio, at: ven 23 ott 2020, 21:39:01, CEST -->
 
 <!--te-->
 
@@ -34,7 +33,7 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 2. install the rapydo controller
 
-   Install the latest version: `pip3 install --upgrade rapydo-controller`
+   Install the latest version: `pip3 install --upgrade rapydo`
 
    Your project could require a different version, in this case you will be able to install the right version once configured your project
 
@@ -42,7 +41,7 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 4. Create a new project by using
 
-   `rapydo create name --auth YOUR_AUTH_SERVICE --frontend YOUR_FRONTEND`
+   `rapydo create name --auth YOUR_AUTH_SERVICE --frontend YOUR_FRONTEND ...other-options`  
 
 5. Follow instructions printed by the rapydo create output, i.e.
    - git remote add origin https://your_remote_git/your_project.git
@@ -61,9 +60,9 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 You can list active services with `rapydo list services`
 
-Active services are a combination of services enabled by configuring the `ACTIVATE_SERVICENAME`  variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` and services automatically activated due to dependency rules.
+Active services are a combination of services enabled by configuring the `ACTIVATE_SERVICENAME`  variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` and services automatically activated due to dependency rules. At creation time you can enable new services by adding the `--service` flag to the `rapydo create` command
 
-By activating a service the backend will establish a connection by using one of the configured extension:
+By activating a service the backend server will establish a connection by using one of the configured extension:
 
 - SQLAlchemy
 - Neo4j
@@ -88,22 +87,6 @@ Service container disabled + Backend connection enable -> SERVICENAME_HOST
 Service container disabled + Backend connection disabled -> nothing
 
 
-
-### Enable Rabbit Management Plugin
-
-Management plugin is disabled by default, you can activate by adding the following variabile to your project_configuration or .proectrc:
-
-`RABBITMQ_ENABLE_MANAGEMENT_PLUGIN: 1`
-
-You also have to add the following port mapping to your stack configuration (commons.yml to be shared with all stack or into a specific stack configuration):
-
-  `rabbit:`
-    `ports:`
-      `- ${RABBITMQ_MANAGEMENT_PORT}:${RABBITMQ_MANAGEMENT_PORT}`
-
-To enable access to queue you can also add:
-
-​      `- ${RABBITMQ_PORT}:${RABBITMQ_PORT}`
 
 ### Add a new service
 
@@ -143,18 +126,22 @@ Any service available in RAPyDo as an ORM can be used as authentication for the 
 
 ### REST classes
 
-RAPyDO is Object Oriented (based to the `Flask-Restful` plugin): each endpoint is mapped to a class and automatically configured. You can simply create a new python file in projects/YOUR_PROJECT/backend/apis to define your class-endpoint and it will be automatically added to the project.
+RAPyDO is Object Oriented (based to the `Flask-Restful` and `flask-apispec` libraries): each endpoint is mapped to a class and automatically configured. You can simply create a new python file in projects/YOUR_PROJECT/backend/apis to define your class-endpoint and it will be automatically added to the project. You can add new endpoints by using the templating commando: `rapydo add endpoint endpoint-name`
 
 ### Base endpoints
 
 Helper endpoints are provided out of the box:
 
 - `/api/status`
-- `/api/swagger`
+- `/api/specs`
 - `/auth/login`
 - `/auth/logout`
 - `/auth/tokens`
 - `/auth/profile`
+- `/auth/status`
+- `/api/admin/users`
+- `/api/admin/sessions`
+- `/api/admin/stats`
 
 ### Asynchronous tasks
 
@@ -174,8 +161,6 @@ The base authentication (profile, change password, reset password, session lists
 
 In debug mode the framework is dynamically compiled and provided by ng serve while in production the static dist is built at startup time and served by a nginx reverse proxy.
 
-We are looking for `react` to be integrated as well.
-
 
 
 ## Upgrade to a new version
@@ -183,7 +168,7 @@ We are looking for `react` to be integrated as well.
 Let's say your project is based on version A and you want to upgrade it to version B.
 
 1. edit your project_configuration.yml to change project.rapydo from A to B. Probably you also want to increase your project.version
-2. install rapydo-controller version B (now that you changed the required RAPyDo version in project_configuration.yml you are able to upgrade your controller with `rapydo install auto`)
+2. install rapydo-controller version B (now that you changed the required RAPyDo version in project_configuration.yml you are able to upgrade your controller with `rapydo install`)
 3. if you have custom docker builds change the base image from `rapydo/base-image:A`to `rapydo/base-image:B`
 4. execute the upgrade of your local instance, as describe in [User Guide](docs/users/user_guide.md#upgrade-to-a-new-version)
 

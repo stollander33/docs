@@ -9,11 +9,11 @@ This a quick start guide, if you are interested in a more comprehensive guide pl
     
 2. install the RAPyDo controller
 
-    Install the latest version: `sudo pip3 install --upgrade rapydo-controller`
+    Install the latest version: `sudo pip3 install --upgrade rapydo
 
     You have now the executable `rapydo` (you can try a `rapydo --version`). Your project could require a different version, in this case you will be able to install the right version once configured your project
 
-    NOTE: python install binaries in `/usr/local/bin`. If you are not the admin/`root` user (i.e. you do not install with `sudo`) then a virtual environment is created and you may find the binary in `$HOME/.local/bin`. Make sure that the path is in your `$PATH` variable, otherwise you will end up with `command not found`.
+    NOTE: python install binaries in `/usr/local/bin`. If you are not the admin/root user (i.e. you do not install with `sudo`) then a virtual environment is created and you may find the binary in `$HOME/.local/bin`. Make sure that the path is in your `$PATH` variable, otherwise you will end up with `command not found`.
 
 3. clone and initialize your project
 
@@ -46,9 +46,9 @@ rapydo start
 # check the containers are running
 rapydo status
 # start the backend default command in interactive mode
-rapydo shell backend --default-command
+rapydo shell backend --default
 # Please note that this command is equivalent to:
-# rapydo shell backend --command "restapi launch"
+# rapydo shell backend "restapi launch"
 
 [...]
 # lots of logs

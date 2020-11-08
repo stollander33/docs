@@ -16,6 +16,7 @@
          * [Differences between start and restart](#differences-between-start-and-restart)
          * [Automatic certificate renew by using crontab](#automatic-certificate-renew-by-using-crontab)
       * [Known issues post-upgrade](#known-issues-post-upgrade)
+         * [PostgreSQL fails to start with RAPyDo 0.9](#postgresql-fails-to-start-with-rapydo-09)
          * [Neo4j fails to start with RAPyDo 0.8](#neo4j-fails-to-start-with-rapydo-08)
          * [Neo4j fails to start with RAPyDo 0.7.4](#neo4j-fails-to-start-with-rapydo-074)
          * [Errors when submitting celery tasks with RAPyDo 0.7.3](#errors-when-submitting-celery-tasks-with-rapydo-073)
@@ -24,7 +25,7 @@
          * [Celery/backend fail to start with RAPyDo 0.7.1](#celerybackend-fail-to-start-with-rapydo-071)
          * [ssl-certificate command fails with RAPyDo 0.6.7](#ssl-certificate-command-fails-with-rapydo-067)
 
-<!-- Added by: mdantonio, at: ven 23 ott 2020, 21:39:01, CEST -->
+<!-- Added by: mdantonio, at: dom 8 nov 2020, 16:18:48, CET -->
 
 <!--te-->
 
@@ -225,6 +226,34 @@ The following crontab entry is able to renew the SSL certificate every Monday at
 
 ## Known issues post-upgrade
 
+
+
+### PostgreSQL fails to start with RAPyDo 0.9
+
+RAPyDo 0.9 upgraded the PostgreSQL version from 12.4 to 13.0. Databases created with psq12 are not compatible with psq13 and your container will fail to start with the following error:
+
+  > FATAL:  database files are incompatible with server
+  >
+  > DETAIL:  The data directory was initialized by PostgreSQL version 12, which is not compatible with this version 13.0.
+
+Based on the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html), to upgrade your database you have to restore a dump of your DB on the new engine. To ease the process RAPyDo includes a utility script (`version_upgrade`) bundled with the PostgreSQL build that automatically performs most of the steps needed to upgrade.  If your database is only used to store sessions you can simply destroy the database volume and re-initialize it. Otherwise you can perform a backup of your current database and then use the `version_upgrade` utility to restore the backup on the new version.
+
+1. Make sure that you have a backup of your database, it will be used to create your new DB
+   1. Backups are stored in `data/backup/postgres/`. Make sure to have a very recent backup of your db. You can also list your backups with `rapydo restore postgres`
+   2. If you already have a backup go to step 2, otherwise you have to downgrade your project  (to PostgreSQL 12) to  make a backup (you cannot create a backup of your data by using PostgreSQL 13 because the server is unable to start)
+   3. Once downgraded your project to PostgreSQL 12 make a backup with `rapydo backup postgres`
+   4. Upgrade again your project to PostgreSQL 13
+2. You have a recent backup that will be restored to upgrade your database to PostgreSQL 13
+   1. Since the PostgreSQL container crashes at startup due to incompatibility between your data and the new engine, you have to start a volatile container to prevent server execution: `rapydo volatile postgres`
+   2. execute `version_upgrade` to start the upgrade process and follow the instructions. The command will list your available backup files, to start the upgrade on a specific backup execute `version_upgrade backupfilename.sql.gz`
+3. Exit the volatile container and start your server
+
+
+
+The same issue already happened with RAPyDo 0.7.1 with the upgrade of PostgreSQL from 11 to 12 and the same will happen again when we will upgrade from version 13 to version 14
+
+
+
 ### Neo4j fails to start with RAPyDo 0.8
 
 RAPyDo 0.8 upgraded neo4j from 3.5 to 4.1. Due to the major version upgrade a database conversion is needed, according to [neo4j official documentation](https://neo4j.com/docs/operations-manual/4.1/upgrade/deployment-upgrading/). To execute the upgrade:
@@ -305,7 +334,7 @@ RAPyDo 0.7.1 upgraded the PostgreSQL version from 11.5 to 12.1. Databases create
 
 The same issue already happened with RAPyDo 0.6.7 with the upgrade of PostgreSQL from 10.7 to 11.4 and the same will happen again when we will upgrade from version 12.x to version 13.x
 
-### 
+
 
 ### Celery/backend fail to start with RAPyDo 0.7.1
 

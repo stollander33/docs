@@ -15,7 +15,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: ven 23 ott 2020, 21:39:01, CEST -->
+<!-- Added by: mdantonio, at: dom 8 nov 2020, 16:18:49, CET -->
 
 <!--te-->
 

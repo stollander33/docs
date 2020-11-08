@@ -44,6 +44,7 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
          * [Differences between start and restart](docs/users/user_guide.md#differences-between-start-and-restart)
          * [Automatic certificate renew by using crontab](docs/users/user_guide.md#automatic-certificate-renew-by-using-crontab)
       * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
+         * [PostgreSQL fails to start with RAPyDo 0.9](docs/users/user_guide.md#postgresql-fails-to-start-with-rapydo-09)
          * [Neo4j fails to start with RAPyDo 0.8](docs/users/user_guide.md#neo4j-fails-to-start-with-rapydo-08)
          * [Neo4j fails to start with RAPyDo 0.7.4](docs/users/user_guide.md#neo4j-fails-to-start-with-rapydo-074)
          * [Errors when submitting celery tasks with RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-tasks-with-rapydo-073)

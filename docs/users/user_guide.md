@@ -25,7 +25,7 @@
          * [Celery/backend fail to start with RAPyDo 0.7.1](#celerybackend-fail-to-start-with-rapydo-071)
          * [ssl-certificate command fails with RAPyDo 0.6.7](#ssl-certificate-command-fails-with-rapydo-067)
 
-<!-- Added by: mdantonio, at: dom 8 nov 2020, 16:18:48, CET -->
+<!-- Added by: mdantonio, at: gio 4 mar 2021, 09:56:26, CET -->
 
 <!--te-->
 

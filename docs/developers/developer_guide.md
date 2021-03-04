@@ -15,7 +15,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: dom 8 nov 2020, 16:18:49, CET -->
+<!-- Added by: mdantonio, at: gio 4 mar 2021, 09:56:26, CET -->
 
 <!--te-->
 
@@ -122,11 +122,84 @@ and `rapydo start` will do the rest
 
 ### Security
 
-Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`. Additionally 2-Factor authentication can be enabled (base on TOTP).
+Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`. A number of flags allow to enhance the security layer, included enabling 2-Factor authentication based on TOTP.
+
+Here a list of variabiles that can be configured in `project_configuration.yaml` or in `.projectrc`:
+
+- AUTH_VERIFY_PASSWORD_STRENGTH
+  - Default: 1 (enabled)
+  - Values: 0 or 1
+  - Enable verification of password strenght (i.e. minimum length, check that the password can't match the previous and that cannot contains name, surname or email address)
+- AUTH_MIN_PASSWORD_LENGTH
+  - Default: 8
+  - Values: int
+  - Set the minimum password length that can be accepted
+- AUTH_FORCE_FIRST_PASSWORD_CHANGE
+  - Default: 0 (disabled)
+  - Values: 0 or 1
+  - Force the change of the first password set by administrators
+- AUTH_MAX_PASSWORD_VALIDITY
+  - Default 0 (disabled)
+  - Values: int
+  - Validity period in days after which the password will expired and the user will be forced to change it
+- AUTH_DISABLE_UNUSED_CREDENTIALS_AFTER
+  - Default 0 (disabled)
+  - Values: 0 or 1
+  - Automatically disabled inactive users and the given perod in days
+- AUTH_MAX_LOGIN_ATTEMPTS
+  - Default 0 (disabled)
+  - Values: int
+  - A numer of failed logins greater than the configured value will temporary block the credentials and prevent any further attempt. The ban period is configured through the AUTH_LOGIN_BAN_TIME variable
+- AUTH_LOGIN_BAN_TIME
+  - Default 3600
+  - Values: int
+  - Durations in seconds of the credentials ban after failed logins
+- AUTH_SECOND_FACTOR_AUTHENTICATION
+  - Default 0 (disabled)
+  - Values: 0 or 1
+  - Enabled Two Factor Authentication based on TOTP (e.g. Google Authenticator)
+- AUTH_JWT_TOKEN_TTL
+  - Default 2592000 (1 month in seconds)
+  - Values: int
+  - JWT Tokens duration in seconds
+- AUTH_TOKEN_IP_GRACE_PERIOD:
+  - Default 1800
+  - Values: int
+  - Amount of seconds before starting to evaluate IP address on token validation (use of token from a IP address different by the address used to generated the token is forbidden after the grace period)
 
 ### REST classes
 
-RAPyDO is Object Oriented (based to the `Flask-Restful` and `flask-apispec` libraries): each endpoint is mapped to a class and automatically configured. You can simply create a new python file in projects/YOUR_PROJECT/backend/apis to define your class-endpoint and it will be automatically added to the project. You can add new endpoints by using the templating commando: `rapydo add endpoint endpoint-name`
+RAPyDO is Object Oriented (based to the `Flask-Restful` and `flask-apispec` libraries): each endpoint is mapped to a class and automatically configured. You can simply create a new python file in projects/YOUR_PROJECT/backend/endpoinits to define your class-endpoint and it will be automatically added to the project. You can add new endpoints by using the templating command: `rapydo add endpoint endpoint-name`
+
+A REST class extends `EndpointResource` from `restapi.rest.definition`, defines methods one or more methods `get`, `post`, `put`, `patch` or `deleted` decorated by the `@decorators.endpoint` decorator used to describe path, description  and responses. This decorator is mostly based on apispec. Input and output can be specified respectively by the `@decorators.use_kwargs`(mostly based on webargs) and `@decorators.marshal_with` (mostly based on Marshmallow) decorators.
+
+Here an example of a simple REST class:
+
+```python
+from restapi import decorators
+from restapi.rest.definition import EndpointResource, Response
+
+class MyFirstRESTClass(EndpointResource):
+
+    # @decorators.auth.require()
+    # @decorators.use_kwargs(MyWebargsInputSchema)
+    # @decorators.marshal_with(MyMarshalOutputSchema)
+    @decorators.endpoint(
+        path="/api/myendpoint",
+        summary="My first endpoint",
+        description="This is my first endpoint, it simply reply with a Hello World",
+        responses={
+            200: "Hello World is replied",
+        },
+    )
+    def get(self) -> Response:
+        self.response("Hello World")
+
+```
+
+
+
+
 
 ### Base endpoints
 

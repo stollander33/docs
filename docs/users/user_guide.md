@@ -112,8 +112,8 @@ All core RAPyDo images are automatically built and pushed on the Docker Hub. You
 A set of interfaces can be launched as containers to help with many services:
 
 - swaggerui
-- adminer for SQL servers
-- mongo express
+- adminer for PostgreSQL, MySQL/MariaDB and MongoDB
+- flower for celery
 
 All interfaces can be executed by using the `rapydo interfaces` command.
 

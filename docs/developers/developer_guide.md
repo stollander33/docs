@@ -68,6 +68,7 @@ By activating a service the backend server will establish a connection by using 
 - Neo4j
 - MongoDB
 - RabbitMQ
+- Redis
 - Celery
 - Celery-beat
 - Pushpin

@@ -239,7 +239,7 @@ Logs visibility is controlled by a global variable (LOG_LEVEL) that can be modif
 
 By default all the logs with severity equal or greater then the warning level are saved to the data/logs/backend-server.log file. This file is automatically rotated every week and retained for 6 months (controller by the LOG_RETENTION variable).
 
-the log.exception function is not print in standard output by only stored on the backend-server.log with a detailed error stack for debugging purpose.
+the log.exception function is not printed in standard output but only stored on the backend-server.log with a detailed error stack for debugging purpose.
 
 ### Security Events Logs
 

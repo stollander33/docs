@@ -62,6 +62,8 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
          * [Security](docs/developers/developer_guide.md#security)
          * [REST classes](docs/developers/developer_guide.md#rest-classes)
          * [Base endpoints](docs/developers/developer_guide.md#base-endpoints)
+         * [Logs](docs/developers/developer_guide.md#logs)
+         * [Security Events Logs](docs/developers/developer_guide.md#security-events-logs)
          * [Asynchronous tasks](docs/developers/developer_guide.md#asynchronous-tasks)
          * [Unit tests](docs/developers/developer_guide.md#unit-tests)
          * [Frontend framework](docs/developers/developer_guide.md#frontend-framework)

@@ -10,12 +10,14 @@
          * [Security](#security)
          * [REST classes](#rest-classes)
          * [Base endpoints](#base-endpoints)
+         * [Logs](#logs)
+         * [Security Events Logs](#security-events-logs)
          * [Asynchronous tasks](#asynchronous-tasks)
          * [Unit tests](#unit-tests)
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: gio 4 mar 2021, 09:56:26, CET -->
+<!-- Added by: mdantonio, at: ven 18 giu 2021, 14:18:45, CEST -->
 
 <!--te-->
 
@@ -27,9 +29,9 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 1. Make sure you meet the pre-requisites on your machine:
 
-   - Python3.6+ (and `pip`) 
+   - Python3.7+ (and `pip`) 
+   - Docker 20+
    - Git
-   - Docker daemon/engine
 
 2. install the rapydo controller
 
@@ -216,6 +218,58 @@ Helper endpoints are provided out of the box:
 - `/api/admin/users`
 - `/api/admin/sessions`
 - `/api/admin/stats`
+
+
+
+### Logs
+
+By default the backend embeds a wrapper of loguru that can be used by importing from the restapi.utilities package:
+
+```
+from restapi.utilities.logs import log
+...
+log.debug("My message")
+log.info("My message")
+log.warning("My message")
+log.error("My message")
+log.critical("My message")
+```
+
+Logs visibility is controlled by a global variable (LOG_LEVEL) that can be modified at project_configuration and .projectrc level (default value is DEBUG).
+
+By default all the logs with severity equal or greater then the warning level are saved to the data/logs/backend-server.log file. This file is automatically rotated every week and retained for 6 months (controller by the LOG_RETENTION variable).
+
+the log.exception function is not print in standard output by only stored on the backend-server.log with a detailed error stack for debugging purpose.
+
+### Security Events Logs
+
+As an additional logging system, from every endpoint it possible to store information on the data/logs/security-events.log. As for the general log, also the security events log is automatically rotated every week and retained for 6 months (controller by the LOG_RETENTION variable).
+
+To store onto the security events logs the endpoints the use the log_event utility:
+
+```
+myobj = db.myModel(kwargs).save()
+self.log_event(self.events.create, myobj, kwargs)
+```
+
+Supported events type (first parameter) are:
+
+- access
+- create
+- modify
+- delete
+- login
+- logout
+- failed_login
+- refused_login
+- activation
+- login_unlock
+- change_password
+- reset_password_request
+
+Second parameter is the event target (usually the object created/modified/delete) while third parameter is the payload used for the event. Both the parameters are optional.
+
+The log is automatically extended with date, IP, user (in case of authenticated endpoint), object type and object id/uuid
 
 ### Asynchronous tasks
 

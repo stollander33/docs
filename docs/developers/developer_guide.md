@@ -17,7 +17,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: ven 18 giu 2021, 14:18:45, CEST -->
+<!-- Added by: mdantonio, at: gio 5 ago 2021, 07:19:54, CEST -->
 
 <!--te-->
 
@@ -30,7 +30,7 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 1. Make sure you meet the pre-requisites on your machine:
 
    - Python3.7+ (and `pip`) 
-   - Docker 20+
+   - Docker 20+ with Compose v2
    - Git
 
 2. install the rapydo controller
@@ -125,7 +125,9 @@ and `rapydo start` will do the rest
 
 ### Security
 
-Any service available in RAPyDo as an ORM can be used as authentication for the system, you just need to switch the dedicated variable `AUTH_SERVICE`. A number of flags allow to enhance the security layer, included enabling 2-Factor authentication based on TOTP.
+RAPyDo supports several backend database to store authentication information: relation databases via sqlalchemy (postgres, mysql, mariadb), neo4j, mongodb. You can set the preferred database by setting the `AUTH_SERVICE` variable. You can also disable the authentication layer at all by setting `AUTH_SERVICE=NO_AUTHENTICATION`.
+
+A number of flags allow to enhance the security layer, included enabling 2-Factor authentication based on TOTP.
 
 Here a list of variabiles that can be configured in `project_configuration.yaml` or in `.projectrc`:
 
@@ -172,7 +174,7 @@ Here a list of variabiles that can be configured in `project_configuration.yaml`
 
 ### REST classes
 
-RAPyDO is Object Oriented (based to the `Flask-Restful` and `flask-apispec` libraries): each endpoint is mapped to a class and automatically configured. You can simply create a new python file in projects/YOUR_PROJECT/backend/endpoinits to define your class-endpoint and it will be automatically added to the project. You can add new endpoints by using the templating command: `rapydo add endpoint endpoint-name`
+RAPyDO is Object Oriented (based to the `Flask-Restful` and `flask-apispec` packages): each endpoint is mapped to a class and automatically configured. You can simply create a new python file in projects/YOUR_PROJECT/backend/endpoinits to define your class-endpoint and it will be automatically added to the project. You can add new endpoints by using the templating command: `rapydo add endpoint endpoint-name`
 
 A REST class extends `EndpointResource` from `restapi.rest.definition`, defines methods one or more methods `get`, `post`, `put`, `patch` or `deleted` decorated by the `@decorators.endpoint` decorator used to describe path, description  and responses. This decorator is mostly based on apispec. Input and output can be specified respectively by the `@decorators.use_kwargs`(mostly based on webargs) and `@decorators.marshal_with` (mostly based on Marshmallow) decorators.
 
@@ -266,8 +268,9 @@ Supported events type (first parameter) are:
 - login_unlock
 - change_password
 - reset_password_request
+- password_expired
 
-Second parameter is the event target (usually the object created/modified/delete) while third parameter is the payload used for the event. Both the parameters are optional.
+The second parameter is the event target (usually the object created/modified/delete) while the third is the payload used for the event. Both the parameters are optional.
 
 The log is automatically extended with date, IP, user (in case of authenticated endpoint), object type and object id/uuid
 

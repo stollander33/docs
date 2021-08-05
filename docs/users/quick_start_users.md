@@ -4,7 +4,7 @@ This a quick start guide, if you are interested in a more comprehensive guide pl
 
 1. Make sure you meet the pre-requisites on your machine:
     * Python 3.7+ (and `pip`) 
-    * Docker 20+
+    * Docker 20+ with Compose v2
     * Git
     
 2. install the RAPyDo controller

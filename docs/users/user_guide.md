@@ -12,20 +12,11 @@
          * [Production mode](#production-mode)
          * [SSL Certificates](#ssl-certificates)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
-      * [Tips and Tricks](#tips-and-tricks)
-         * [Differences between start and restart](#differences-between-start-and-restart)
-         * [Automatic certificate renew by using crontab](#automatic-certificate-renew-by-using-crontab)
       * [Known issues post-upgrade](#known-issues-post-upgrade)
+         * [Neo4j fails to start with RAPyDo 2.0](#neo4j-fails-to-start-with-rapydo-20)
          * [PostgreSQL fails to start with RAPyDo 0.9](#postgresql-fails-to-start-with-rapydo-09)
-         * [Neo4j fails to start with RAPyDo 0.8](#neo4j-fails-to-start-with-rapydo-08)
-         * [Neo4j fails to start with RAPyDo 0.7.4](#neo4j-fails-to-start-with-rapydo-074)
-         * [Errors when submitting celery tasks with RAPyDo 0.7.3](#errors-when-submitting-celery-tasks-with-rapydo-073)
-         * [Networks need to be recreated with RAPyDo 0.7.2 ](#networks-need-to-be-recreated-with-rapydo-072)
-         * [PostgreSQL fails to start with RAPyDo 0.7.1](#postgresql-fails-to-start-with-rapydo-071)
-         * [Celery/backend fail to start with RAPyDo 0.7.1](#celerybackend-fail-to-start-with-rapydo-071)
-         * [ssl-certificate command fails with RAPyDo 0.6.7](#ssl-certificate-command-fails-with-rapydo-067)
 
-<!-- Added by: mdantonio, at: ven 18 giu 2021, 14:18:45, CEST -->
+<!-- Added by: mdantonio, at: gio 5 ago 2021, 07:19:49, CEST -->
 
 <!--te-->
 
@@ -68,7 +59,7 @@ In every project there is a set configurations that you would like to use to swi
 1. `development` for local development (verbose logs, auto reload and no reverse proxy)
 2. `production` for deploying  the project in production (less logs, `gunicorn` and a reverse proxy, all set to use `SSL` for free with Let's Encrypt).
 
-Stacks are just implemented as `YAML` files based on the `docker-compose` syntax. You can create as many custom stacks as you need.
+Stacks are just implemented as `YAML` files based on the `docker compose` syntax. You can create as many custom stacks as you need.
 
 The final configuration you will use in every RAPyDo command is based on:
 
@@ -149,9 +140,24 @@ To let this command properly works please verify that:
 
 If you want to issue a certificate without starting the container, you can use `rapydo ssl --volatile`
 
-Let's Encrypt certificates expire in 90 days, you can renew them by executing again the `rapydo ssl` command or by setting a cronjob like this:
+Let's Encrypt certificates expire in 90 days, you can renew them by executing again the `rapydo ssl` command.
 
-`0 0 * * 2 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl --no-tty > /your/project/path/data/logs/ssl.log`
+To make sure your certificate is always up-to-date you can setup a cronjob to automatize the certificate renew. You can configure crontab to perform this work for you.
+
+Crontab have some limitations due to the simplified environment used to execute commands, to overcome that limitations you have to:
+
+1. provide absolute path to your RAPyDo executable (`/usr/local/bin/rapydo` in most cases)
+2. set `COMPOSE_INTERACTIVE_NO_CLI=1` to prevent Compose to use the Docker CLI for interactive `run` and `exec`operations.
+3. enable `--no-tty` flag to disable pseudo-tty allocation (by default docker-compose allocates a TTY, not available from crontab)
+4. you will haven't access to the command output. If you desire, your can redirect the output on a file
+
+The following crontab entry is able to renew the SSL certificate every Monday at 00:00 AM
+
+```
+0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl --no-tty > /your/project/path/data/logs/ssl.log 2>&1 
+```
+
+
 
 ## Upgrade to a new version
 
@@ -185,7 +191,7 @@ This step is usually not needed when submodules are switched to a new version, b
 
 To skip updates of your main branch and only update your submodules: `rapydo update -i main`
 
-**6 - Pull new base images**
+**6 - Pull updaated base images**
 
 You can download updated base images with the `rapydo pull` command. This command will automatically fetch these images from the Docker Hub
 
@@ -197,34 +203,21 @@ If your project extends the base images you can build them with the `rapydo buil
 
 Your upgrade procedure is now completed, you are able to start your stack with `rapydo start`
 
-## Tips and Tricks
-
-### Differences between start and restart
-
-The two commands (`rapydo start` and `rapydo restart`) can be quite confusing and it can be difficult to understand when to use one and when the other. The start command is based on the `docker-compose up` command and it is able to start the docker containers. The restart command is based on the `docker-compose restart` command and it is able to restart the main service of a container. Furthermore the start command is able to re-create the container when the docker definition changes (e.g. an environment variable changed, a volume is added, porting mapping is changed, docker image is rebuilt, etc).
-
-Use the start or the restart command depends from the kind of changes that you need to deploy. If the changes are at docker level, then you have to use the start command. If the changes are at software and service level, you have to use the restart command.
-
-### Automatic certificate renew by using crontab
-
-To make sure your certificate is always up-to-date you can setup a cronjob to automatize the certificate renew. You can configure crontab to perform this work for you.
-
-Crontab have some limitations due to the simplified environment used to execute commands, to overcome that limitations you have to:
-
-1. provide absolute path to your RAPyDo executable (`/usr/local/bin/rapydo` in most cases)
-2. set `COMPOSE_INTERACTIVE_NO_CLI=1` to prevent Compose to use the Docker CLI for interactive `run` and `exec`operations.
-3. enable `--no-tty` flag to disable pseudo-tty allocation (by default docker-compose allocates a TTY, not available from crontab)
-4. you will haven't access to the command output. If you desire, your can redirect the output on a file
-
-The following crontab entry is able to renew the SSL certificate every Monday at 00:00 AM
-
-```
-0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl --no-tty > /your/project/path/data/logs/ssl.log 2>&1 
-```
-
 
 
 ## Known issues post-upgrade
+
+
+
+### Neo4j fails to start with RAPyDo 2.0
+
+RAPyDo 2.0 upgraded neo4j from 4.2 to 4.3 and according to [neo4j official documentation](https://neo4j.com/docs/operations-manual/4.3/upgrade/deployment-upgrading/) a database conversion is needed.
+
+To execute the upgrade:
+
+1) start neo4j in upgrade mode `rapydo -e NEO4J_ALLOW_UPGRADE=True -s neo4j start `
+
+2) your database is now upgraded, you can execute your stack as usual
 
 
 
@@ -253,103 +246,3 @@ Based on the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgra
 The same issue already happened with RAPyDo 0.7.1 with the upgrade of PostgreSQL from 11 to 12 and the same will happen again when we will upgrade from version 13 to version 14
 
 
-
-### Neo4j fails to start with RAPyDo 0.8
-
-RAPyDo 0.8 upgraded neo4j from 3.5 to 4.1. Due to the major version upgrade a database conversion is needed, according to [neo4j official documentation](https://neo4j.com/docs/operations-manual/4.1/upgrade/deployment-upgrading/). To execute the upgrade:
-
-1) rename the databases/graph.db folder into database/neo4j
-
-2) start neo4j in upgrade mode `rapydo -e NEO4J_ALLOW_UPGRADE=True -s neo4j start `
-
-3) your database is now upgraded, you can execute your stack as usual
-
-Please note that starting from RAPyDo 0.8 new configuration variables are needed in production mode. You can add `NEO4J_HEAP_SIZE` and `NEO4J_PAGECACHE_SIZE` variables in .projectrc with their default value (512M) and then tune the value by executing the new `rapydo tuning neo4j` command to receive suggestions based on your database and the amount of available RAM.
-
-### Neo4j fails to start with RAPyDo 0.7.4
-
-RAPyDo 0.7.4 changed the uid/gid of the neo4j user in the corresponding container. Previosuly created database can have wrong permissions and fail to start due to permission denied. You can fix it by changing the ownership of the data folder with your own user (the user you use on the host machine).
-
-If you deployed neo4j from a local folder (e.g. `data/graphdata` ) you can simply change the ownership:
-
-`chown -R your_user:your_group data/graphdata`
-
-If you deployed neo4j from a docker volume (this is the default) you have to perform this operation from inside the container. You can execute a volatile neo4j container and change the ownership of the data folder:
-
-`rapydo volatile neo4j`
-
-`chown -R neo4j:neo4j /data`
-
-### Errors when submitting celery tasks with RAPyDo 0.7.3
-
-Backend fails to submit any celery task and raises the following error:
-
-`[PreconditionFailed] Queue.declare: (406) PRECONDITION_FAILED - inequivalent arg 'x-max-priority' for queue 'celery' in vhost '/': received the value '10' of type 'signedint' but current is none`
-
-RAPyDo 0.7.3 enabled priority management in celery and this requires a specific configuration in the celery queue in RabbitMQ that needs to be recreated by executing the following steps:
-
-1. remove the rabbitmq container with `rapydo -s rabbit remove`
-
-2. remove the rabbitmq volume with `docker volume rm $YOURPROJECT_rabbitdata`
-
-3. start again the rabbitmq container with `rapydo -s rabbit start`
-
-   
-
-### Networks need to be recreated with RAPyDo 0.7.2+
-
-Due to network constraints in some virtual environment, RAPyDo 0.7.2 implemented an option to change the MTU used to create networks (NETWORK_MTU, defaulted to 1500). This new option changed the network definition even if no NETWORK_MTU is specified and services fail to start with the following message:
-
-`Network "xyz_net" needs to be recreated - option "com.docker.network.driver.mtu" has changed.`
-`Remove previously created networks and try again (you can use rapydo remove --networks or docker system prune)`
-
-Can you fix this error by executing on of the suggested commands:
-
-- `rapydo remove --networks` (from rapydo 0.7.3+)
-- `rapydo clean` (up to rapydo 0.7.2)
-- `docker system prune` (this will also remove stopped containers and untagged images)
-
-As an alternative option you can remove the network(s) by hand with `docker network rm` 
-
-
-
-### PostgreSQL fails to start with RAPyDo 0.7.1
-
-RAPyDo 0.7.1 upgraded the PostgreSQL version from 11.5 to 12.1. Databases created with psq11 are not compatible with psq12 and your container will fail to start with the following error:
-
-  > FATAL:  database files are incompatible with server
-  >
-  > DETAIL:  The data directory was initialized by PostgreSQL version 11, which is not compatible with this version 12.1.
-
-​    If your database is only used to store sessions you can simply destroy the database volume and re-initialize it
-
-1. stop the stack:  `rapydo remove`
-2. delete the sql data volume: `docker volume rm YOUR_PROJECT_sqldata`
-3. start the stack: `rapydo start`
-4. enter your backend container: `rapydo shell backend`
-5. re-initialize the database: `restapi init`
-6. exit the backend container: `exit`
-
-​    If you cannot lose your data, please refer to the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgrading.html)
-
-The same issue already happened with RAPyDo 0.6.7 with the upgrade of PostgreSQL from 10.7 to 11.4 and the same will happen again when we will upgrade from version 12.x to version 13.x
-
-
-
-### Celery/backend fail to start with RAPyDo 0.7.1
-
-RAPyDo 0.7.1 introduced explicit password setting for RabbitMQ default credentials and, if missing, you will be asked to set RABBITMQ_USER and RABBITMQ_PASSWORD variables in your .projectrc file. You can set whatever you want and these variables will be used to create the default admin user in rabbit. But if your Rabbit instance has been previously created an admin user is already created with default guest/guest credentials. Celery and backend will be unable to connect to Rabbit due to a credentials mismatch. To fix this issue you have three options:
-
-1. set RABBITMQ_USER: guest and RABBITMQ_PASSWORD: guest (unsecure)
-2. destroy the rabbit volume to inject a new admin user (`rapydo remove && docker volume rm YOUR_PROJECT_rabbit && rapydo start `). You will lose all your Rabbit (this is irrilevant, except if you are using Rabbit for other purpose  than RAPyDo)
-3. enter the rabbit container and create a new user / change the user password to match the settings
-
-### ssl-certificate command fails with RAPyDo 0.6.7
-
-If the ssl-certificate command fails with the following error:
-
-`Register account Error: {"type":"urn:acme:error:badNonce","detail":"JWS has no anti-replay nonce","status": 400}` you are running an obsolete letsencrypt version and you have to upgrade it then retry again. To upgrade your version you can adopt one of the following fixes:
-
-1. upgrade your project to RAPyDo version 0.7.0
-2. if you are using RAPyDo 0.6.7 you can rebuild your proxy (rapydo -s proxy build -rf && rapydo start)
-3. You can upgrade letsencrypt by yourself by executing the following command into the proxy container: `/acme/acme.sh --upgrade --home /acme`

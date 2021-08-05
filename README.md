@@ -1,6 +1,6 @@
-# RAPyDo framework
+# RAPyDo framework (v 2.0)
 
-A containers-based framework to develop your HTTP-API with Flask on Python with optional web interface written in Angular. RAPyDO also includes services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), no-sql database (MongoDB), Celery for asynchronous operations (based on RabbitMQ as message broker and Redis or MongoDB as backend database, all included in the box) and Pushpin for WebSockets connections and much more
+A containers-based framework to develop your HTTP-API with Flask on Python with optional web interface written in Angular. RAPyDO also includes services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), NoSQL database (Redis, MongoDB), Celery for asynchronous operations (based on RabbitMQ as message broker and Redis or MongoDB as backend database, all included in the box) and Pushpin for WebSockets connections and much more
 
 The name is an acronym for:
 
@@ -8,7 +8,7 @@ The name is an acronym for:
 - on a `Py`thon server
 - based on a `Do`cker
 
-
+RAPyDO is mostly based on Compose, but with version 2.0 it is going to migrate to Swarm.
 
 ## Why to use RAPyDo?
 
@@ -40,18 +40,9 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
          * [Production mode](docs/users/user_guide.md#production-mode)
          * [SSL Certificates](docs/users/user_guide.md#ssl-certificates)
       * [Upgrade to a new version](docs/users/user_guide.md#upgrade-to-a-new-version)
-      * [Tips and Tricks](docs/users/user_guide.md#tips-and-tricks)
-         * [Differences between start and restart](docs/users/user_guide.md#differences-between-start-and-restart)
-         * [Automatic certificate renew by using crontab](docs/users/user_guide.md#automatic-certificate-renew-by-using-crontab)
       * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
+         * [Neo4j fails to start with RAPyDo 2.0](docs/users/user_guide.md#neo4j-fails-to-start-with-rapydo-20)
          * [PostgreSQL fails to start with RAPyDo 0.9](docs/users/user_guide.md#postgresql-fails-to-start-with-rapydo-09)
-         * [Neo4j fails to start with RAPyDo 0.8](docs/users/user_guide.md#neo4j-fails-to-start-with-rapydo-08)
-         * [Neo4j fails to start with RAPyDo 0.7.4](docs/users/user_guide.md#neo4j-fails-to-start-with-rapydo-074)
-         * [Errors when submitting celery tasks with RAPyDo 0.7.3](docs/users/user_guide.md#errors-when-submitting-celery-tasks-with-rapydo-073)
-         * [Networks need to be recreated with RAPyDo 0.7.2 ](docs/users/user_guide.md#networks-need-to-be-recreated-with-rapydo-072)
-         * [PostgreSQL fails to start with RAPyDo 0.7.1](docs/users/user_guide.md#postgresql-fails-to-start-with-rapydo-071)
-         * [Celery/backend fail to start with RAPyDo 0.7.1](docs/users/user_guide.md#celerybackend-fail-to-start-with-rapydo-071)
-         * [ssl-certificate command fails with RAPyDo 0.6.7](docs/users/user_guide.md#ssl-certificate-command-fails-with-rapydo-067)
 
    * [Developer Guide](docs/developers/developer_guide.md#developer-guide)
       * [Create a new RAPyDo-based project](docs/developers/developer_guide.md#create-a-new-rapydo-based-project)

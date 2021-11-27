@@ -16,7 +16,7 @@
          * [Neo4j fails to start with RAPyDo 2.0](#neo4j-fails-to-start-with-rapydo-20)
          * [PostgreSQL fails to start with RAPyDo 0.9](#postgresql-fails-to-start-with-rapydo-09)
 
-<!-- Added by: mdantonio, at: gio 5 ago 2021, 07:19:49, CEST -->
+<!-- Added by: mdantonio, at: sab 27 nov 2021, 09:51:25, CET -->
 
 <!--te-->
 
@@ -73,7 +73,7 @@ You can enable production stack by passing --production (or --prod) option to an
 
 ### Services
 
-RAPyDo is of course containers oriented. This means that services can be easily added to be tested locally. We tested the most commons in our projects thus they are already integrated:
+RAPyDo is of containers oriented and this means that every service can be easily added to be tested locally. We tested several services in our projects thus they are already integrated:
 
 - PostgreSQL
 - MariaDB
@@ -106,7 +106,7 @@ A set of interfaces can be launched as containers to help with many services:
 - adminer for PostgreSQL, MySQL/MariaDB and MongoDB
 - flower for celery
 
-All interfaces can be executed by using the `rapydo interfaces` command.
+All interfaces can be executed by using the `rapydo run` command.
 
 ### Multi projects
 
@@ -147,14 +147,12 @@ To make sure your certificate is always up-to-date you can setup a cronjob to au
 Crontab have some limitations due to the simplified environment used to execute commands, to overcome that limitations you have to:
 
 1. provide absolute path to your RAPyDo executable (`/usr/local/bin/rapydo` in most cases)
-2. set `COMPOSE_INTERACTIVE_NO_CLI=1` to prevent Compose to use the Docker CLI for interactive `run` and `exec`operations.
-3. enable `--no-tty` flag to disable pseudo-tty allocation (by default docker-compose allocates a TTY, not available from crontab)
-4. you will haven't access to the command output. If you desire, your can redirect the output on a file
+2. you will haven't access to the command output. If you desire, your can redirect the output on a file
 
 The following crontab entry is able to renew the SSL certificate every Monday at 00:00 AM
 
 ```
-0 0 * * 1 cd /your/project/path && COMPOSE_INTERACTIVE_NO_CLI=1 /usr/local/bin/rapydo ssl --no-tty > /your/project/path/data/logs/ssl.log 2>&1 
+0 0 * * 1 cd /your/project/path && /usr/local/bin/rapydo ssl > /your/project/path/data/logs/ssl.log 2>&1 
 ```
 
 
@@ -191,7 +189,7 @@ This step is usually not needed when submodules are switched to a new version, b
 
 To skip updates of your main branch and only update your submodules: `rapydo update -i main`
 
-**6 - Pull updaated base images**
+**6 - Pull updated base images**
 
 You can download updated base images with the `rapydo pull` command. This command will automatically fetch these images from the Docker Hub
 
@@ -244,5 +242,4 @@ Based on the [Official Upgrading Guide](https://www.postgresql.org/docs/11/upgra
 
 
 The same issue already happened with RAPyDo 0.7.1 with the upgrade of PostgreSQL from 11 to 12 and the same will happen again when we will upgrade from version 13 to version 14
-
 

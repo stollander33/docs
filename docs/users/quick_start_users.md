@@ -25,7 +25,7 @@ rapydo init
 
 3. Customize your `.projectrc` file. By editing this file you can override all options of your project for your specific deployment (e.g. to set new secret passwords for deployed services)
 
-4. If your project requires it, install the specific RAPyDo controller version
+4. If your project requires it, install a specific RAPyDo controller version
 
    You can verify the required version with `rapydo version`
 
@@ -83,7 +83,7 @@ http://localhost:8080/api/swagger
 And you may launch a swagger interface container to access your current API endpoints description and play with it:
 
 ```bash
-rapydo interfaces swagger
+rapydo run swagger
 
 [...]
 You can access swaggerui web page here:
@@ -94,27 +94,15 @@ http://localhost?docExpansion=none
 
 ## Clean up
 
-You can stop your containers with the command:
-
-```
-rapydo stop
-```
-
-To remove the containers by keeping all data:
+You can remove your containers (by keeping all data) with
 
 ```
 rapydo remove
 ```
 
-To remove containers and networks:
+To also remove persistent data stored in docker volumes:
 
 ```
-rapydo remove --networks
-```
-
-To remove everything you created so far, you can use again the controller:
-
-```bash
 rapydo remove --all
 ```
 

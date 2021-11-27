@@ -1,4 +1,4 @@
-# RAPyDo framework (v 2.0)
+# RAPyDo framework (v2.1)
 
 A containers-based framework to develop your HTTP-API with Flask on Python with optional web interface written in Angular. RAPyDO also includes services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), NoSQL database (Redis, MongoDB), Celery for asynchronous operations (based on RabbitMQ as message broker and Redis or MongoDB as backend database, all included in the box) and Pushpin for WebSockets connections and much more
 
@@ -8,18 +8,18 @@ The name is an acronym for:
 - on a `Py`thon server
 - based on a `Do`cker
 
-RAPyDO is mostly based on Compose, but with version 2.0 it is going to migrate to Swarm.
+RAPyDO is able to deploy your stack on both Swarm and Compose v2.
 
 ## Why to use RAPyDo?
 
-Along our journey into efficient HTTP API middle-ware towards distributed services we had to reach some level of stability within our environment.
+Along our journey into efficient HTTP API middle-ware towards distributed services we had to reach some level of stability within our environments.
 
-Having the same tasks to be completed over and over we decided to develop RAPyDo to have a common base to all our RESTful HTTP API oriented projects.
-What we have so far is what helped us in speeding up setup and development process while keeping track of all the solutions we found in all the problems we encountered in at least 5 years of European projects experience.
+Having the same patterns to be implemented and managed over and over again, we decided to develop RAPyDo to have a common base to all our RESTful HTTP API oriented projects.
+What we have so far is what helped us in speeding up setup and development process while keeping track of all the solutions we found in all the problems we encountered in at least 6 years of European projects experience.
 
 RAPyDo can be used from both the final user and the developer.
 
-The user usually interact with an already-existing RAPyDo-based project to deploy, monitor and manage one or more project installations. The developer creates a  RAPyDo-based project , customize the stack, implements the endpoints.
+The user usually interact with an already-existing RAPyDo-based project to deploy, monitor and manage one or more installations. The developer creates a  RAPyDo-based project , customize the stack, implements the endpoints.
 
 Do you already have a RAPyDo-based project? You have to deploy it on a new server? Do you want to test an installation? Let's start with the [User Quick Start](docs/users/quick_start_users.md) and the [User Guide](docs/users/user_guide.md)
 

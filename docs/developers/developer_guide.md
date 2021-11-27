@@ -152,7 +152,7 @@ Here a list of variabiles that can be configured in `project_configuration.yaml`
   - Values: 0 or 1
   - Automatically disabled inactive users and the given perod in days
 - AUTH_MAX_LOGIN_ATTEMPTS
-  - Default 0 (disabled)
+  - Default 8
   - Values: int
   - A numer of failed logins greater than the configured value will temporary block the credentials and prevent any further attempt. The ban period is configured through the AUTH_LOGIN_BAN_TIME variable
 - AUTH_LOGIN_BAN_TIME

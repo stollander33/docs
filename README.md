@@ -41,8 +41,8 @@ Do you want to create a new RAPyDo-based project? You have to implement a new en
          * [SSL Certificates](docs/users/user_guide.md#ssl-certificates)
       * [Upgrade to a new version](docs/users/user_guide.md#upgrade-to-a-new-version)
       * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
+         * [PostgreSQL fails to start with RAPyDo 2.2](docs/users/user_guide.md#postgresql-fails-to-start-with-rapydo-22)
          * [Neo4j fails to start with RAPyDo 2.0](docs/users/user_guide.md#neo4j-fails-to-start-with-rapydo-20)
-         * [PostgreSQL fails to start with RAPyDo 0.9](docs/users/user_guide.md#postgresql-fails-to-start-with-rapydo-09)
 
    * [Developer Guide](docs/developers/developer_guide.md#developer-guide)
       * [Create a new RAPyDo-based project](docs/developers/developer_guide.md#create-a-new-rapydo-based-project)

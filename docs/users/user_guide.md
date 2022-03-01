@@ -16,7 +16,7 @@
          * [PostgreSQL fails to start with RAPyDo 2.2](#postgresql-fails-to-start-with-rapydo-22)
          * [Neo4j fails to start with RAPyDo 2.0](#neo4j-fails-to-start-with-rapydo-20)
 
-<!-- Added by: mdantonio, at: ven 10 dic 2021, 10:51:47, CET -->
+<!-- Added by: mdantonio, at: mar 1 mar 2022, 19:10:06, CET -->
 
 <!--te-->
 
@@ -84,7 +84,6 @@ RAPyDo is of containers oriented and this means that every service can be easily
 - Celery
 - Pure-FTP
 - Angular
-- Pushpin
 
 More services can be added as long as you can provide a container image (official or not) for it; so basically always!
 
@@ -100,11 +99,7 @@ All core RAPyDo images are automatically built and pushed on the Docker Hub. You
 
 ### Interfaces
 
-A set of interfaces can be launched as containers to help with many services:
-
-- swaggerui
-- adminer for PostgreSQL, MySQL/MariaDB and MongoDB
-- flower for celery
+Some nterfaces can be launched as containers to help with many services, such as swaggerui to inspect OpenAPI specs and adminer to accesso PostgreSQL, MySQL/MariaDB and MongoDB
 
 All interfaces can be executed by using the `rapydo run` command.
 
@@ -123,6 +118,8 @@ Production mode can be enabled command line by adding the `--production` (or `--
 To ensure the option is always activated you can save it in a `.projectrc` file by adding:
 
 `production: True`
+
+Also, in production mode a container based on fail2ban will be automatically added to your stack, to protect your endpoints and services from brute force attacks or bots scanning for potential vulnerabilities.
 
 ### SSL Certificates
 

@@ -17,7 +17,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: ven 10 dic 2021, 10:51:48, CET -->
+<!-- Added by: mdantonio, at: mar 1 mar 2022, 19:10:06, CET -->
 
 <!--te-->
 
@@ -29,7 +29,7 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
 
 1. Make sure you meet the pre-requisites on your machine:
 
-   - Python3.7+ (and `pip`) 
+   - Python3.8+ (and `pip`) 
    - Docker 20+ with Compose v2
    - Git
 
@@ -73,7 +73,6 @@ By activating a service the backend server will establish a connection by using 
 - Redis
 - Celery
 - Celery-beat
-- Pushpin
 
 If you want to activate the service but NOT the connection from the backend you can add a `SERVICENAME_ENABLE_CONNECTOR=False` variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` 
 
@@ -220,6 +219,7 @@ Helper endpoints are provided out of the box:
 - `/api/admin/users`
 - `/api/admin/sessions`
 - `/api/admin/stats`
+- `/api/groups/users`
 
 
 
@@ -269,6 +269,7 @@ Supported events type (first parameter) are:
 - change_password
 - reset_password_request
 - password_expired
+- server_startup
 
 The second parameter is the event target (usually the object created/modified/delete) while the third is the payload used for the event. Both the parameters are optional.
 

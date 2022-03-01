@@ -3,7 +3,7 @@
 This a quick start guide, if you are interested in a more comprehensive guide please refer to the [User Complete Guide](user_guide.md)
 
 1. Make sure you meet the pre-requisites on your machine:
-    * Python 3.7+ (and `pip`) 
+    * Python 3.8+ (and `pip`) 
     * Docker 20+ with Compose v2
     * Git
     

@@ -1,6 +1,6 @@
-# RAPyDo framework (v2.1)
+# RAPyDo framework (v2.2)
 
-A containers-based framework to develop your HTTP-API with Flask on Python with optional web interface written in Angular. RAPyDO also includes services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), NoSQL database (Redis, MongoDB), Celery for asynchronous operations (based on RabbitMQ as message broker and Redis or MongoDB as backend database, all included in the box) and Pushpin for WebSockets connections and much more
+A containers-based framework to develop your HTTP-API with Flask on Python with optional web interface written in Angular. RAPyDO also includes services like relational databases (PostgreSQL, MariaDB), graph database (Neo4j), NoSQL database (Redis, MongoDB), Celery for asynchronous operations, RabbitMQ as message broker and much more
 
 The name is an acronym for:
 

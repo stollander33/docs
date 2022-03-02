@@ -269,7 +269,6 @@ Supported events type (first parameter) are:
 - change_password
 - reset_password_request
 - password_expired
-- server_startup
 
 The second parameter is the event target (usually the object created/modified/delete) while the third is the payload used for the event. Both the parameters are optional.
 

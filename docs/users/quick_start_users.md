@@ -9,11 +9,17 @@ This a quick start guide, if you are interested in a more comprehensive guide pl
     
 2. install the RAPyDo controller
 
-    Install the latest version: `sudo pip3 install --upgrade rapydo
+    Install the latest version: `pip3 install --upgrade rapydo
 
     You have now the executable `rapydo` (you can try a `rapydo --version`). Your project could require a different version, in this case you will be able to install the right version once configured your project
 
-    NOTE: python install binaries in `/usr/local/bin`. If you are not the admin/root user (i.e. you do not install with `sudo`) then a virtual environment is created and you may find the binary in `$HOME/.local/bin`. Make sure that the path is in your `$PATH` variable, otherwise you will end up with `command not found`.
+    If installed as user (i.e. not with `sudo` or with a root user) you may find the rapydo binary in `$HOME/.local/bin` instead of `/usr/bin` or `/usr/local/bin`. Make sure that the path is included in your `$PATH` environment variable, otherwise you will end up with `command not found`. Please consider to add to your `~/.bashrc`:
+
+    ```bash
+    if [ -d "$HOME/.local/bin" ] ; then
+        PATH="$HOME/.local/bin:$PATH"
+    fi
+    ```
 
 3. clone and initialize your project
 
@@ -23,7 +29,7 @@ git checkout your_branch
 rapydo init
 ```
 
-3. Customize your `.projectrc` file. By editing this file you can override all options of your project for your specific deployment (e.g. to set new secret passwords for deployed services)
+3. Customize your `.projectrc` file. By editing this file you can override all options of your project for your specific deployment (e.g. set custom passwords for deployed services)
 
 4. If your project requires it, install a specific RAPyDo controller version
 
@@ -77,10 +83,10 @@ http GET localhost:8080/auth/profile Authorization:"Bearer $TOKEN"
 
 7. check the swagger definitions
 
-Your server automatically provides a description compliant to the [OpenAPI standard]() at the URI:
+Your server automatically provides an API definition compliant to the [OpenAPI standard]() at the URI:
 http://localhost:8080/api/swagger
 
-And you may launch a swagger interface container to access your current API endpoints description and play with it:
+And you may launch a swagger interface container to access your current API definition and play with it:
 
 ```bash
 rapydo run swagger
@@ -89,8 +95,6 @@ rapydo run swagger
 You can access swaggerui web page here:
 http://localhost?docExpansion=none
 ```
-
-
 
 ## Clean up
 

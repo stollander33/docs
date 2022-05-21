@@ -17,7 +17,7 @@
          * [Frontend framework](#frontend-framework)
       * [Upgrade to a new version](#upgrade-to-a-new-version)
 
-<!-- Added by: mdantonio, at: mar 1 mar 2022, 19:10:06, CET -->
+<!-- Added by: mdantonio, at: sab 21 mag 2022, 08:03:36, CEST -->
 
 <!--te-->
 
@@ -50,11 +50,9 @@ Start by installing requisites and the rapydo-controller (as for the [User guide
    - rapydo init
    - rapydo pull
 
-6. Now you can edit your `projects/$PROJECT_NAME/project_configuration.yaml` to customize project title, description, enabled services and so on. Please note that you can enable services, ad other options, by setting up the rapydo create command. Use rapydo create --help to get the list of available options.
+6. Now you can edit your `projects/$PROJECT_NAME/project_configuration.yaml` to customize project title, description, enabled services and so on. Please note that you can enable services, ad other options, by setting up the rapydo create command. Use `rapydo create --help` to get the list of available options.
 
 7. The configuration is now complete, you can start your project by following the User guide or further customize your project.
-
-
 
 ## Services
 
@@ -68,11 +66,11 @@ By activating a service the backend server will establish a connection by using 
 
 - SQLAlchemy
 - Neo4j
-- MongoDB
 - RabbitMQ
 - Redis
 - Celery
 - Celery-beat
+- Pure-FTP
 
 If you want to activate the service but NOT the connection from the backend you can add a `SERVICENAME_ENABLE_CONNECTOR=False` variable in `projects/$PROJECT_NAME/project_configuration.yaml` or `.projectrc` 
 
@@ -87,8 +85,6 @@ Service container enabled + Backend connection disabled -> ACTIVATE_SERVICENAME 
 Service container disabled + Backend connection enable -> SERVICENAME_HOST
 
 Service container disabled + Backend connection disabled -> nothing
-
-
 
 ### Add a new service
 
@@ -117,8 +113,6 @@ variables:
 ```
 
 and `rapydo start` will do the rest
-
-
 
 ## Backend development
 
@@ -173,9 +167,9 @@ Here a list of variabiles that can be configured in `project_configuration.yaml`
 
 ### REST classes
 
-RAPyDO is Object Oriented (based to the `Flask-Restful` and `flask-apispec` packages): each endpoint is mapped to a class and automatically configured. You can simply create a new python file in projects/YOUR_PROJECT/backend/endpoinits to define your class-endpoint and it will be automatically added to the project. You can add new endpoints by using the templating command: `rapydo add endpoint endpoint-name`
+RAPyDO is Object Oriented (based to the `Flask` and `flask-apispec` packages): each endpoint is mapped to a class and configured automatically. You can simply create a new python file in projects/YOUR_PROJECT/backend/endpoinits folder to define your class-endpoint and it will be automatically added to the project. You can add new endpoints by using the templating command: `rapydo add endpoint endpoint-name`
 
-A REST class extends `EndpointResource` from `restapi.rest.definition`, defines methods one or more methods `get`, `post`, `put`, `patch` or `deleted` decorated by the `@decorators.endpoint` decorator used to describe path, description  and responses. This decorator is mostly based on apispec. Input and output can be specified respectively by the `@decorators.use_kwargs`(mostly based on webargs) and `@decorators.marshal_with` (mostly based on Marshmallow) decorators.
+A REST class extends `EndpointResource` from `restapi.rest.definition`, defines methods `get`, `post`, `put`, `patch` or `deleted` decorated by the `@decorators.endpoint` decorator used to describe path, description  and responses. This decorator is mostly based on apispec. Input and output can be specified respectively by the `@decorators.use_kwargs`(mostly based on webargs) and `@decorators.marshal_with` (mostly based on Marshmallow) decorators.
 
 Here an example of a simple REST class:
 
@@ -201,10 +195,6 @@ class MyFirstRESTClass(EndpointResource):
 
 ```
 
-
-
-
-
 ### Base endpoints
 
 Helper endpoints are provided out of the box:
@@ -220,8 +210,6 @@ Helper endpoints are provided out of the box:
 - `/api/admin/sessions`
 - `/api/admin/stats`
 - `/api/groups/users`
-
-
 
 ### Logs
 
@@ -292,15 +280,13 @@ The base authentication (profile, change password, reset password, session lists
 
 In debug mode the framework is dynamically compiled and provided by ng serve while in production the static dist is built at startup time and served by a nginx reverse proxy.
 
-
-
 ## Upgrade to a new version
 
-Let's say your project is based on version A and you want to upgrade it to version B.
+If your project is based on version A and you want to upgrade it to version B:
 
 1. edit your project_configuration.yml to change project.rapydo from A to B. Probably you also want to increase your project.version
 2. install rapydo-controller version B (now that you changed the required RAPyDo version in project_configuration.yml you are able to upgrade your controller with `rapydo install`)
-3. if you have custom docker builds change the base image from `rapydo/base-image:A`to `rapydo/base-image:B`
+3. if you have custom docker builds change the base image from `rapydo/base-image:A` to `rapydo/base-image:B`
 4. execute the upgrade of your local instance, as describe in [User Guide](docs/users/user_guide.md#upgrade-to-a-new-version)
 
-Your project is now upgraded to version B
+Your project is now upgraded to version B.

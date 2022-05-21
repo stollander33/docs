@@ -16,7 +16,7 @@
          * [PostgreSQL fails to start with RAPyDo 2.2](#postgresql-fails-to-start-with-rapydo-22)
          * [Neo4j fails to start with RAPyDo 2.0](#neo4j-fails-to-start-with-rapydo-20)
 
-<!-- Added by: mdantonio, at: mar 1 mar 2022, 19:10:06, CET -->
+<!-- Added by: mdantonio, at: sab 21 mag 2022, 08:03:36, CEST -->
 
 <!--te-->
 
@@ -57,7 +57,7 @@ Here a typical `.projectrc` file:
 In every project there is a set configurations that you would like to use to switch. Even if not the case, there should be at least two modes: 
 
 1. `development` for local development (verbose logs, auto reload and no reverse proxy)
-2. `production` for deploying  the project in production (less logs, `gunicorn` and a reverse proxy, all set to use `SSL` for free with Let's Encrypt).
+2. `production` for deploying  the project in production (less logs, `gunicorn` and a reverse proxy, all configured to use `SSL`, integration with Let's Encrypt for issuing of SSL certificates).
 
 Stacks are just implemented as `YAML` files based on the `docker compose` syntax. You can create as many custom stacks as you need.
 
@@ -69,16 +69,15 @@ The final configuration you will use in every RAPyDo command is based on:
 
 Default stacks (development and production) are automatically enabled
 
-You can enable production stack by passing --production (or --prod) option to any RAPyDo command or by setting production: True in your .projectrc. You can enable any other custom stack by passing --stack STACK_NAME to any RAPyDo command or by setting stack: STACK_name in your .projectrc.
+You can enable production stack by passing `--production/--prod` option to any RAPyDo command or by setting `production: True` in your `.projectrc`. You can enable any other custom stack by passing `--stack STACK_NAME` to any RAPyDo command or by setting `stack: STACK_name` in your `.projectrc`.
 
 ### Services
 
-RAPyDo is of containers oriented and this means that every service can be easily added to be tested locally. We tested several services in our projects thus they are already integrated:
+RAPyDo is containers oriented and this means that every service can be easily added to be tested locally. We tested several services in our projects thus they are already integrated:
 
 - PostgreSQL
 - MariaDB
 - Neo4j
-- MongoDB
 - Redis
 - RabbitMQ
 - Celery
@@ -95,11 +94,11 @@ The [OpenAPI standard]() has helped us many times to show to clients the experie
 
 ### Containers builds
 
-All core RAPyDo images are automatically built and pushed on the Docker Hub. You can download all required images by using the `rapydo pull` command. A project can extend a base image (e.g. to install additional libraries required for custom endpoints). Custom images can be built by using the `rapydo build` command.
+All core RAPyDo images are automatically built and pushed to the Docker Hub. You can download all required images by using the `rapydo pull` command. A project can extend a base image (e.g. to install additional libraries required for custom endpoints). Custom images can be built by using the `rapydo build` command.
 
 ### Interfaces
 
-Some nterfaces can be launched as containers to help with many services, such as swaggerui to inspect OpenAPI specs and adminer to accesso PostgreSQL, MySQL/MariaDB and MongoDB
+Some interfaces can be launched as containers to help with many services, such as swaggerui to inspect OpenAPI specs and adminer to access PostgreSQL, MySQL/MariaDB.
 
 All interfaces can be executed by using the `rapydo run` command.
 
@@ -113,13 +112,11 @@ If the project is only one it is used as default. To switch projects you can use
 
 In production mode an additional container based on [NGINX](https://www.nginx.com/) is automatically included to your stack. NGINX is a reverse proxy ensuring security and additional performances to your project. Furthermore it support SSL certificates to enable HTTPS connections.
 
-Production mode can be enabled command line by adding the `--production` (or `--prod`) flag 
-
-To ensure the option is always activated you can save it in a `.projectrc` file by adding:
+Production mode can be enabled command line by adding the `--production` / `--prod` flag. To ensure the option is always activated you can save it in a `.projectrc` file by adding:
 
 `production: True`
 
-Also, in production mode a container based on fail2ban will be automatically added to your stack, to protect your endpoints and services from brute force attacks or bots scanning for potential vulnerabilities.
+Also, in production mode a container based on `fail2ban` will be automatically added to your stack, to protect your endpoints and services from brute force attacks or bots scanning for potential vulnerabilities.
 
 ### SSL Certificates
 
@@ -131,32 +128,38 @@ rapydo ssl
 
 To let this command properly works please verify that:
 
-1. you configured a correct hostname in your .projectrc
+1. you configured a correct hostname in your `.projectrc`
 2. production mode is enabled
-3. your stack is already started (with `rapydo start`), in particular the nginx container is expected to be running
+3. an SMTP_ADMIN is configured in your `.projectrc`
 
-If you want to issue a certificate without starting the container, you can use `rapydo ssl --volatile`
+To issue a  certificate the nginx container is expected to be running (already started with `rapydo start`). If you want to issue a certificate without starting the container, you can use `rapydo ssl --volatile`
 
 Let's Encrypt certificates expire in 90 days, you can renew them by executing again the `rapydo ssl` command.
 
-To make sure your certificate is always up-to-date you can setup a cronjob to automatize the certificate renew. You can configure crontab to perform this work for you.
+To make sure your certificate is always up-to-date you can setup a cronjob to automatize the certificate renew.
 
 Crontab have some limitations due to the simplified environment used to execute commands, to overcome that limitations you have to:
 
-1. provide absolute path to your RAPyDo executable (`/usr/local/bin/rapydo` in most cases)
-2. you will haven't access to the command output. If you desire, your can redirect the output on a file
+1. provide absolute path to your RAPyDo executable or properly fill the PATH variable
+2. you will haven't access to the command output. If you desire, your can redirect the output to a file
 
 The following crontab entry is able to renew the SSL certificate every Monday at 00:00 AM
 
 ```
-0 0 * * 1 cd /your/project/path && /usr/local/bin/rapydo ssl > /your/project/path/data/logs/ssl.log 2>&1 
+PATH=/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+0 0 * * 1 cd /your/project/path && rapydo ssl > /your/project/path/data/logs/ssl.log 2>&1 
 ```
 
+or
 
+```
+0 0 * * 1 cd /your/project/path && /path/to/bin/rapydo ssl > /your/project/path/data/logs/ssl.log 2>&1 
+```
 
 ## Upgrade to a new version
 
-Let's assume that you already have a working deployment of your project (let's name it YOUR_PROJECT) based on version X and you want to upgrade to the new version Y.
+If you already have a working deployment of your project (let's name it YOUR_PROJECT) based on version X and you want to upgrade to the new version Y, you have to:
 
 **1 - Stop the current stack**
 

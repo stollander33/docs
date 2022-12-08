@@ -16,7 +16,7 @@
          * [PostgreSQL fails to start with RAPyDo 2.2](#postgresql-fails-to-start-with-rapydo-22)
          * [Neo4j fails to start with RAPyDo 2.0](#neo4j-fails-to-start-with-rapydo-20)
 
-<!-- Added by: mdantonio, at: sab 21 mag 2022, 08:03:36, CEST -->
+<!-- Added by: mdantonio, at: Gio  8 Dic 2022 10:44:38 CET -->
 
 <!--te-->
 

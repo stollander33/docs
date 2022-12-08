@@ -1,4 +1,4 @@
-# RAPyDo framework (v2.3)
+# RAPyDo framework (v2.4)
 
 A containers-based framework to develop your HTTP-API with Flask on Python with optional web interface written in Angular. RAPyDO also includes several databases (relational like PostgreSQL, MariaDB, graph like Neo4j, NoSQL like Redis), Celery for asynchronous operations, RabbitMQ as message broker and much more
 
@@ -26,6 +26,39 @@ Do you already have a RAPyDo-based project? You have to deploy it on a new serve
 Do you want to create a new RAPyDo-based project? You have to implement a new endpoint? You need to configure a service? Let's start with the [Developer Guide](docs/developers/developer_guide.md)
 
 
+
+# Table of Contents
+
+   * [User Guide](docs/users/user_guide.md#user-guide)
+      * [Project Configuration](docs/users/user_guide.md#project-configuration)
+         * [Stacks](docs/users/user_guide.md#stacks)
+         * [Services](docs/users/user_guide.md#services)
+         * [Swagger](docs/users/user_guide.md#swagger)
+         * [Containers builds](docs/users/user_guide.md#containers-builds)
+         * [Interfaces](docs/users/user_guide.md#interfaces)
+         * [Multi projects](docs/users/user_guide.md#multi-projects)
+         * [Production mode](docs/users/user_guide.md#production-mode)
+         * [SSL Certificates](docs/users/user_guide.md#ssl-certificates)
+      * [Upgrade to a new version](docs/users/user_guide.md#upgrade-to-a-new-version)
+      * [Known issues post-upgrade](docs/users/user_guide.md#known-issues-post-upgrade)
+         * [PostgreSQL fails to start with RAPyDo 2.2](docs/users/user_guide.md#postgresql-fails-to-start-with-rapydo-22)
+         * [Neo4j fails to start with RAPyDo 2.0](docs/users/user_guide.md#neo4j-fails-to-start-with-rapydo-20)
+
+   * [Developer Guide](docs/developers/developer_guide.md#developer-guide)
+      * [Create a new RAPyDo-based project](docs/developers/developer_guide.md#create-a-new-rapydo-based-project)
+      * [Services](docs/developers/developer_guide.md#services)
+         * [Enable a service](docs/developers/developer_guide.md#enable-a-service)
+         * [Add a new service](docs/developers/developer_guide.md#add-a-new-service)
+      * [Backend development](docs/developers/developer_guide.md#backend-development)
+         * [Security](docs/developers/developer_guide.md#security)
+         * [REST classes](docs/developers/developer_guide.md#rest-classes)
+         * [Base endpoints](docs/developers/developer_guide.md#base-endpoints)
+         * [Logs](docs/developers/developer_guide.md#logs)
+         * [Security Events Logs](docs/developers/developer_guide.md#security-events-logs)
+         * [Asynchronous tasks](docs/developers/developer_guide.md#asynchronous-tasks)
+         * [Unit tests](docs/developers/developer_guide.md#unit-tests)
+         * [Frontend framework](docs/developers/developer_guide.md#frontend-framework)
+      * [Upgrade to a new version](docs/developers/developer_guide.md#upgrade-to-a-new-version)
 
 # Table of Contents
 

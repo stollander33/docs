@@ -1,6 +1,8 @@
 # RAPyDo framework (v2.4)
 
-A containers-based framework to develop your HTTP-API with Flask on Python with optional web interface written in Angular. RAPyDO also includes several databases (relational like PostgreSQL, MariaDB, graph like Neo4j, NoSQL like Redis), Celery for asynchronous operations, RabbitMQ as message broker and much more
+Un marco basado en contenedores para desarrollar su HTTP-API con Flask en Python con una interfaz web opcional escrita en Angular.
+
+RAPyDO también incluye varias bases de datos (relacionales como PostgreSQL, MariaDB, gráficas como Neo4j, NoSQL como Redis), Celery para operaciones asíncronas, RabbitMQ como intermediario de mensajes y mucho más.
 
 The name is an acronym for:
 
@@ -12,18 +14,18 @@ RAPyDO is able to deploy your stack on both Swarm and Compose v2.
 
 ## Why to use RAPyDo?
 
-Along our journey into efficient HTTP API middle-ware towards distributed services we had to reach some level of stability within our environments.
+A lo largo de nuestro viaje hacia el middleware API HTTP eficiente hacia los servicios distribuidos, tuvimos que alcanzar cierto nivel de estabilidad dentro de nuestros entornos.
 
-Having the same patterns to be implemented and managed over and over again, we decided to develop RAPyDo to have a common base to all our RESTful HTTP API oriented projects.
-What we have so far is what helped us in speeding up setup and development process while keeping track of all the solutions we found in all the problems we encountered in at least 6 years of European projects experience.
+Teniendo los mismos patrones para ser implementados y administrados una y otra vez, decidimos desarrollar RAPyDo para tener una base común para todos nuestros proyectos orientados a RESTful HTTP API. Lo que tenemos hasta ahora es lo que nos ayudó a acelerar el proceso de configuración y desarrollo mientras realizamos un seguimiento de todas las soluciones que encontramos en todos los problemas que encontramos en al menos 6 años de experiencia en proyectos europeos.
 
-RAPyDo can be used from both the final user and the developer.
+RAPyDo puede ser utilizado tanto por el usuario final como por el desarrollador.
 
-The user usually interact with an already-existing RAPyDo-based project to deploy, monitor and manage one or more installations. The developer creates a  RAPyDo-based project , customize the stack, implements the endpoints.
+El usuario suele interactuar con un proyecto basado en RAPyDo ya existente para implementar, monitorear y administrar una o más instalaciones. El desarrollador crea un proyecto basado en RAPyDo, personaliza la pila e implementa los puntos finales.
 
-Do you already have a RAPyDo-based project? You have to deploy it on a new server? Do you want to test an installation? Let's start with the [User Quick Start](docs/users/quick_start_users.md) and the [User Guide](docs/users/user_guide.md)
+¿Ya tienes un proyecto basado en RAPyDo? ¿Tienes que implementarlo en un nuevo servidor? ¿Quieres probar una instalación? Comencemos con [User Quick Start](docs/users/quick_start_users.md) and the [User Guide](docs/users/user_guide.md)
 
-Do you want to create a new RAPyDo-based project? You have to implement a new endpoint? You need to configure a service? Let's start with the [Developer Guide](docs/developers/developer_guide.md)
+
+¿Quieres crear un nuevo proyecto basado en RAPyDo? ¿Tiene que implementar un nuevo punto final? ¿Necesitas configurar un servicio? Comencemos con the [Developer Guide](docs/developers/developer_guide.md)
 
 
 
